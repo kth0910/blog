@@ -16,8 +16,8 @@ query ListAllInsights @auth(level: PUBLIC, insecureReason: "This operation is sa
   }
 }
 
-query GetMyProjects @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users as it filters by the authenticated user's ID.") {
-  projects(where: {authorId: {eq_expr: "auth.uid"}}, orderBy: [{order: ASC}]) {
+query GetMyProjects @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public as it retrieves projects marked as published.") {
+  projects(where: {published: {eq: true}}, orderBy: [{order: ASC}]) {
     id
     title
     description
