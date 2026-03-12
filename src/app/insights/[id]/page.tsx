@@ -4,7 +4,9 @@ import { AudioPlayer } from '@/components/audio/AudioPlayer';
 import { Tag } from '@/components/common/Tag';
 import Link from 'next/link';
 
-export async function generateStaticParams() {
+export const dynamicParams = false;
+
+export function generateStaticParams() {
   return [];
 }
 
