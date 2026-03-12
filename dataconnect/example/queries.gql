@@ -1,0 +1,49 @@
+query ListAllBlogPosts @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public as it only retrieves blog posts.") {
+  blogPosts {
+    id
+    title
+    content
+    createdAt
+    status
+    imageUrl
+    tags
+    user {
+      displayName
+      profilePictureUrl
+    }
+  }
+}
+
+query GetMyProjects @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users as it filters by the authenticated user's ID.") {
+  projects(where: {userId: {eq_expr: "auth.uid"}}, orderBy: [{order: ASC}]) {
+    id
+    title
+    description
+    technologiesUsed
+    liveDemoUrl
+    repositoryUrl
+    order
+  }
+}
+
+mutation CreateNewSkill($name: String!, $proficiencyLevel: String) @auth(level: USER) {
+  skill_insert(data: {
+    userId_expr: "auth.uid",
+    name: $name,
+    proficiencyLevel: $proficiencyLevel
+  }) {
+    id
+  }
+}
+
+query GetUserProfile($id: UUID!) @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public as user profiles are public information.") {
+  user(id: $id) {
+    id
+    displayName
+    bio
+    profilePictureUrl
+    githubUrl
+    linkedinUrl
+    twitterUrl
+  }
+}

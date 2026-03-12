@@ -1,0 +1,99 @@
+mutation SeedData @transaction @auth(level: PUBLIC, insecureReason: "This is seed data and does not expose sensitive information.") {
+  user_insertMany(data: [
+    {
+      id: "b45a2789-f538-4b77-9a4f-52a1c0d4a9f9",
+      displayName: "John Doe",
+      email: "john.doe@example.com",
+      bio: "A passionate writer and developer.",
+      profilePictureUrl: "https://example.com/john_profile.jpg",
+      githubUrl: "https://github.com/johndoe",
+      linkedinUrl: "https://linkedin.com/in/johndoe",
+      twitterUrl: "https://twitter.com/johndoe"
+    },
+    {
+      id: "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+      displayName: "Jane Smith",
+      email: "jane.smith@example.com",
+      bio: "UI/UX designer with a love for clean interfaces.",
+      profilePictureUrl: "https://example.com/jane_profile.jpg",
+      githubUrl: "https://github.com/janesmith",
+      linkedinUrl: "https://linkedin.com/in/janesmith"
+    }
+  ])
+  blogPost_insertMany(data: [
+    {
+      userId: "b45a2789-f538-4b77-9a4f-52a1c0d4a9f9",
+      title: "Getting Started with Firebase Data Connect",
+      content: "Firebase Data Connect makes it easy to build data-driven applications. This post covers the basics of setting up your schema and performing your first queries.",
+      createdAt: "2023-10-26T10:00:00Z",
+      status: "PUBLISHED",
+      tags: ["Firebase", "Data Connect", "GraphQL"]
+    },
+    {
+      userId: "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+      title: "Designing Intuitive User Interfaces",
+      content: "Creating a great user experience starts with understanding your users. This article explores key principles for designing intuitive and engaging interfaces.",
+      createdAt: "2023-10-20T14:30:00Z",
+      status: "PUBLISHED",
+      tags: ["UI/UX", "Design", "User Experience"]
+    }
+  ])
+  experience_insertMany(data: [
+    {
+      userId: "b45a2789-f538-4b77-9a4f-52a1c0d4a9f9",
+      company: "Tech Solutions Inc.",
+      title: "Software Engineer",
+      startDate: "2020-01-15",
+      endDate: "2023-09-30",
+      description: "Developed and maintained backend services using Node.js and PostgreSQL."
+    },
+    {
+      userId: "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+      company: "Creative Design Agency",
+      title: "Lead UI/UX Designer",
+      startDate: "2018-05-01",
+      endDate: "2023-10-15",
+      description: "Led design projects from concept to completion, ensuring user-centric designs."
+    }
+  ])
+  project_insertMany(data: [
+    {
+      userId: "b45a2789-f538-4b77-9a4f-52a1c0d4a9f9",
+      title: "Personal Blog Platform",
+      description: "A full-stack blog platform built with React, Firebase, and GraphQL.",
+      technologiesUsed: ["React", "Firebase", "GraphQL", "Node.js"],
+      createdAt: "2023-05-10T09:00:00Z",
+      githubUrl: "https://github.com/johndoe/personal-blog"
+    },
+    {
+      userId: "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+      title: "E-commerce Redesign",
+      description: "Redesigned the user interface and experience for a large e-commerce website.",
+      technologiesUsed: ["Figma", "Sketch", "User Research", "Prototyping"],
+      createdAt: "2022-11-01T11:00:00Z",
+      liveDemoUrl: "https://example.com/ecommerce-demo"
+    }
+  ])
+  skill_insertMany(data: [
+    {
+      userId: "b45a2789-f538-4b77-9a4f-52a1c0d4a9f9",
+      name: "JavaScript",
+      proficiencyLevel: "Expert"
+    },
+    {
+      userId: "b45a2789-f538-4b77-9a4f-52a1c0d4a9f9",
+      name: "Node.js",
+      proficiencyLevel: "Advanced"
+    },
+    {
+      userId: "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+      name: "Figma",
+      proficiencyLevel: "Expert"
+    },
+    {
+      userId: "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+      name: "Adobe XD",
+      proficiencyLevel: "Advanced"
+    }
+  ])
+}

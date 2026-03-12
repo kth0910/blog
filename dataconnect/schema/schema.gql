@@ -1,0 +1,50 @@
+type User @table {
+  displayName: String!
+  email: String!
+  bio: String
+  profilePictureUrl: String
+  resumeUrl: String
+  githubUrl: String
+  linkedinUrl: String
+  twitterUrl: String
+}
+
+type Project @table {
+  user: User
+  title: String!
+  description: String!
+  technologiesUsed: [String!]!
+  createdAt: Timestamp!
+  imageUrl: String
+  liveDemoUrl: String
+  repositoryUrl: String
+  order: Int
+}
+
+type BlogPost @table {
+  user: User
+  title: String!
+  content: String!
+  createdAt: Timestamp!
+  status: String!
+  imageUrl: String
+  tags: [String!]
+  updatedAt: Timestamp
+}
+
+type Skill @table {
+  user: User
+  name: String!
+  proficiencyLevel: String
+}
+
+type Experience @table {
+  user: User
+  company: String!
+  title: String!
+  startDate: Date!
+  endDate: Date
+  description: String
+  imageUrl: String
+  order: Int
+}
