@@ -74,26 +74,4 @@ mutation SeedData @transaction @auth(level: PUBLIC, insecureReason: "This is see
       liveDemoUrl: "https://example.com/ecommerce-demo"
     }
   ])
-  skill_insertMany(data: [
-    {
-      userId: "b45a2789-f538-4b77-9a4f-52a1c0d4a9f9",
-      name: "JavaScript",
-      proficiencyLevel: "Expert"
-    },
-    {
-      userId: "b45a2789-f538-4b77-9a4f-52a1c0d4a9f9",
-      name: "Node.js",
-      proficiencyLevel: "Advanced"
-    },
-    {
-      userId: "a1b2c3d4-e5f6-7890-1234-567890abcdef",
-      name: "Figma",
-      proficiencyLevel: "Expert"
-    },
-    {
-      userId: "a1b2c3d4-e5f6-7890-1234-567890abcdef",
-      name: "Adobe XD",
-      proficiencyLevel: "Advanced"
-    }
-  ])
 }
