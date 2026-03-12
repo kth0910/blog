@@ -4,10 +4,16 @@ import { Tag } from '@/components/common/Tag';
 import Link from 'next/link';
 
 export async function generateStaticParams() {
-  const { data } = await getPosts('project', 100);
-  return data.map((post) => ({
-    id: post.id,
-  }));
+  try {
+    const { data } = await getPosts('project', 100);
+    if (!data || data.length === 0) return [];
+    return data.map((post) => ({
+      id: post.id,
+    }));
+  } catch (error) {
+    console.warn("Failed to fetch projects for static params:", error);
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
