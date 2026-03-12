@@ -5,10 +5,7 @@ import { Tag } from '@/components/common/Tag';
 import Link from 'next/link';
 
 export async function generateStaticParams() {
-  const { data } = await getPosts('insight', 100);
-  return data.map((post) => ({
-    id: post.id,
-  }));
+  return [];
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
