@@ -1,4 +1,7 @@
 import { getPost, getPosts } from '@/lib/api';
+import { MDXRemoteWrapper } from '@/components/mdx/MDXRemoteWrapper';
+import { Tag } from '@/components/common/Tag';
+import Link from 'next/link';
 
 export async function generateStaticParams() {
   const { data } = await getPosts('project', 100);
@@ -6,9 +9,6 @@ export async function generateStaticParams() {
     id: post.id,
   }));
 }
-import { MDXRemoteWrapper } from '@/components/mdx/MDXRemoteWrapper';
-import { Tag } from '@/components/common/Tag';
-import Link from 'next/link';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

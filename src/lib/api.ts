@@ -100,8 +100,12 @@ export async function getPosts(type?: PostType, limit = 10, offset = 0): Promise
       data: filtered,
       pagination: { total: posts.length, offset, limit }
     };
-  } catch (err) {
-    console.error('Data Connect Error:', err);
+  } catch (err: any) {
+    if (err?.code === 'NOT_FOUND' || err?.message?.includes('not found')) {
+      console.warn('⚠️ Data Connect service or connector not found. If this is a build environment, ensure your Data Connect is deployed or use a mock.');
+    } else {
+      console.error('❌ Data Connect Error:', err);
+    }
     return { data: [], pagination: { total: 0, offset, limit } };
   }
 }
