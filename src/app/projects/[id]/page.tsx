@@ -3,10 +3,11 @@ import { MDXRemoteWrapper } from '@/components/mdx/MDXRemoteWrapper';
 import { Tag } from '@/components/common/Tag';
 import Link from 'next/link';
 
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-  return [{ id: 'dummy' }];
+export async function generateStaticParams() {
+  const { data } = await getPosts('project', 100);
+  return data.map((post) => ({
+    id: post.id,
+  }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
