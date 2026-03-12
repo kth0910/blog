@@ -13,12 +13,21 @@ import Link from 'next/link';
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const { data } = await getPost(id);
-  return { title: `${data.title} | Project` };
+  return { title: data ? `${data.title} | Project` : 'Project Not Found' };
 }
 
 export default async function ProjectDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const { data } = await getPost(id);
+
+  if (!data) {
+    return (
+      <div className="py-20 text-center">
+        <h1 className="text-2xl font-bold">Project Not Found</h1>
+        <Link href="/projects" className="text-blue-600 hover:underline mt-4 inline-block">Back to Projects</Link>
+      </div>
+    );
+  }
 
   return (
     <article className="animate-in fade-in duration-700">

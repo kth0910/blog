@@ -13,12 +13,21 @@ import Link from 'next/link';
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const { data } = await getPost(id);
-  return { title: `${data.title} | Timeline` };
+  return { title: data ? `${data.title} | Timeline` : 'Timeline Not Found' };
 }
 
 export default async function TimelineDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const { data } = await getPost(id);
+
+  if (!data) {
+    return (
+      <div className="py-20 text-center">
+        <h1 className="text-2xl font-bold">Timeline Not Found</h1>
+        <Link href="/timeline" className="text-emerald-600 hover:underline mt-4 inline-block">Back to Timeline</Link>
+      </div>
+    );
+  }
 
   return (
     <article className="animate-in fade-in duration-700 max-w-3xl mx-auto">
