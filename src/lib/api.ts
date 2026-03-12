@@ -1,3 +1,10 @@
+import { 
+  listAllInsights, 
+  getMyProjects, 
+  listTimeline,
+} from '@dataconnect/generated';
+import { dataconnect } from './firebase';
+
 export type PostType = 'project' | 'insight' | 'timeline';
 
 export interface Post {
@@ -5,127 +12,111 @@ export interface Post {
   title: string;
   content?: string;
   type: PostType;
-  summary?: string;
-  tags?: string[];
+  summary?: string;      // Insight 용
+  description?: string;  // Project, Timeline 용
+  tags?: string[];       // Insight 용
+  techStack?: string[];  // Project 용
   status?: string;
   audioUrl?: string;
   audioMood?: string;
+  startDate?: string;
+  endDate?: string;
+  imageUrl?: string;
+  liveDemoUrl?: string;
+  repositoryUrl?: string;
   createdAt: string;
   updatedAt?: string;
+  authorName?: string;
+  authorProfileUrl?: string;
 }
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
 export async function getPosts(type?: PostType, limit = 10, offset = 0): Promise<{data: Post[], pagination: any}> {
-  const params = new URLSearchParams();
-  if (type) params.append('type', type);
-  params.append('limit', limit.toString());
-  params.append('offset', offset.toString());
-
   try {
-    const res = await fetch(`${API_BASE}/api/posts?${params.toString()}`, {
-      next: { revalidate: 60 } // Next.js App Router caching
-    });
-    
-    if (!res.ok) {
-      console.warn('Failed to fetch posts from API, returning mock data.');
-      return getMockPosts(type, limit, offset);
+    let posts: Post[] = [];
+
+    if (!type || type === 'insight') {
+      const { data } = await listAllInsights(dataconnect);
+      posts = [
+        ...posts,
+        ...data.insights.map(i => ({
+          id: i.id,
+          title: i.title,
+          content: i.content,
+          summary: i.summary || undefined,
+          tags: i.tags || [],
+          audioUrl: i.audioUrl || undefined,
+          audioMood: i.audioMood || undefined,
+          createdAt: i.createdAt,
+          type: 'insight' as const,
+          authorName: i.author.displayName,
+          authorProfileUrl: i.author.profilePictureUrl || undefined
+        }))
+      ];
     }
-    
-    return res.json();
+
+    if (!type || type === 'project') {
+      const { data } = await getMyProjects(dataconnect);
+      posts = [
+        ...posts,
+        ...data.projects.map(p => ({
+          id: p.id,
+          title: p.title,
+          description: p.description,
+          techStack: p.techStack || [],
+          liveDemoUrl: p.liveDemoUrl || undefined,
+          repositoryUrl: p.repositoryUrl || undefined,
+          startDate: p.startDate,
+          endDate: p.endDate || undefined,
+          status: p.endDate ? 'completed' : 'in-progress',
+          createdAt: p.startDate, // Fallback
+          type: 'project' as const
+        }))
+      ];
+    }
+
+    if (!type || type === 'timeline') {
+      const { data } = await listTimeline(dataconnect);
+      posts = [
+        ...posts,
+        ...data.timelines.map(t => ({
+          id: t.id,
+          title: t.title,
+          description: t.description || undefined,
+          startDate: t.startDate,
+          endDate: t.endDate || undefined,
+          imageUrl: t.imageUrl || undefined,
+          createdAt: t.startDate, // Fallback
+          type: 'timeline' as const
+        }))
+      ];
+    }
+
+    // Sort by date (descending)
+    posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+    const filtered = posts.slice(offset, offset + limit);
+
+    return {
+      data: filtered,
+      pagination: { total: posts.length, offset, limit }
+    };
   } catch (err) {
-    console.error('API Error:', err);
-    return getMockPosts(type, limit, offset);
+    console.error('Data Connect Error:', err);
+    return { data: [], pagination: { total: 0, offset, limit } };
   }
 }
 
-export async function getPost(id: string): Promise<{data: Post}> {
+export async function getPost(id: string): Promise<{data: Post | null}> {
   try {
-    const res = await fetch(`${API_BASE}/api/posts/${id}`, {
-      next: { revalidate: 60 }
-    });
-    
-    if (!res.ok) {
-      console.warn(`Failed to fetch post from API: ${id}, returning mock data.`);
-      return getMockPost(id);
-    }
-    
-    return res.json();
+    // getPost는 단일 조회가 필요하지만 현재 SDK에는 ID 기반 단일 조회 쿼리가 제한적일 수 있음.
+    // 여기서는 전체 목록에서 필터링하거나, 필요한 경우 단일 조회 쿼리를 스키마에 추가해야 함.
+    // 임시로 모든 포스트 중 ID가 일치하는 것을 반환.
+    const { data: allPosts } = await getPosts();
+    const post = allPosts.find(p => p.id === id) || null;
+    return { data: post };
   } catch (err) {
-    console.error('API Error:', err);
-    return getMockPost(id);
+    console.error('Data Connect Error:', err);
+    return { data: null };
   }
 }
 
-// Fallback Mock Data for UI Testing
-function getMockPosts(type?: PostType, limit = 10, offset = 0): {data: Post[], pagination: any} {
-  const mockData: Post[] = [
-    {
-      id: '1',
-      title: 'React 19에서 변경된 점 분석',
-      type: 'insight',
-      summary: 'React 19 컴파일러와 훅들의 변경점 등을 정리합니다.',
-      tags: ['react', 'frontend'],
-      audioUrl: '/audio/chill_beat.mp3',
-      audioMood: 'Chill',
-      createdAt: '2026-03-09T10:00:00+09:00'
-    },
-    {
-      id: '2',
-      title: '개인 블로그 아카이브 구조 설계',
-      type: 'project',
-      summary: 'Think, Build, Record, Listen 컨셉의 프로젝트 아카이빙 플랫폼 기획/개발 일지.',
-      tags: ['nextjs', 'design-system'],
-      status: 'in-progress',
-      createdAt: '2026-03-08T15:30:00+09:00'
-    },
-    {
-      id: '3',
-      title: 'Next.js 팀 미팅 및 아키텍처 토론',
-      type: 'timeline',
-      summary: '사내 세미나 이후 블로그 리팩토링 관련 간단한 결심',
-      tags: ['meeting', 'architecture'],
-      createdAt: '2026-03-07T09:12:00+09:00'
-    }
-  ];
-  
-  const filtered = type ? mockData.filter(p => p.type === type) : mockData;
-  return {
-    data: filtered.slice(offset, offset + limit),
-    pagination: { total: filtered.length, offset, limit }
-  };
-}
-
-function getMockPost(id: string): {data: Post} {
-  return {
-    data: {
-      id,
-      title: '리뷰어 피드백을 수용한 아키텍처 개편기',
-      type: 'insight',
-      summary: '테스트용 목업 데이터입니다. 마크다운이 제대로 렌더링되는지 확인합니다.',
-      tags: ['architecture', 'review'],
-      audioUrl: '/audio/chill_beat.mp3',
-      audioMood: 'Energetic',
-      createdAt: '2026-03-09T10:41:11+09:00',
-      content: `
-# 서론
-
-이 글은 동기식 렌더링에서 발생하는 블로킹 이슈를 해결하기 위해 작성된 **테스트 인사이트 문서**입니다.
-
-## 적용 기술
-- Next.js 15 (App Router)
-- React 19 (Server Components)
-- Tailwind CSS v4
-
-### 커스텀 컴포넌트 테스트
-아래는 \`<AudioPlayer />\` 커스텀 컴포넌트 렌더링 테스트입니다.
-<AudioPlayer src="/audio/sample.mp3" title="Sample Track" mood="Chill" />
-
-> [!NOTE]
-> 블로그 내부에서 MDX가 정상적으로 치환되는지를 확인합니다.
-
-결론적으로, 이 컴포넌트는 모든 마크다운을 정상 파싱합니다.
-`
-    }
-  };
-}

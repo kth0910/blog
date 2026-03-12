@@ -8,10 +8,10 @@ export function TimelineItem({ post }: { post: Post }) {
       {/* Date sidebar (desktop) */}
       <div className="hidden sm:flex flex-col items-end absolute left-0 top-6 w-24 text-right pr-4">
         <span className="text-sm font-bold text-slate-900 dark:text-slate-100">
-          {new Date(post.createdAt).toLocaleDateString('ko-KR', { month: 'short', day: 'numeric' })}
+          {new Date(post.startDate || post.createdAt).toLocaleDateString('ko-KR', { month: 'short', day: 'numeric' })}
         </span>
         <span className="text-xs text-slate-500 font-medium mt-1">
-          {new Date(post.createdAt).getFullYear()}
+          {new Date(post.startDate || post.createdAt).getFullYear()}
         </span>
       </div>
 
@@ -28,16 +28,16 @@ export function TimelineItem({ post }: { post: Post }) {
           <Tag type="timeline">Timeline</Tag>
           {/* Mobile date */}
           <span className="sm:hidden text-xs font-semibold text-slate-500">
-            {new Date(post.createdAt).toLocaleDateString()}
+            {new Date(post.startDate || post.createdAt).toLocaleDateString()}
           </span>
         </div>
         
         <h3 className="text-lg font-bold mb-1.5 text-slate-900 dark:text-slate-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
           {post.title}
         </h3>
-        {post.summary && (
+        {(post.description || post.summary) && (
           <p className="text-slate-600 dark:text-slate-400 text-sm">
-            {post.summary}
+            {post.description || post.summary}
           </p>
         )}
       </div>

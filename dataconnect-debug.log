@@ -1,0 +1,37 @@
+I0312 13:38:46.430002   11168 load.go:31] Reloading schema and connectors...
+W0312 13:38:46.464910   11168 control.go:74] [projects/emulator/locations/emulator/services/blog 6101] connector "example" has errors: example\queries.gql:35:5: Cannot query field "id" on type "Skill_KeyOutput".
+example\queries.gql:30:3: Field "skill_insert" must not have a selection since type "Skill_KeyOutput" has no subfields.
+
+sources: example\queries.gql [1148B] 
+I0312 13:38:46.464910   11168 control.go:100] [projects/emulator/locations/emulator/services/blog 6101] UpdateResources(): done
+Main schema: sources: schema\schema.gql [818B] 
+Connector "example": sources: example\queries.gql [1148B] 
+E0312 13:38:46.464910   11168 load.go:73] Could not load sources: 
+Errors: example\queries.gql:35:5: Cannot query field "id" on type "Skill_KeyOutput".
+example\queries.gql:30:3: Field "skill_insert" must not have a selection since type "Skill_KeyOutput" has no subfields.
+I0312 13:38:46.469060   11168 collector.go:107] schema extensions wrote into "C:\\dev\\blog\\dataconnect\\.dataconnect\\schema"
+Generated sources: prelude.gql [80731B] main\implicit.gql [2223B] main\input.gql [49349B] main\relation.gql [23530B] main\query.gql [6284B] main\mutation.gql [16905B] 
+I0312 13:38:46.469060   11168 load.go:74] Finished reloading
+I0312 13:38:46.472094   11168 dev.go:104] Listening on address (HTTP + gRPC): 127.0.0.1:9399
+I0312 13:38:46.472094   11168 dev.go:104] Listening on address (HTTP + gRPC): [::1]:9399
+I0312 13:38:50.084337   11168 migrate.go:24] Running migration SQL:
+Step 1: CREATE EXTENSION IF NOT EXISTS "uuid-ossp"
+Step 2: CREATE TABLE "public"."user" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "bio" text NULL, "display_name" text NOT NULL, "email" text NOT NULL, "github_url" text NULL, "linkedin_url" text NULL, "profile_picture_url" text NULL, "resume_url" text NULL, "twitter_url" text NULL, PRIMARY KEY ("id"))
+Step 3: CREATE TABLE "public"."blog_post" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "user_id" uuid NULL, "content" text NOT NULL, "created_at" timestamptz NOT NULL, "image_url" text NULL, "status" text NOT NULL, "tags" text[] NULL, "title" text NOT NULL, "updated_at" timestamptz NULL, PRIMARY KEY ("id"), CONSTRAINT "blog_post_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."user" ("id") ON DELETE SET NULL)
+Step 4: CREATE INDEX "blog_post_userId_idx" ON "public"."blog_post" ("user_id")
+Step 5: CREATE TABLE "public"."experience" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "user_id" uuid NULL, "company" text NOT NULL, "description" text NULL, "end_date" date NULL, "image_url" text NULL, "order" integer NULL, "start_date" date NOT NULL, "title" text NOT NULL, PRIMARY KEY ("id"), CONSTRAINT "experience_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."user" ("id") ON DELETE SET NULL)
+Step 6: CREATE INDEX "experience_userId_idx" ON "public"."experience" ("user_id")
+Step 7: CREATE TABLE "public"."project" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "user_id" uuid NULL, "created_at" timestamptz NOT NULL, "description" text NOT NULL, "image_url" text NULL, "live_demo_url" text NULL, "order" integer NULL, "repository_url" text NULL, "technologies_used" text[] NOT NULL, "title" text NOT NULL, PRIMARY KEY ("id"), CONSTRAINT "project_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."user" ("id") ON DELETE SET NULL)
+Step 8: CREATE INDEX "project_userId_idx" ON "public"."project" ("user_id")
+Step 9: CREATE TABLE "public"."skill" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "user_id" uuid NULL, "name" text NOT NULL, "proficiency_level" text NULL, PRIMARY KEY ("id"), CONSTRAINT "skill_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."user" ("id") ON DELETE SET NULL)
+Step 10: CREATE INDEX "skill_userId_idx" ON "public"."skill" ("user_id")
+W0312 13:38:50.219741   11168 control.go:74] [projects/emulator/locations/emulator/services/blog c823] connector "example" has errors: example\queries.gql:35:5: Cannot query field "id" on type "Skill_KeyOutput".
+example\queries.gql:30:3: Field "skill_insert" must not have a selection since type "Skill_KeyOutput" has no subfields.
+
+sources: example\queries.gql [1148B] 
+I0312 13:38:50.220327   11168 control.go:100] [projects/emulator/locations/emulator/services/blog c823] UpdateResources(): done
+Main schema: sources: schema\schema.gql [818B] 
+Connector "example": sources: example\queries.gql [1148B] 
+I0312 13:38:50.220327   11168 service.go:185] [projects/emulator/locations/emulator/services/blog c823] while configuring to server.Settings{ConnectionString:"dbname='fdcdb' host='127.0.0.1' port='5432' sslmode='disable' dbname='fdcdb'", MaxOpenConnection:0, UseDummy:false, EnableGoogleMLIntegration:false, SchemaSettings:esql.Settings{SchemaValidationMode:"", SchemaName:""}}, failed to reload last live sources: 
+Errors: example\queries.gql:35:5: Cannot query field "id" on type "Skill_KeyOutput".
+example\queries.gql:30:3: Field "skill_insert" must not have a selection since type "Skill_KeyOutput" has no subfields.

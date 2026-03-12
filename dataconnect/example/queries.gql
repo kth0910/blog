@@ -1,13 +1,15 @@
-query ListAllBlogPosts @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public as it only retrieves blog posts.") {
-  blogPosts {
+query ListAllInsights @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public as it only retrieves insights.") {
+  insights {
     id
     title
+    summary
     content
-    createdAt
-    status
-    imageUrl
+    audioUrl
+    audioMood
     tags
-    user {
+    createdAt
+    published
+    author {
       displayName
       profilePictureUrl
     }
@@ -15,24 +17,17 @@ query ListAllBlogPosts @auth(level: PUBLIC, insecureReason: "This operation is s
 }
 
 query GetMyProjects @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users as it filters by the authenticated user's ID.") {
-  projects(where: {userId: {eq_expr: "auth.uid"}}, orderBy: [{order: ASC}]) {
+  projects(where: {authorId: {eq_expr: "auth.uid"}}, orderBy: [{order: ASC}]) {
     id
     title
     description
-    technologiesUsed
+    techStack
     liveDemoUrl
     repositoryUrl
+    startDate
+    endDate
+    published
     order
-  }
-}
-
-mutation CreateNewSkill($name: String!, $proficiencyLevel: String) @auth(level: USER) {
-  skill_insert(data: {
-    userId_expr: "auth.uid",
-    name: $name,
-    proficiencyLevel: $proficiencyLevel
-  }) {
-    id
   }
 }
 
@@ -44,6 +39,17 @@ query GetUserProfile($id: UUID!) @auth(level: PUBLIC, insecureReason: "This oper
     profilePictureUrl
     githubUrl
     linkedinUrl
-    twitterUrl
+  }
+}
+
+query ListTimeline @auth(level: PUBLIC, insecureReason: "Timeline is public information.") {
+  timelines(orderBy: [{startDate: DESC}]) {
+    id
+    title
+    description
+    startDate
+    endDate
+    imageUrl
+    published
   }
 }

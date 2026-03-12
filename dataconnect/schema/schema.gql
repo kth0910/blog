@@ -1,50 +1,76 @@
+# 1. 사용자 정보
 type User @table {
+  id: UUID! @default(expr: "uuidV4()")
   displayName: String!
-  email: String!
+  email: String! @unique
   bio: String
   profilePictureUrl: String
-  resumeUrl: String
   githubUrl: String
   linkedinUrl: String
-  twitterUrl: String
 }
 
+# 2. 프로젝트 메타데이터 (프로젝트 그 자체의 정보)
 type Project @table {
-  user: User
+  id: UUID! @default(expr: "uuidV4()")
+  author: User!
   title: String!
   description: String!
-  technologiesUsed: [String!]!
-  createdAt: Timestamp!
   imageUrl: String
+  techStack: [String!]
   liveDemoUrl: String
   repositoryUrl: String
-  order: Int
+  
+  # 프로젝트 수행 기간
+  startDate: Date!
+  endDate: Date # null이면 '진행 중'으로 판단 가능
+  
+  # 관리용 필드
+  published: Boolean! @default(value: false) # 공개 여부 (기본값: 비공개)
+  order: Int @default(value: 0)
+  createdAt: Timestamp! @default(expr: "request.time")
 }
 
-type BlogPost @table {
-  user: User
+# 3. 프로젝트 상세 글 (특정 프로젝트에 대한 기록)
+type ProjectArticle @table {
+  id: UUID! @default(expr: "uuidV4()")
+  author: User!
+  project: Project!   # 어떤 프로젝트에 대한 글인지 연결
   title: String!
+  content: String!    # 상세 본문 (MDX 등)
+  
+  published: Boolean! @default(value: false) # 공개 여부
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp @default(expr: "request.time")
+}
+
+# 4. 회고 및 인사이트 관련 글
+type Insight @table {
+  id: UUID! @default(expr: "uuidV4()")
+  author: User!
+  project: Project    # 프로젝트 연동 (Nullable)
+  title: String!
+  summary: String
   content: String!
-  createdAt: Timestamp!
-  status: String!
-  imageUrl: String
+  audioUrl: String    # 코드베이스 api.ts 호환
+  audioMood: String   # 컴포넌트 레이어 호환
   tags: [String!]
-  updatedAt: Timestamp
+  
+  published: Boolean! @default(value: false) # 공개 여부
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp @default(expr: "request.time")
 }
 
-type Skill @table {
-  user: User
-  name: String!
-  proficiencyLevel: String
-}
-
-type Experience @table {
-  user: User
-  company: String!
-  title: String!
+# 5. 일정 관리 (Timeline - 기존 Experience 대체)
+type Timeline @table {
+  id: UUID! @default(expr: "uuidV4()")
+  author: User!
+  title: String!      # 역할 또는 사건명
+  description: String
   startDate: Date!
   endDate: Date
-  description: String
   imageUrl: String
-  order: Int
+  
+  published: Boolean! @default(value: false) # 공개 여부
+  order: Int @default(value: 0)
+  createdAt: Timestamp! @default(expr: "request.time")
 }

@@ -1,0 +1,32 @@
+extend type Insight {
+  """
+  ✨ Implicit foreign key field based on `Insight`.`author`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  authorId: UUID! @fdc_generated(from: "Insight.author", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `Insight`.`project`. It must match the value of `Project`.`id`. See `@ref` for how to customize it.
+  """
+  projectId: UUID @fdc_generated(from: "Insight.project", purpose: IMPLICIT_REF_FIELD)
+}
+extend type Project {
+  """
+  ✨ Implicit foreign key field based on `Project`.`author`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  authorId: UUID! @fdc_generated(from: "Project.author", purpose: IMPLICIT_REF_FIELD)
+}
+extend type ProjectArticle {
+  """
+  ✨ Implicit foreign key field based on `ProjectArticle`.`author`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  authorId: UUID! @fdc_generated(from: "ProjectArticle.author", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `ProjectArticle`.`project`. It must match the value of `Project`.`id`. See `@ref` for how to customize it.
+  """
+  projectId: UUID! @fdc_generated(from: "ProjectArticle.project", purpose: IMPLICIT_REF_FIELD)
+}
+extend type Timeline {
+  """
+  ✨ Implicit foreign key field based on `Timeline`.`author`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  authorId: UUID! @fdc_generated(from: "Timeline.author", purpose: IMPLICIT_REF_FIELD)
+}

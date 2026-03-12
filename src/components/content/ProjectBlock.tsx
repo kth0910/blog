@@ -28,12 +28,12 @@ export function ProjectBlock({ post }: { post: Post }) {
       </h3>
       
       <p className="text-slate-600 dark:text-slate-300 text-sm mb-6 flex-1">
-        {post.summary}
+        {post.description || post.summary}
       </p>
       
       <div className="flex items-center justify-between border-t border-slate-100 dark:border-slate-700/50 pt-4 mt-auto">
         <div className="flex flex-wrap gap-2 text-xs text-slate-500 font-medium">
-          {post.tags?.map(tag => (
+          {(post.techStack || post.tags)?.map(tag => (
             <span key={tag}>#{tag}</span>
           ))}
         </div>
