@@ -1,4 +1,11 @@
-import { getPost } from '@/lib/api';
+import { getPost, getPosts } from '@/lib/api';
+
+export async function generateStaticParams() {
+  const { data } = await getPosts('timeline', 100);
+  return data.map((post) => ({
+    id: post.id,
+  }));
+}
 import { MDXRemoteWrapper } from '@/components/mdx/MDXRemoteWrapper';
 import { Tag } from '@/components/common/Tag';
 import Link from 'next/link';
