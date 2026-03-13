@@ -53,3 +53,11 @@ query ListTimeline @auth(level: PUBLIC, insecureReason: "Timeline is public info
     published
   }
 }
+
+query GetAdminUserByEmail($email: String!) @auth(level: PUBLIC, insecureReason: "Used for admin validation securely.") {
+  users(where: { email: { eq: $email }, isAdmin: { eq: true } }) {
+    id
+    email
+    isAdmin
+  }
+}

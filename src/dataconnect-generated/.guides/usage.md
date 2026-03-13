@@ -12,16 +12,28 @@ For each operation, there is a wrapper hook that can be used to call the operati
 
 Here are all of the hooks that get generated:
 ```ts
-import { useListAllInsights, useGetMyProjects, useGetUserProfile, useListTimeline } from '@dataconnect/generated/react';
+import { useCreateProject, useUpdateProject, useDeleteProject, useCreateInsight, useUpdateInsight, useDeleteInsight, useCreateTimeline, useUpdateTimeline, useDeleteTimeline, useListAllInsights } from '@dataconnect/generated/react';
 // The types of these hooks are available in react/index.d.ts
 
+const { data, isPending, isSuccess, isError, error } = useCreateProject(createProjectVars);
+
+const { data, isPending, isSuccess, isError, error } = useUpdateProject(updateProjectVars);
+
+const { data, isPending, isSuccess, isError, error } = useDeleteProject(deleteProjectVars);
+
+const { data, isPending, isSuccess, isError, error } = useCreateInsight(createInsightVars);
+
+const { data, isPending, isSuccess, isError, error } = useUpdateInsight(updateInsightVars);
+
+const { data, isPending, isSuccess, isError, error } = useDeleteInsight(deleteInsightVars);
+
+const { data, isPending, isSuccess, isError, error } = useCreateTimeline(createTimelineVars);
+
+const { data, isPending, isSuccess, isError, error } = useUpdateTimeline(updateTimelineVars);
+
+const { data, isPending, isSuccess, isError, error } = useDeleteTimeline(deleteTimelineVars);
+
 const { data, isPending, isSuccess, isError, error } = useListAllInsights();
-
-const { data, isPending, isSuccess, isError, error } = useGetMyProjects();
-
-const { data, isPending, isSuccess, isError, error } = useGetUserProfile(getUserProfileVars);
-
-const { data, isPending, isSuccess, isError, error } = useListTimeline();
 
 ```
 
@@ -60,20 +72,38 @@ If a user is not using a supported framework, they can use the generated SDK dir
 Here's an example of how to use it with the first 5 operations:
 
 ```js
-import { listAllInsights, getMyProjects, getUserProfile, listTimeline } from '@dataconnect/generated';
+import { createProject, updateProject, deleteProject, createInsight, updateInsight, deleteInsight, createTimeline, updateTimeline, deleteTimeline, listAllInsights } from '@dataconnect/generated';
 
+
+// Operation CreateProject:  For variables, look at type CreateProjectVars in ../index.d.ts
+const { data } = await CreateProject(dataConnect, createProjectVars);
+
+// Operation UpdateProject:  For variables, look at type UpdateProjectVars in ../index.d.ts
+const { data } = await UpdateProject(dataConnect, updateProjectVars);
+
+// Operation DeleteProject:  For variables, look at type DeleteProjectVars in ../index.d.ts
+const { data } = await DeleteProject(dataConnect, deleteProjectVars);
+
+// Operation CreateInsight:  For variables, look at type CreateInsightVars in ../index.d.ts
+const { data } = await CreateInsight(dataConnect, createInsightVars);
+
+// Operation UpdateInsight:  For variables, look at type UpdateInsightVars in ../index.d.ts
+const { data } = await UpdateInsight(dataConnect, updateInsightVars);
+
+// Operation DeleteInsight:  For variables, look at type DeleteInsightVars in ../index.d.ts
+const { data } = await DeleteInsight(dataConnect, deleteInsightVars);
+
+// Operation CreateTimeline:  For variables, look at type CreateTimelineVars in ../index.d.ts
+const { data } = await CreateTimeline(dataConnect, createTimelineVars);
+
+// Operation UpdateTimeline:  For variables, look at type UpdateTimelineVars in ../index.d.ts
+const { data } = await UpdateTimeline(dataConnect, updateTimelineVars);
+
+// Operation DeleteTimeline:  For variables, look at type DeleteTimelineVars in ../index.d.ts
+const { data } = await DeleteTimeline(dataConnect, deleteTimelineVars);
 
 // Operation ListAllInsights: 
 const { data } = await ListAllInsights(dataConnect);
-
-// Operation GetMyProjects: 
-const { data } = await GetMyProjects(dataConnect);
-
-// Operation GetUserProfile:  For variables, look at type GetUserProfileVars in ../index.d.ts
-const { data } = await GetUserProfile(dataConnect, getUserProfileVars);
-
-// Operation ListTimeline: 
-const { data } = await ListTimeline(dataConnect);
 
 
 ```

@@ -1,0 +1,156 @@
+# -------------------------------------------------------------------------
+# Admin Mutations for Projects
+# -------------------------------------------------------------------------
+
+mutation CreateProject(
+  $authorId: UUID!
+  $title: String!
+  $description: String!
+  $techStack: [String!]
+  $startDate: Date!
+  $endDate: Date
+  $liveDemoUrl: String
+  $repositoryUrl: String
+  $imageUrl: String
+  $published: Boolean!
+  $order: Int
+) @auth(expr: "auth.token.admin == true") {
+  project_insert(data: {
+    authorId: $authorId
+    title: $title
+    description: $description
+    techStack: $techStack
+    startDate: $startDate
+    endDate: $endDate
+    liveDemoUrl: $liveDemoUrl
+    repositoryUrl: $repositoryUrl
+    imageUrl: $imageUrl
+    published: $published
+    order: $order
+  })
+}
+
+mutation UpdateProject(
+  $id: UUID!
+  $title: String
+  $description: String
+  $techStack: [String!]
+  $startDate: Date
+  $endDate: Date
+  $liveDemoUrl: String
+  $repositoryUrl: String
+  $imageUrl: String
+  $published: Boolean
+  $order: Int
+) @auth(expr: "auth.token.admin == true") {
+  project_update(id: $id, data: {
+    title: $title
+    description: $description
+    techStack: $techStack
+    startDate: $startDate
+    endDate: $endDate
+    liveDemoUrl: $liveDemoUrl
+    repositoryUrl: $repositoryUrl
+    imageUrl: $imageUrl
+    published: $published
+    order: $order
+  })
+}
+
+mutation DeleteProject($id: UUID!) @auth(expr: "auth.token.admin == true") {
+  project_delete(id: $id)
+}
+
+# -------------------------------------------------------------------------
+# Admin Mutations for Insights
+# -------------------------------------------------------------------------
+
+mutation CreateInsight(
+  $authorId: UUID!
+  $title: String!
+  $summary: String
+  $content: String!
+  $tags: [String!]
+  $published: Boolean!
+) @auth(expr: "auth.token.admin == true") {
+  insight_insert(data: {
+    authorId: $authorId
+    title: $title
+    summary: $summary
+    content: $content
+    tags: $tags
+    published: $published
+  })
+}
+
+mutation UpdateInsight(
+  $id: UUID!
+  $title: String
+  $summary: String
+  $content: String
+  $tags: [String!]
+  $published: Boolean
+) @auth(expr: "auth.token.admin == true") {
+  insight_update(id: $id, data: {
+    title: $title
+    summary: $summary
+    content: $content
+    tags: $tags
+    published: $published
+  })
+}
+
+mutation DeleteInsight($id: UUID!) @auth(expr: "auth.token.admin == true") {
+  insight_delete(id: $id)
+}
+
+# -------------------------------------------------------------------------
+# Admin Mutations for Timeline
+# -------------------------------------------------------------------------
+
+mutation CreateTimeline(
+  $authorId: UUID!
+  $title: String!
+  $description: String
+  $startDate: Date!
+  $endDate: Date
+  $imageUrl: String
+  $published: Boolean!
+  $order: Int
+) @auth(expr: "auth.token.admin == true") {
+  timeline_insert(data: {
+    authorId: $authorId
+    title: $title
+    description: $description
+    startDate: $startDate
+    endDate: $endDate
+    imageUrl: $imageUrl
+    published: $published
+    order: $order
+  })
+}
+
+mutation UpdateTimeline(
+  $id: UUID!
+  $title: String
+  $description: String
+  $startDate: Date
+  $endDate: Date
+  $imageUrl: String
+  $published: Boolean
+  $order: Int
+) @auth(expr: "auth.token.admin == true") {
+  timeline_update(id: $id, data: {
+    title: $title
+    description: $description
+    startDate: $startDate
+    endDate: $endDate
+    imageUrl: $imageUrl
+    published: $published
+    order: $order
+  })
+}
+
+mutation DeleteTimeline($id: UUID!) @auth(expr: "auth.token.admin == true") {
+  timeline_delete(id: $id)
+}

@@ -1853,6 +1853,14 @@ input User_Data {
   """
   githubUrl_expr: String_Expr
   """
+  ✨ Generated from Field `User`.`isAdmin` of type `Boolean!`
+  """
+  isAdmin: Boolean
+  """
+  ✨ `_expr` server value variant of `isAdmin` (✨ Generated from Field `User`.`isAdmin` of type `Boolean!`)
+  """
+  isAdmin_expr: Boolean_Expr
+  """
   ✨ Generated from Field `User`.`linkedinUrl` of type `String`
   """
   linkedinUrl: String
@@ -1905,6 +1913,10 @@ input User_Filter {
   ✨ Generated from Field `User`.`githubUrl` of type `String`
   """
   githubUrl: String_Filter
+  """
+  ✨ Generated from Field `User`.`isAdmin` of type `Boolean!`
+  """
+  isAdmin: Boolean_Filter
   """
   ✨ Generated from Field `User`.`linkedinUrl` of type `String`
   """
@@ -1988,6 +2000,10 @@ input User_Having {
   """
   id_count: Int_Filter
   """
+  ✨ Generated from Field `User`.`isAdmin_count` of type `Int!`
+  """
+  isAdmin_count: Int_Filter
+  """
   ✨ Generated from Field `User`.`linkedinUrl_count` of type `Int!`
   """
   linkedinUrl_count: Int_Filter
@@ -2047,6 +2063,10 @@ input User_Order {
   """
   githubUrl: OrderDirection
   """
+  ✨ Generated from Field `User`.`isAdmin` of type `Boolean!`
+  """
+  isAdmin: OrderDirection
+  """
   ✨ Generated from Field `User`.`linkedinUrl` of type `String`
   """
   linkedinUrl: OrderDirection
@@ -2078,6 +2098,10 @@ input User_Order {
   ✨ Generated from Field `User`.`id_count` of type `Int!`
   """
   id_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`isAdmin_count` of type `Int!`
+  """
+  isAdmin_count: OrderDirection
   """
   ✨ Generated from Field `User`.`linkedinUrl_count` of type `Int!`
   """

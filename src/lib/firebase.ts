@@ -11,12 +11,14 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+export const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 export const dataconnect = getDataConnect(app, connectorConfig);
 
-// 로컬 테스트 시 에뮬레이터 연결
+// 로컬 테스트 시 에뮬레이터 연결 (필요한 경우에만 주석 해제하여 사용)
+/*
 if (process.env.NODE_ENV === 'development') {
   const host = process.env.NEXT_PUBLIC_DATA_CONNECT_EMULATOR_HOST || 'localhost';
   const port = Number(process.env.NEXT_PUBLIC_DATA_CONNECT_EMULATOR_PORT) || 9399;
   connectDataConnectEmulator(dataconnect, host, port);
 }
+*/

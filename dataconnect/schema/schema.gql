@@ -3,6 +3,7 @@ type User @table {
   id: UUID! @default(expr: "uuidV4()")
   displayName: String!
   email: String! @unique
+  isAdmin: Boolean! @default(value: false)
   bio: String
   profilePictureUrl: String
   githubUrl: String

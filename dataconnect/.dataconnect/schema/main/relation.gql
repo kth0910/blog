@@ -814,6 +814,15 @@ extend type User {
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "User.id", purpose: QUERY_COUNT)
   """
+  ✨ Count the number of rows in the `User` table where the `isAdmin` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  isAdmin_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "User.isAdmin", purpose: QUERY_COUNT)
+  """
   ✨ Count the number of rows in the `User` table where the `linkedinUrl` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
   linkedinUrl_count(
