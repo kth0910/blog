@@ -13,11 +13,11 @@ export default async function Dashboard() {
   return (
     <div className="space-y-16">
       <section className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-1000">
-        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50">
-          Think <span className="text-indigo-500">→</span> Build <span className="text-indigo-500">→</span> Record <span className="text-indigo-500">→</span> Listen
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50">
+          Think <span className="text-indigo-600 dark:text-indigo-400">→</span> Build <span className="text-indigo-600 dark:text-indigo-400">→</span> Record <span className="text-indigo-600 dark:text-indigo-400">→</span> Listen
         </h1>
-        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-          저의 생각과 프로젝트 과정이 시간 흐름에 따라 축적되는 공감각적 기록장입니다. 개발자 로그, 리서치 노트, 그리고 AI 생성 테마곡을 함께 보관합니다.
+        <p className="text-md text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+          저의 생각과 프로젝트 과정이 시간 흐름에 따라 축적되는 공감각적 기록장입니다. <br />개발자 로그, 리서치 노트, 그리고 AI 생성 테마곡을 함께 보관합니다.
         </p>
       </section>
 

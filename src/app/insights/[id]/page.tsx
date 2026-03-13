@@ -43,11 +43,11 @@ export default async function InsightDetail({ params }: { params: Promise<{ id: 
             {new Date(data.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
           </time>
         </div>
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 mb-4">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 mb-4">
           {data.title}
         </h1>
         {data.summary && (
-          <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 mt-6 leading-relaxed bg-slate-100 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/50">
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-6 leading-relaxed bg-slate-100 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/50">
             {data.summary}
           </p>
         )}
