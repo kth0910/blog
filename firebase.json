@@ -7,9 +7,7 @@
   },
   "hosting": {
     "site": "taehyeonkang",
-    "public": "out",
-    "cleanUrls": true,
-    "trailingSlash": true,
+    "source": ".",
     "ignore": [
       "firebase.json",
       "**/.*",
