@@ -28,3 +28,5 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_THBLOG_52C27 }}
           projectId: thblog-52c27
+        env:
+          FIREBASE_CLI_EXPERIMENTS: webframeworks
