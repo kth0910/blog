@@ -28,6 +28,7 @@ export default function RootLayout({
                     <a href="/projects" className="hover:text-indigo-500 transition-colors">Projects</a>
                     <a href="/insights" className="hover:text-indigo-500 transition-colors">Insights</a>
                     <a href="/timeline" className="hover:text-indigo-500 transition-colors">Timeline</a>
+                    <a href="/archive" className="hover:text-indigo-500 transition-colors">Archive</a>
                   </nav>
                   <div className="w-px h-4 bg-slate-200 dark:bg-slate-700 hidden sm:block"></div>
                   <ThemeToggle />
