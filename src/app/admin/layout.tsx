@@ -7,7 +7,7 @@ import { logout } from '@/lib/auth';
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <AdminGuard>
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex">
+      <div className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen min-h-screen bg-slate-50 dark:bg-slate-900 flex">
         {/* Sidebar */}
         <aside className="w-64 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col fixed inset-y-0">
           <div className="p-6 border-b border-slate-200 dark:border-slate-700">
