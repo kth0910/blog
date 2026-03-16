@@ -1,12 +1,33 @@
-import { getPosts } from '@/lib/api';
+'use client';
+import { useState, useEffect } from 'react';
+import { getPosts, Post } from '@/lib/api';
 import { InsightBlock } from '@/components/content/InsightBlock';
 
-export const metadata = {
-  title: 'Insights | Archive',
-};
+export default function InsightsPage() {
+  const [insights, setInsights] = useState<Post[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-export default async function InsightsPage() {
-  const { data: insights } = await getPosts('insight', 20);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const { data } = await getPosts('insight', 20);
+        setInsights(data);
+      } catch (error) {
+        console.error('Failed to fetch insights:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-500"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-10 animate-in fade-in duration-700">

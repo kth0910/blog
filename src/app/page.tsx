@@ -1,14 +1,40 @@
-import { getPosts } from '@/lib/api';
+'use client';
+
+import { useState, useEffect } from 'react';
+import { getPosts, Post } from '@/lib/api';
 import { ProjectBlock } from '@/components/content/ProjectBlock';
 import { InsightBlock } from '@/components/content/InsightBlock';
 import { TimelineItem } from '@/components/content/TimelineItem';
 import Link from 'next/link';
 
-export default async function Dashboard() {
-  const { data: recentPosts } = await getPosts(undefined, 8); // fetch latest 8 posts from all types
+export default function Dashboard() {
+  const [recentPosts, setRecentPosts] = useState<Post[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const { data } = await getPosts(undefined, 8);
+        setRecentPosts(data);
+      } catch (error) {
+        console.error('Failed to fetch posts:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
 
   const projects = recentPosts.filter(p => p.type === 'project').slice(0, 2);
   const insightsAndTimelines = recentPosts.filter(p => p.type !== 'project');
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-500"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-16">
@@ -57,7 +83,7 @@ export default async function Dashboard() {
               <h3 className="text-lg font-bold text-slate-500 mb-6 uppercase tracking-wider">Timeline</h3>
               <div className="space-y-0">
                 {insightsAndTimelines.filter(p => p.type === 'timeline').slice(0, 4).map(item => (
-                  <TimelineItem key={item.id} post={item} />
+                   <TimelineItem key={item.id} post={item} />
                 ))}
               </div>
             </div>

@@ -1,12 +1,33 @@
-import { getPosts } from '@/lib/api';
+'use client';
+import { useState, useEffect } from 'react';
+import { getPosts, Post } from '@/lib/api';
 import { TimelineItem } from '@/components/content/TimelineItem';
 
-export const metadata = {
-  title: 'Timeline | Archive',
-};
+export default function TimelinePage() {
+  const [timeline, setTimeline] = useState<Post[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-export default async function TimelinePage() {
-  const { data: timeline } = await getPosts('timeline', 50);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const { data } = await getPosts('timeline', 50);
+        setTimeline(data);
+      } catch (error) {
+        console.error('Failed to fetch timeline:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-500"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-10 animate-in fade-in duration-700 max-w-3xl mx-auto">

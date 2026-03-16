@@ -1,12 +1,34 @@
-import { getPosts } from '@/lib/api';
+'use client';
+
+import { useState, useEffect } from 'react';
+import { getPosts, Post } from '@/lib/api';
 import { ProjectBlock } from '@/components/content/ProjectBlock';
 
-export const metadata = {
-  title: 'Projects | Archive',
-};
+export default function ProjectsPage() {
+  const [projects, setProjects] = useState<Post[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-export default async function ProjectsPage() {
-  const { data: projects } = await getPosts('project', 20);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const { data } = await getPosts('project', 20);
+        setProjects(data);
+      } catch (error) {
+        console.error('Failed to fetch projects:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-500"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-10 animate-in fade-in duration-700 max-w-4xl mx-auto">
