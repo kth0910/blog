@@ -1048,6 +1048,8 @@ export interface CreateInsightVariables {
   content: string;
   tags?: string[] | null;
   published: boolean;
+  audioUrl?: string | null;
+  audioMood?: string | null;
 }
 ```
 ### Return Type
@@ -1073,13 +1075,15 @@ const createInsightVars: CreateInsightVariables = {
   content: ..., 
   tags: ..., // optional
   published: ..., 
+  audioUrl: ..., // optional
+  audioMood: ..., // optional
 };
 
 // Call the `createInsight()` function to execute the mutation.
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await createInsight(createInsightVars);
 // Variables can be defined inline as well.
-const { data } = await createInsight({ authorId: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., });
+const { data } = await createInsight({ authorId: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., audioUrl: ..., audioMood: ..., });
 
 // You can also pass in a `DataConnect` instance to the action shortcut function.
 const dataConnect = getDataConnect(connectorConfig);
@@ -1108,12 +1112,14 @@ const createInsightVars: CreateInsightVariables = {
   content: ..., 
   tags: ..., // optional
   published: ..., 
+  audioUrl: ..., // optional
+  audioMood: ..., // optional
 };
 
 // Call the `createInsightRef()` function to get a reference to the mutation.
 const ref = createInsightRef(createInsightVars);
 // Variables can be defined inline as well.
-const ref = createInsightRef({ authorId: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., });
+const ref = createInsightRef({ authorId: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., audioUrl: ..., audioMood: ..., });
 
 // You can also pass in a `DataConnect` instance to the `MutationRef` function.
 const dataConnect = getDataConnect(connectorConfig);
@@ -1172,6 +1178,8 @@ export interface UpdateInsightVariables {
   content?: string | null;
   tags?: string[] | null;
   published?: boolean | null;
+  audioUrl?: string | null;
+  audioMood?: string | null;
 }
 ```
 ### Return Type
@@ -1197,13 +1205,15 @@ const updateInsightVars: UpdateInsightVariables = {
   content: ..., // optional
   tags: ..., // optional
   published: ..., // optional
+  audioUrl: ..., // optional
+  audioMood: ..., // optional
 };
 
 // Call the `updateInsight()` function to execute the mutation.
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await updateInsight(updateInsightVars);
 // Variables can be defined inline as well.
-const { data } = await updateInsight({ id: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., });
+const { data } = await updateInsight({ id: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., audioUrl: ..., audioMood: ..., });
 
 // You can also pass in a `DataConnect` instance to the action shortcut function.
 const dataConnect = getDataConnect(connectorConfig);
@@ -1232,12 +1242,14 @@ const updateInsightVars: UpdateInsightVariables = {
   content: ..., // optional
   tags: ..., // optional
   published: ..., // optional
+  audioUrl: ..., // optional
+  audioMood: ..., // optional
 };
 
 // Call the `updateInsightRef()` function to get a reference to the mutation.
 const ref = updateInsightRef(updateInsightVars);
 // Variables can be defined inline as well.
-const ref = updateInsightRef({ id: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., });
+const ref = updateInsightRef({ id: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., audioUrl: ..., audioMood: ..., });
 
 // You can also pass in a `DataConnect` instance to the `MutationRef` function.
 const dataConnect = getDataConnect(connectorConfig);

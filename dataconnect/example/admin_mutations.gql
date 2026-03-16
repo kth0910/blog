@@ -72,6 +72,8 @@ mutation CreateInsight(
   $content: String!
   $tags: [String!]
   $published: Boolean!
+  $audioUrl: String
+  $audioMood: String
 ) @auth(expr: "auth.token.admin == true") {
   insight_insert(data: {
     authorId: $authorId
@@ -80,6 +82,8 @@ mutation CreateInsight(
     content: $content
     tags: $tags
     published: $published
+    audioUrl: $audioUrl
+    audioMood: $audioMood
   })
 }
 
@@ -90,6 +94,8 @@ mutation UpdateInsight(
   $content: String
   $tags: [String!]
   $published: Boolean
+  $audioUrl: String
+  $audioMood: String
 ) @auth(expr: "auth.token.admin == true") {
   insight_update(id: $id, data: {
     title: $title
@@ -97,6 +103,8 @@ mutation UpdateInsight(
     content: $content
     tags: $tags
     published: $published
+    audioUrl: $audioUrl
+    audioMood: $audioMood
   })
 }
 

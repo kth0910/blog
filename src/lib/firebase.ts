@@ -1,5 +1,6 @@
 import { initializeApp, getApps } from 'firebase/app';
 import { getDataConnect, connectDataConnectEmulator } from 'firebase/data-connect';
+import { getStorage } from 'firebase/storage';
 import { connectorConfig } from '@dataconnect/generated';
 
 const firebaseConfig = {
@@ -13,6 +14,7 @@ const firebaseConfig = {
 
 export const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 export const dataconnect = getDataConnect(app, connectorConfig);
+export const storage = getStorage(app);
 
 // 로컬 테스트 시 에뮬레이터 연결 (필요한 경우에만 주석 해제하여 사용)
 /*

@@ -906,6 +906,8 @@ export interface CreateInsightVariables {
   content: string;
   tags?: string[] | null;
   published: boolean;
+  audioUrl?: string | null;
+  audioMood?: string | null;
 }
 ```
 ### Return Type
@@ -961,10 +963,12 @@ export default function CreateInsightComponent() {
     content: ..., 
     tags: ..., // optional
     published: ..., 
+    audioUrl: ..., // optional
+    audioMood: ..., // optional
   };
   mutation.mutate(createInsightVars);
   // Variables can be defined inline as well.
-  mutation.mutate({ authorId: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., });
+  mutation.mutate({ authorId: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., audioUrl: ..., audioMood: ..., });
 
   // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
   const options = {
@@ -1010,6 +1014,8 @@ export interface UpdateInsightVariables {
   content?: string | null;
   tags?: string[] | null;
   published?: boolean | null;
+  audioUrl?: string | null;
+  audioMood?: string | null;
 }
 ```
 ### Return Type
@@ -1065,10 +1071,12 @@ export default function UpdateInsightComponent() {
     content: ..., // optional
     tags: ..., // optional
     published: ..., // optional
+    audioUrl: ..., // optional
+    audioMood: ..., // optional
   };
   mutation.mutate(updateInsightVars);
   // Variables can be defined inline as well.
-  mutation.mutate({ id: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., });
+  mutation.mutate({ id: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., audioUrl: ..., audioMood: ..., });
 
   // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
   const options = {

@@ -8,9 +8,10 @@ import {
   deleteInsight,
   getAdminUserByEmail
 } from '@dataconnect/generated';
-import { dataconnect } from '@/lib/firebase';
+import { dataconnect, storage } from '@/lib/firebase';
 import MarkdownEditor from '@/components/admin/MarkdownEditor';
 import { getAuth } from 'firebase/auth';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 export default function AdminInsightsPage() {
   const [insights, setInsights] = useState<any[]>([]);
@@ -24,6 +25,12 @@ export default function AdminInsightsPage() {
   const [content, setContent] = useState('');
   const [tags, setTags] = useState('');
   const [published, setPublished] = useState(false);
+  
+  // Audio state
+  const [audioUrl, setAudioUrl] = useState('');
+  const [audioMood, setAudioMood] = useState('');
+  const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   useEffect(() => {
     fetchInsights();
@@ -49,6 +56,9 @@ export default function AdminInsightsPage() {
     setContent('');
     setTags('');
     setPublished(false);
+    setAudioUrl('');
+    setAudioMood('');
+    setUploadProgress(0);
   };
 
   const handleEdit = (insight: any) => {
@@ -59,6 +69,8 @@ export default function AdminInsightsPage() {
     setContent(insight.content);
     setTags((insight.tags || []).join(', '));
     setPublished(insight.published);
+    setAudioUrl(insight.audioUrl || '');
+    setAudioMood(insight.audioMood || '');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -71,6 +83,41 @@ export default function AdminInsightsPage() {
       console.error(err);
       alert('삭제 실패. 권한을 확인하세요.');
     }
+  };
+  
+  const handleAudioUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Check file type
+    if (!file.type.startsWith('audio/')) {
+      alert('오디오 파일만 업로드 가능합니다.');
+      return;
+    }
+
+    setUploading(true);
+    setUploadProgress(0);
+
+    const storageRef = ref(storage, `audio/${Date.now()}_${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on('state_changed', 
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setUploadProgress(progress);
+      }, 
+      (error) => {
+        console.error('Upload failed:', error);
+        alert('업로드 실패: ' + error.message);
+        setUploading(false);
+      }, 
+      async () => {
+        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        setAudioUrl(downloadURL);
+        setUploading(false);
+        alert('오디오 업로드 완료!');
+      }
+    );
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -91,7 +138,9 @@ export default function AdminInsightsPage() {
           summary: summary || null,
           content,
           tags: tagsArray,
-          published
+          published,
+          audioUrl: audioUrl || null,
+          audioMood: audioMood || null
         });
         alert('성공적으로 수정되었습니다.');
       } else {
@@ -104,7 +153,9 @@ export default function AdminInsightsPage() {
           summary: summary || null,
           content,
           tags: tagsArray,
-          published
+          published,
+          audioUrl: audioUrl || null,
+          audioMood: audioMood || null
         });
         alert('새 인사이트가 작성되었습니다.');
       }
@@ -160,6 +211,47 @@ export default function AdminInsightsPage() {
                 placeholder="ex) AI, React, Next.js"
                 className="w-full px-4 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" 
               />
+            </div>
+
+            {/* Audio Upload Section */}
+            <div className="space-y-4 md:col-span-2 p-4 bg-indigo-50/50 dark:bg-indigo-500/5 rounded-xl border border-indigo-100 dark:border-indigo-500/20">
+              <div className="flex flex-col md:flex-row gap-6">
+                <div className="flex-1 space-y-2">
+                  <label className="text-sm font-bold text-indigo-900 dark:text-indigo-300 flex items-center gap-2">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+                    AI 테마곡 업로드
+                  </label>
+                  <input 
+                    type="file" 
+                    accept="audio/*"
+                    onChange={handleAudioUpload}
+                    disabled={uploading}
+                    className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 dark:file:bg-indigo-500/20 dark:file:text-indigo-300"
+                  />
+                  {uploading && (
+                    <div className="mt-2 h-1.5 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                      <div className="h-full bg-indigo-500 transition-all duration-300" style={{ width: `${uploadProgress}%` }} />
+                    </div>
+                  )}
+                  {audioUrl && (
+                    <div className="mt-2 text-xs text-indigo-600 dark:text-indigo-400 font-medium flex items-center gap-1">
+                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
+                      업로드됨: {audioUrl.split('/').pop()?.split('?')[0].substring(0, 30)}...
+                    </div>
+                  )}
+                </div>
+                
+                <div className="flex-1 space-y-2">
+                  <label className="text-sm font-medium text-slate-700 dark:text-slate-300">음악 분위기 (Mood)</label>
+                  <input 
+                    type="text" 
+                    value={audioMood}
+                    onChange={e => setAudioMood(e.target.value)}
+                    placeholder="ex) Cyberpunk, Relaxing, Uplifting"
+                    className="w-full px-4 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" 
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="space-y-2 md:col-span-2">

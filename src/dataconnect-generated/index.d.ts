@@ -21,6 +21,8 @@ export interface CreateInsightVariables {
   content: string;
   tags?: string[] | null;
   published: boolean;
+  audioUrl?: string | null;
+  audioMood?: string | null;
 }
 
 export interface CreateProjectData {
@@ -183,6 +185,8 @@ export interface UpdateInsightVariables {
   content?: string | null;
   tags?: string[] | null;
   published?: boolean | null;
+  audioUrl?: string | null;
+  audioMood?: string | null;
 }
 
 export interface UpdateProjectData {
