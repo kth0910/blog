@@ -135,75 +135,33 @@ export default function AdminInsightsPage() {
       ...(trimmedAudioUrl ? { audioUrl: trimmedAudioUrl } : {}),
       ...(trimmedAudioMood ? { audioMood: trimmedAudioMood } : {})
     };
-    const hasAudioFields = Object.keys(optionalAudioFields).length > 0;
-    let audioFallbackApplied = false;
-    const isUnexpectedAudioVariableError = (err: any) => {
-      const message = String(err?.message || '');
-      return message.includes('$audioUrl is not expected') || message.includes('$audioMood is not expected');
-    };
 
     try {
       if (isEditing && currentId) {
-        try {
-          await updateInsight(dataconnect, {
-            id: currentId,
-            title,
-            summary: summary || null,
-            content,
-            tags: tagsArray,
-            published,
-            ...optionalAudioFields
-          });
-        } catch (err: any) {
-          if (hasAudioFields && isUnexpectedAudioVariableError(err)) {
-            await updateInsight(dataconnect, {
-              id: currentId,
-              title,
-              summary: summary || null,
-              content,
-              tags: tagsArray,
-              published
-            });
-            audioFallbackApplied = true;
-          } else {
-            throw err;
-          }
-        }
-        alert(audioFallbackApplied
-          ? '수정은 완료됐지만 현재 서버 설정에서 오디오 필드(audioUrl/audioMood)는 지원되지 않아 제외되었습니다.'
-          : '성공적으로 수정되었습니다.');
+        await updateInsight(dataconnect, {
+          id: currentId,
+          title,
+          summary: summary || null,
+          content,
+          tags: tagsArray,
+          published,
+          ...optionalAudioFields
+        });
+        alert('성공적으로 수정되었습니다.');
       } else {
         const adminRes = await getAdminUserByEmail(dataconnect, { email: user.email! });
         const actualAuthorId = adminRes.data.users[0].id;
 
-        try {
-          await createInsight(dataconnect, {
-            authorId: actualAuthorId,
-            title,
-            summary: summary || null,
-            content,
-            tags: tagsArray,
-            published,
-            ...optionalAudioFields
-          });
-        } catch (err: any) {
-          if (hasAudioFields && isUnexpectedAudioVariableError(err)) {
-            await createInsight(dataconnect, {
-              authorId: actualAuthorId,
-              title,
-              summary: summary || null,
-              content,
-              tags: tagsArray,
-              published
-            });
-            audioFallbackApplied = true;
-          } else {
-            throw err;
-          }
-        }
-        alert(audioFallbackApplied
-          ? '작성은 완료됐지만 현재 서버 설정에서 오디오 필드(audioUrl/audioMood)는 지원되지 않아 제외되었습니다.'
-          : '새 인사이트가 작성되었습니다.');
+        await createInsight(dataconnect, {
+          authorId: actualAuthorId,
+          title,
+          summary: summary || null,
+          content,
+          tags: tagsArray,
+          published,
+          ...optionalAudioFields
+        });
+        alert('새 인사이트가 작성되었습니다.');
       }
       resetForm();
       await fetchInsights();

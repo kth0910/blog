@@ -5,25 +5,13 @@ interface AudioPlayerProps {
   src?: string;
   title?: string;
   mood?: string;
+  className?: string;
 }
 
-export function AudioPlayer({ src, title = 'Unknown Track', mood }: AudioPlayerProps) {
+export function AudioPlayer({ src, title = 'Unknown Track', mood, className = '' }: AudioPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.addEventListener('timeupdate', handleTimeUpdate);
-      audioRef.current.addEventListener('ended', handleEnded);
-    }
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.removeEventListener('timeupdate', handleTimeUpdate);
-        audioRef.current.removeEventListener('ended', handleEnded);
-      }
-    };
-  }, []);
 
   const handleTimeUpdate = () => {
     if (audioRef.current) {
@@ -40,6 +28,19 @@ export function AudioPlayer({ src, title = 'Unknown Track', mood }: AudioPlayerP
     setProgress(0);
   };
 
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.addEventListener('timeupdate', handleTimeUpdate);
+    audio.addEventListener('ended', handleEnded);
+
+    return () => {
+      audio.removeEventListener('timeupdate', handleTimeUpdate);
+      audio.removeEventListener('ended', handleEnded);
+    };
+  }, []);
+
   const togglePlay = () => {
     if (audioRef.current) {
       if (isPlaying) {
@@ -54,7 +55,7 @@ export function AudioPlayer({ src, title = 'Unknown Track', mood }: AudioPlayerP
   if (!src) return null;
 
   return (
-    <div className="flex items-center gap-4 bg-slate-100 dark:bg-slate-800/80 p-4 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700/50 my-6 transition-all hover:shadow-md">
+    <div className={`flex items-center gap-4 bg-slate-100 dark:bg-slate-800/80 p-4 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700/50 my-6 transition-all hover:shadow-md ${className}`}>
       <audio ref={audioRef} src={src} preload="none" />
       
       <button 

@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getPost, Post } from '@/lib/api';
 import { MDXRemoteWrapper } from '@/components/mdx/MDXRemoteWrapper';
 import { AudioPlayer } from '@/components/audio/AudioPlayer';
@@ -9,6 +9,9 @@ import Link from 'next/link';
 export default function InsightDetailClient({ id }: { id: string }) {
   const [data, setData] = useState<Post | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isAudioOpen, setIsAudioOpen] = useState(false);
+  const [isStickyVisible, setIsStickyVisible] = useState(true);
+  const stickyAudioRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -23,6 +26,26 @@ export default function InsightDetailClient({ id }: { id: string }) {
     }
     fetchData();
   }, [id]);
+
+  useEffect(() => {
+    if (!data?.audioUrl || !stickyAudioRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsStickyVisible(entry.isIntersecting);
+      },
+      { threshold: 0.25 }
+    );
+
+    observer.observe(stickyAudioRef.current);
+    return () => observer.disconnect();
+  }, [data?.audioUrl]);
+
+  useEffect(() => {
+    if (isStickyVisible) {
+      setIsAudioOpen(false);
+    }
+  }, [isStickyVisible]);
 
   if (isLoading) {
     return (
@@ -64,9 +87,11 @@ export default function InsightDetailClient({ id }: { id: string }) {
         )}
       </header>
 
-      {/* Main Theme Song Player for Insights */}
       {data.audioUrl && (
-        <div className="mb-12 sticky top-20 z-30 opacity-95 hover:opacity-100 transition-opacity">
+        <div
+          ref={stickyAudioRef}
+          className="mb-12 sticky top-20 z-30 opacity-95 hover:opacity-100 transition-opacity"
+        >
           <AudioPlayer src={data.audioUrl} title={`Theme: ${data.title}`} mood={data.audioMood} />
         </div>
       )}
@@ -88,6 +113,40 @@ export default function InsightDetailClient({ id }: { id: string }) {
           ))}
         </div>
       </footer>
+
+      {data.audioUrl && !isStickyVisible && (
+        <div className="fixed right-4 bottom-4 sm:right-6 sm:bottom-6 z-50">
+          {isAudioOpen && (
+            <div className="mb-3 w-[calc(100vw-2rem)] sm:w-[360px] max-w-[360px]">
+              <AudioPlayer
+                src={data.audioUrl}
+                title={`Theme: ${data.title}`}
+                mood={data.audioMood}
+                className="my-0 bg-white dark:bg-slate-900 shadow-xl"
+              />
+            </div>
+          )}
+          <button
+            type="button"
+            onClick={() => setIsAudioOpen(prev => !prev)}
+            className="ml-auto flex h-14 w-14 items-center justify-center rounded-full bg-indigo-600 text-white shadow-lg transition hover:bg-indigo-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
+            aria-label={isAudioOpen ? '오디오 플레이어 닫기' : '오디오 플레이어 열기'}
+            aria-expanded={isAudioOpen}
+          >
+            {isAudioOpen ? (
+              <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 18V5l12-2v13" />
+                <circle cx="6" cy="18" r="3" />
+                <circle cx="18" cy="16" r="3" />
+              </svg>
+            )}
+          </button>
+        </div>
+      )}
     </article>
   );
 }
