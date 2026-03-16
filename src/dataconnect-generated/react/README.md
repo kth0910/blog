@@ -151,6 +151,7 @@ export interface ListAllInsightsData {
     content: string;
     audioUrl?: string | null;
     audioMood?: string | null;
+    audioTitle?: string | null;
     tags?: string[] | null;
     createdAt: TimestampString;
     published: boolean;
@@ -908,6 +909,7 @@ export interface CreateInsightVariables {
   published: boolean;
   audioUrl?: string | null;
   audioMood?: string | null;
+  audioTitle?: string | null;
 }
 ```
 ### Return Type
@@ -965,10 +967,11 @@ export default function CreateInsightComponent() {
     published: ..., 
     audioUrl: ..., // optional
     audioMood: ..., // optional
+    audioTitle: ..., // optional
   };
   mutation.mutate(createInsightVars);
   // Variables can be defined inline as well.
-  mutation.mutate({ authorId: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., audioUrl: ..., audioMood: ..., });
+  mutation.mutate({ authorId: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., audioUrl: ..., audioMood: ..., audioTitle: ..., });
 
   // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
   const options = {
@@ -1016,6 +1019,7 @@ export interface UpdateInsightVariables {
   published?: boolean | null;
   audioUrl?: string | null;
   audioMood?: string | null;
+  audioTitle?: string | null;
 }
 ```
 ### Return Type
@@ -1073,10 +1077,11 @@ export default function UpdateInsightComponent() {
     published: ..., // optional
     audioUrl: ..., // optional
     audioMood: ..., // optional
+    audioTitle: ..., // optional
   };
   mutation.mutate(updateInsightVars);
   // Variables can be defined inline as well.
-  mutation.mutate({ id: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., audioUrl: ..., audioMood: ..., });
+  mutation.mutate({ id: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., audioUrl: ..., audioMood: ..., audioTitle: ..., });
 
   // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
   const options = {

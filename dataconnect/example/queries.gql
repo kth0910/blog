@@ -6,6 +6,7 @@ query ListAllInsights @auth(level: PUBLIC, insecureReason: "This operation is sa
     content
     audioUrl
     audioMood
+    audioTitle
     tags
     createdAt
     published

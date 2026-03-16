@@ -54,6 +54,7 @@ type Insight @table {
   content: String!
   audioUrl: String    # 코드베이스 api.ts 호환
   audioMood: String   # 컴포넌트 레이어 호환
+  audioTitle: String  # 노래 제목 (필요 시)
   tags: [String!]
   
   published: Boolean! @default(value: false) # 공개 여부

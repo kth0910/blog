@@ -19,6 +19,7 @@ export interface Post {
   status?: string;
   audioUrl?: string;
   audioMood?: string;
+  audioTitle?: string;
   startDate?: string;
   endDate?: string;
   imageUrl?: string;
@@ -46,6 +47,7 @@ export async function getPosts(type?: PostType, limit = 10, offset = 0): Promise
           tags: i.tags || [],
           audioUrl: i.audioUrl || undefined,
           audioMood: i.audioMood || undefined,
+          audioTitle: i.audioTitle || undefined,
           createdAt: i.createdAt,
           type: 'insight' as const,
           authorName: i.author.displayName,

@@ -13,6 +13,17 @@ import MarkdownEditor from '@/components/admin/MarkdownEditor';
 import { getAuth } from 'firebase/auth';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
+const buildSafeAudioPath = (file: File) => {
+  const cleanedBaseName = file.name
+    .normalize('NFKD')
+    .replace(/[^\w.-]/g, '_')
+    .replace(/_+/g, '_')
+    .replace(/^_+|_+$/g, '');
+
+  const safeName = cleanedBaseName || 'audio_file';
+  return `audio/${Date.now()}_${safeName}`;
+};
+
 export default function AdminInsightsPage() {
   const [insights, setInsights] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -29,6 +40,7 @@ export default function AdminInsightsPage() {
   // Audio state
   const [audioUrl, setAudioUrl] = useState('');
   const [audioMood, setAudioMood] = useState('');
+  const [audioTitle, setAudioTitle] = useState('');
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
 
@@ -58,6 +70,7 @@ export default function AdminInsightsPage() {
     setPublished(false);
     setAudioUrl('');
     setAudioMood('');
+    setAudioTitle('');
     setUploadProgress(0);
   };
 
@@ -71,6 +84,7 @@ export default function AdminInsightsPage() {
     setPublished(insight.published);
     setAudioUrl(insight.audioUrl || '');
     setAudioMood(insight.audioMood || '');
+    setAudioTitle(insight.audioTitle || '');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -88,6 +102,11 @@ export default function AdminInsightsPage() {
   const handleAudioUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    const user = getAuth().currentUser;
+    if (!user) {
+      alert('로그인 후 업로드할 수 있습니다.');
+      return;
+    }
 
     // Check file type
     if (!file.type.startsWith('audio/')) {
@@ -98,7 +117,7 @@ export default function AdminInsightsPage() {
     setUploading(true);
     setUploadProgress(0);
 
-    const storageRef = ref(storage, `audio/${Date.now()}_${file.name}`);
+    const storageRef = ref(storage, buildSafeAudioPath(file));
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on('state_changed', 
@@ -114,6 +133,7 @@ export default function AdminInsightsPage() {
       async () => {
         const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
         setAudioUrl(downloadURL);
+        setAudioTitle(file.name.replace(/\.[^/.]+$/, ''));
         setUploading(false);
         alert('오디오 업로드 완료!');
       }
@@ -133,7 +153,8 @@ export default function AdminInsightsPage() {
     const trimmedAudioMood = audioMood.trim();
     const optionalAudioFields = {
       ...(trimmedAudioUrl ? { audioUrl: trimmedAudioUrl } : {}),
-      ...(trimmedAudioMood ? { audioMood: trimmedAudioMood } : {})
+      ...(trimmedAudioMood ? { audioMood: trimmedAudioMood } : {}),
+      ...(audioTitle.trim() ? { audioTitle: audioTitle.trim() } : {})
     };
 
     try {
@@ -252,6 +273,17 @@ export default function AdminInsightsPage() {
                     value={audioMood}
                     onChange={e => setAudioMood(e.target.value)}
                     placeholder="ex) Cyberpunk, Relaxing, Uplifting"
+                    className="w-full px-4 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" 
+                  />
+                </div>
+
+                <div className="flex-1 space-y-2">
+                  <label className="text-sm font-medium text-slate-700 dark:text-slate-300">노래 제목 (Audio Title)</label>
+                  <input 
+                    type="text" 
+                    value={audioTitle}
+                    onChange={e => setAudioTitle(e.target.value)}
+                    placeholder="노래 제목을 입력하세요"
                     className="w-full px-4 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" 
                   />
                 </div>

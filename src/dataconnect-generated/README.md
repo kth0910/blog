@@ -115,6 +115,7 @@ export interface ListAllInsightsData {
     content: string;
     audioUrl?: string | null;
     audioMood?: string | null;
+    audioTitle?: string | null;
     tags?: string[] | null;
     createdAt: TimestampString;
     published: boolean;
@@ -1050,6 +1051,7 @@ export interface CreateInsightVariables {
   published: boolean;
   audioUrl?: string | null;
   audioMood?: string | null;
+  audioTitle?: string | null;
 }
 ```
 ### Return Type
@@ -1077,13 +1079,14 @@ const createInsightVars: CreateInsightVariables = {
   published: ..., 
   audioUrl: ..., // optional
   audioMood: ..., // optional
+  audioTitle: ..., // optional
 };
 
 // Call the `createInsight()` function to execute the mutation.
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await createInsight(createInsightVars);
 // Variables can be defined inline as well.
-const { data } = await createInsight({ authorId: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., audioUrl: ..., audioMood: ..., });
+const { data } = await createInsight({ authorId: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., audioUrl: ..., audioMood: ..., audioTitle: ..., });
 
 // You can also pass in a `DataConnect` instance to the action shortcut function.
 const dataConnect = getDataConnect(connectorConfig);
@@ -1114,12 +1117,13 @@ const createInsightVars: CreateInsightVariables = {
   published: ..., 
   audioUrl: ..., // optional
   audioMood: ..., // optional
+  audioTitle: ..., // optional
 };
 
 // Call the `createInsightRef()` function to get a reference to the mutation.
 const ref = createInsightRef(createInsightVars);
 // Variables can be defined inline as well.
-const ref = createInsightRef({ authorId: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., audioUrl: ..., audioMood: ..., });
+const ref = createInsightRef({ authorId: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., audioUrl: ..., audioMood: ..., audioTitle: ..., });
 
 // You can also pass in a `DataConnect` instance to the `MutationRef` function.
 const dataConnect = getDataConnect(connectorConfig);
@@ -1180,6 +1184,7 @@ export interface UpdateInsightVariables {
   published?: boolean | null;
   audioUrl?: string | null;
   audioMood?: string | null;
+  audioTitle?: string | null;
 }
 ```
 ### Return Type
@@ -1207,13 +1212,14 @@ const updateInsightVars: UpdateInsightVariables = {
   published: ..., // optional
   audioUrl: ..., // optional
   audioMood: ..., // optional
+  audioTitle: ..., // optional
 };
 
 // Call the `updateInsight()` function to execute the mutation.
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await updateInsight(updateInsightVars);
 // Variables can be defined inline as well.
-const { data } = await updateInsight({ id: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., audioUrl: ..., audioMood: ..., });
+const { data } = await updateInsight({ id: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., audioUrl: ..., audioMood: ..., audioTitle: ..., });
 
 // You can also pass in a `DataConnect` instance to the action shortcut function.
 const dataConnect = getDataConnect(connectorConfig);
@@ -1244,12 +1250,13 @@ const updateInsightVars: UpdateInsightVariables = {
   published: ..., // optional
   audioUrl: ..., // optional
   audioMood: ..., // optional
+  audioTitle: ..., // optional
 };
 
 // Call the `updateInsightRef()` function to get a reference to the mutation.
 const ref = updateInsightRef(updateInsightVars);
 // Variables can be defined inline as well.
-const ref = updateInsightRef({ id: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., audioUrl: ..., audioMood: ..., });
+const ref = updateInsightRef({ id: ..., title: ..., summary: ..., content: ..., tags: ..., published: ..., audioUrl: ..., audioMood: ..., audioTitle: ..., });
 
 // You can also pass in a `DataConnect` instance to the `MutationRef` function.
 const dataConnect = getDataConnect(connectorConfig);

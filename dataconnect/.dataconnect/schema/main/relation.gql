@@ -17,6 +17,15 @@ extend type Insight {
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "Insight.audioMood", purpose: QUERY_COUNT)
   """
+  ✨ Count the number of rows in the `Insight` table where the `audioTitle` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  audioTitle_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Insight.audioTitle", purpose: QUERY_COUNT)
+  """
   ✨ Count the number of rows in the `Insight` table where the `audioUrl` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
   """
   audioUrl_count(

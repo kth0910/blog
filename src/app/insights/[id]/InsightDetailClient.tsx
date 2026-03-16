@@ -12,6 +12,21 @@ export default function InsightDetailClient({ id }: { id: string }) {
   const [isAudioOpen, setIsAudioOpen] = useState(false);
   const [isStickyVisible, setIsStickyVisible] = useState(true);
   const stickyAudioRef = useRef<HTMLDivElement | null>(null);
+  
+  const extractAudioTitle = (url: string, postTitle: string) => {
+    if (data?.audioTitle) return data.audioTitle;
+    try {
+      const decodedUrl = decodeURIComponent(url);
+      const parts = decodedUrl.split('/');
+      const fileNameWithParams = parts.pop() || '';
+      const fileName = fileNameWithParams.split('?')[0];
+      // remove timestamp prefix (e.g., 1773650043775_)
+      const cleanName = fileName.replace(/^\d+_/, '').replace(/\.[^/.]+$/, '');
+      return cleanName || `Theme: ${postTitle}`;
+    } catch (e) {
+      return `Theme: ${postTitle}`;
+    }
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -92,7 +107,7 @@ export default function InsightDetailClient({ id }: { id: string }) {
           ref={stickyAudioRef}
           className="mb-12 sticky top-20 z-30 opacity-95 hover:opacity-100 transition-opacity"
         >
-          <AudioPlayer src={data.audioUrl} title={`Theme: ${data.title}`} mood={data.audioMood} />
+          <AudioPlayer src={data.audioUrl} title={extractAudioTitle(data.audioUrl, data.title)} mood={data.audioMood} />
         </div>
       )}
 
@@ -120,7 +135,7 @@ export default function InsightDetailClient({ id }: { id: string }) {
             <div className="mb-3 w-[calc(100vw-2rem)] sm:w-[360px] max-w-[360px]">
               <AudioPlayer
                 src={data.audioUrl}
-                title={`Theme: ${data.title}`}
+                title={extractAudioTitle(data.audioUrl, data.title)}
                 mood={data.audioMood}
                 className="my-0 bg-white dark:bg-slate-900 shadow-xl"
               />

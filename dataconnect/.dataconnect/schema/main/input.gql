@@ -73,6 +73,14 @@ input Insight_Data {
   """
   audioMood_expr: String_Expr
   """
+  ✨ Generated from Field `Insight`.`audioTitle` of type `String`
+  """
+  audioTitle: String
+  """
+  ✨ `_expr` server value variant of `audioTitle` (✨ Generated from Field `Insight`.`audioTitle` of type `String`)
+  """
+  audioTitle_expr: String_Expr
+  """
   ✨ Generated from Field `Insight`.`audioUrl` of type `String`
   """
   audioUrl: String
@@ -194,6 +202,10 @@ input Insight_Filter {
   """
   audioMood: String_Filter
   """
+  ✨ Generated from Field `Insight`.`audioTitle` of type `String`
+  """
+  audioTitle: String_Filter
+  """
   ✨ Generated from Field `Insight`.`audioUrl` of type `String`
   """
   audioUrl: String_Filter
@@ -267,6 +279,10 @@ input Insight_Having {
   ✨ Generated from Field `Insight`.`audioMood_count` of type `Int!`
   """
   audioMood_count: Int_Filter
+  """
+  ✨ Generated from Field `Insight`.`audioTitle_count` of type `Int!`
+  """
+  audioTitle_count: Int_Filter
   """
   ✨ Generated from Field `Insight`.`audioUrl_count` of type `Int!`
   """
@@ -379,6 +395,10 @@ input Insight_Order {
   """
   audioMood: OrderDirection
   """
+  ✨ Generated from Field `Insight`.`audioTitle` of type `String`
+  """
+  audioTitle: OrderDirection
+  """
   ✨ Generated from Field `Insight`.`audioUrl` of type `String`
   """
   audioUrl: OrderDirection
@@ -414,6 +434,10 @@ input Insight_Order {
   ✨ Generated from Field `Insight`.`audioMood_count` of type `Int!`
   """
   audioMood_count: OrderDirection
+  """
+  ✨ Generated from Field `Insight`.`audioTitle_count` of type `Int!`
+  """
+  audioTitle_count: OrderDirection
   """
   ✨ Generated from Field `Insight`.`audioUrl_count` of type `Int!`
   """
