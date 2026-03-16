@@ -107,7 +107,7 @@ export default function InsightDetailClient({ id }: { id: string }) {
           ref={stickyAudioRef}
           className="mb-12 sticky top-20 z-30 opacity-95 hover:opacity-100 transition-opacity"
         >
-          <AudioPlayer src={data.audioUrl} title={extractAudioTitle(data.audioUrl, data.title)} mood={data.audioMood} />
+          <AudioPlayer src={data.audioUrl} title={extractAudioTitle(data.audioUrl, data.title)} />
         </div>
       )}
 
@@ -136,7 +136,6 @@ export default function InsightDetailClient({ id }: { id: string }) {
               <AudioPlayer
                 src={data.audioUrl}
                 title={extractAudioTitle(data.audioUrl, data.title)}
-                mood={data.audioMood}
                 className="my-0 bg-white dark:bg-slate-900 shadow-xl"
               />
             </div>

@@ -37,7 +37,7 @@ export function InsightBlock({ post }: { post: Post }) {
               <circle cx="6" cy="18" r="3"></circle>
               <circle cx="18" cy="16" r="3"></circle>
             </svg>
-            <span className="hidden sm:inline-block">{post.audioMood || 'Audio'}</span>
+            <span className="hidden sm:inline-block">{post.audioTitle || post.audioMood || 'Audio'}</span>
           </div>
         )}
       </div>
