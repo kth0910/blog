@@ -2,6 +2,10 @@ import {
   listAllInsights, 
   getMyProjects, 
   listTimeline,
+  updateInsightViews,
+  updateProjectViews,
+  updateTimelineViews,
+  updateProjectArticleViews,
 } from '@dataconnect/generated';
 import { dataconnect } from './firebase';
 
@@ -25,6 +29,7 @@ export interface Post {
   imageUrl?: string;
   liveDemoUrl?: string;
   repositoryUrl?: string;
+  views?: number;
   createdAt: string;
   updatedAt?: string;
   authorName?: string;
@@ -51,7 +56,8 @@ export async function getPosts(type?: PostType, limit = 10, offset = 0): Promise
           createdAt: i.createdAt,
           type: 'insight' as const,
           authorName: i.author.displayName,
-          authorProfileUrl: i.author.profilePictureUrl || undefined
+          authorProfileUrl: i.author.profilePictureUrl || undefined,
+          views: i.views
         }))
       ];
     }
@@ -71,7 +77,8 @@ export async function getPosts(type?: PostType, limit = 10, offset = 0): Promise
           endDate: p.endDate || undefined,
           status: p.endDate ? 'completed' : 'in-progress',
           createdAt: p.startDate, // Fallback
-          type: 'project' as const
+          type: 'project' as const,
+          views: p.views
         }))
       ];
     }
@@ -88,7 +95,8 @@ export async function getPosts(type?: PostType, limit = 10, offset = 0): Promise
           endDate: t.endDate || undefined,
           imageUrl: t.imageUrl || undefined,
           createdAt: t.startDate, // Fallback
-          type: 'timeline' as const
+          type: 'timeline' as const,
+          views: t.views
         }))
       ];
     }
@@ -126,3 +134,34 @@ export async function getPost(id: string): Promise<{data: Post | null}> {
   }
 }
 
+export async function incrementInsightView(id: string) {
+  try {
+    await updateInsightViews(dataconnect, { id });
+  } catch (err) {
+    console.error('Failed to increment insight views:', err);
+  }
+}
+
+export async function incrementProjectView(id: string) {
+  try {
+    await updateProjectViews(dataconnect, { id });
+  } catch (err) {
+    console.error('Failed to increment project views:', err);
+  }
+}
+
+export async function incrementTimelineView(id: string) {
+  try {
+    await updateTimelineViews(dataconnect, { id });
+  } catch (err) {
+    console.error('Failed to increment timeline views:', err);
+  }
+}
+
+export async function incrementProjectArticleView(id: string) {
+  try {
+    await updateProjectArticleViews(dataconnect, { id });
+  } catch (err) {
+    console.error('Failed to increment project article views:', err);
+  }
+}

@@ -32,6 +32,10 @@ You can also follow the instructions from the [Data Connect documentation](https
   - [*CreateTimeline*](#createtimeline)
   - [*UpdateTimeline*](#updatetimeline)
   - [*DeleteTimeline*](#deletetimeline)
+  - [*UpdateInsightViews*](#updateinsightviews)
+  - [*UpdateProjectViews*](#updateprojectviews)
+  - [*UpdateTimelineViews*](#updatetimelineviews)
+  - [*UpdateProjectArticleViews*](#updateprojectarticleviews)
 
 # TanStack Query Firebase & TanStack React Query
 This SDK provides [React](https://react.dev/) hooks generated specific to your application, for the operations found in the connector `example`. These hooks are generated using [TanStack Query Firebase](https://react-query-firebase.invertase.dev/) by our partners at Invertase, a library built on top of [TanStack React Query v5](https://tanstack.com/query/v5/docs/framework/react/overview).
@@ -155,6 +159,7 @@ export interface ListAllInsightsData {
     tags?: string[] | null;
     createdAt: TimestampString;
     published: boolean;
+    views: number;
     author: {
       displayName: string;
       profilePictureUrl?: string | null;
@@ -239,6 +244,7 @@ export interface GetMyProjectsData {
     endDate?: DateString | null;
     published: boolean;
     order?: number | null;
+    views: number;
   } & Project_Key)[];
 }
 ```
@@ -405,6 +411,7 @@ export interface ListTimelineData {
     endDate?: DateString | null;
     imageUrl?: string | null;
     published: boolean;
+    views: number;
   } & Timeline_Key)[];
 }
 ```
@@ -1505,6 +1512,382 @@ export default function DeleteTimelineComponent() {
   // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
   if (mutation.isSuccess) {
     console.log(mutation.data.timeline_delete);
+  }
+  return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## UpdateInsightViews
+You can execute the `UpdateInsightViews` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts)):
+```javascript
+useUpdateInsightViews(options?: useDataConnectMutationOptions<UpdateInsightViewsData, FirebaseError, UpdateInsightViewsVariables>): UseDataConnectMutationResult<UpdateInsightViewsData, UpdateInsightViewsVariables>;
+```
+You can also pass in a `DataConnect` instance to the Mutation hook function.
+```javascript
+useUpdateInsightViews(dc: DataConnect, options?: useDataConnectMutationOptions<UpdateInsightViewsData, FirebaseError, UpdateInsightViewsVariables>): UseDataConnectMutationResult<UpdateInsightViewsData, UpdateInsightViewsVariables>;
+```
+
+### Variables
+The `UpdateInsightViews` Mutation requires an argument of type `UpdateInsightViewsVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+
+```javascript
+export interface UpdateInsightViewsVariables {
+  id: UUIDString;
+}
+```
+### Return Type
+Recall that calling the `UpdateInsightViews` Mutation hook function returns a `UseMutationResult` object. This object holds the state of your Mutation, including whether the Mutation is loading, has completed, or has succeeded/failed, among other things.
+
+To check the status of a Mutation, use the `UseMutationResult.status` field. You can also check for pending / success / error status using the `UseMutationResult.isPending`, `UseMutationResult.isSuccess`, and `UseMutationResult.isError` fields.
+
+To execute the Mutation, call `UseMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation.
+
+To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `UpdateInsightViews` Mutation is of type `UpdateInsightViewsData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface UpdateInsightViewsData {
+  insight_update?: Insight_Key | null;
+}
+```
+
+To learn more about the `UseMutationResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useMutation).
+
+### Using `UpdateInsightViews`'s Mutation hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, UpdateInsightViewsVariables } from '@dataconnect/generated';
+import { useUpdateInsightViews } from '@dataconnect/generated/react'
+
+export default function UpdateInsightViewsComponent() {
+  // Call the Mutation hook function to get a `UseMutationResult` object which holds the state of your Mutation.
+  const mutation = useUpdateInsightViews();
+
+  // You can also pass in a `DataConnect` instance to the Mutation hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const mutation = useUpdateInsightViews(dataConnect);
+
+  // You can also pass in a `useDataConnectMutationOptions` object to the Mutation hook function.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useUpdateInsightViews(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectMutationOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useUpdateInsightViews(dataConnect, options);
+
+  // After calling the Mutation hook function, you must call `UseMutationResult.mutate()` to execute the Mutation.
+  // The `useUpdateInsightViews` Mutation requires an argument of type `UpdateInsightViewsVariables`:
+  const updateInsightViewsVars: UpdateInsightViewsVariables = {
+    id: ..., 
+  };
+  mutation.mutate(updateInsightViewsVars);
+  // Variables can be defined inline as well.
+  mutation.mutate({ id: ..., });
+
+  // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  mutation.mutate(updateInsightViewsVars, options);
+
+  // Then, you can render your component dynamically based on the status of the Mutation.
+  if (mutation.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (mutation.isError) {
+    return <div>Error: {mutation.error.message}</div>;
+  }
+
+  // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
+  if (mutation.isSuccess) {
+    console.log(mutation.data.insight_update);
+  }
+  return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## UpdateProjectViews
+You can execute the `UpdateProjectViews` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts)):
+```javascript
+useUpdateProjectViews(options?: useDataConnectMutationOptions<UpdateProjectViewsData, FirebaseError, UpdateProjectViewsVariables>): UseDataConnectMutationResult<UpdateProjectViewsData, UpdateProjectViewsVariables>;
+```
+You can also pass in a `DataConnect` instance to the Mutation hook function.
+```javascript
+useUpdateProjectViews(dc: DataConnect, options?: useDataConnectMutationOptions<UpdateProjectViewsData, FirebaseError, UpdateProjectViewsVariables>): UseDataConnectMutationResult<UpdateProjectViewsData, UpdateProjectViewsVariables>;
+```
+
+### Variables
+The `UpdateProjectViews` Mutation requires an argument of type `UpdateProjectViewsVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+
+```javascript
+export interface UpdateProjectViewsVariables {
+  id: UUIDString;
+}
+```
+### Return Type
+Recall that calling the `UpdateProjectViews` Mutation hook function returns a `UseMutationResult` object. This object holds the state of your Mutation, including whether the Mutation is loading, has completed, or has succeeded/failed, among other things.
+
+To check the status of a Mutation, use the `UseMutationResult.status` field. You can also check for pending / success / error status using the `UseMutationResult.isPending`, `UseMutationResult.isSuccess`, and `UseMutationResult.isError` fields.
+
+To execute the Mutation, call `UseMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation.
+
+To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `UpdateProjectViews` Mutation is of type `UpdateProjectViewsData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface UpdateProjectViewsData {
+  project_update?: Project_Key | null;
+}
+```
+
+To learn more about the `UseMutationResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useMutation).
+
+### Using `UpdateProjectViews`'s Mutation hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, UpdateProjectViewsVariables } from '@dataconnect/generated';
+import { useUpdateProjectViews } from '@dataconnect/generated/react'
+
+export default function UpdateProjectViewsComponent() {
+  // Call the Mutation hook function to get a `UseMutationResult` object which holds the state of your Mutation.
+  const mutation = useUpdateProjectViews();
+
+  // You can also pass in a `DataConnect` instance to the Mutation hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const mutation = useUpdateProjectViews(dataConnect);
+
+  // You can also pass in a `useDataConnectMutationOptions` object to the Mutation hook function.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useUpdateProjectViews(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectMutationOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useUpdateProjectViews(dataConnect, options);
+
+  // After calling the Mutation hook function, you must call `UseMutationResult.mutate()` to execute the Mutation.
+  // The `useUpdateProjectViews` Mutation requires an argument of type `UpdateProjectViewsVariables`:
+  const updateProjectViewsVars: UpdateProjectViewsVariables = {
+    id: ..., 
+  };
+  mutation.mutate(updateProjectViewsVars);
+  // Variables can be defined inline as well.
+  mutation.mutate({ id: ..., });
+
+  // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  mutation.mutate(updateProjectViewsVars, options);
+
+  // Then, you can render your component dynamically based on the status of the Mutation.
+  if (mutation.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (mutation.isError) {
+    return <div>Error: {mutation.error.message}</div>;
+  }
+
+  // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
+  if (mutation.isSuccess) {
+    console.log(mutation.data.project_update);
+  }
+  return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## UpdateTimelineViews
+You can execute the `UpdateTimelineViews` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts)):
+```javascript
+useUpdateTimelineViews(options?: useDataConnectMutationOptions<UpdateTimelineViewsData, FirebaseError, UpdateTimelineViewsVariables>): UseDataConnectMutationResult<UpdateTimelineViewsData, UpdateTimelineViewsVariables>;
+```
+You can also pass in a `DataConnect` instance to the Mutation hook function.
+```javascript
+useUpdateTimelineViews(dc: DataConnect, options?: useDataConnectMutationOptions<UpdateTimelineViewsData, FirebaseError, UpdateTimelineViewsVariables>): UseDataConnectMutationResult<UpdateTimelineViewsData, UpdateTimelineViewsVariables>;
+```
+
+### Variables
+The `UpdateTimelineViews` Mutation requires an argument of type `UpdateTimelineViewsVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+
+```javascript
+export interface UpdateTimelineViewsVariables {
+  id: UUIDString;
+}
+```
+### Return Type
+Recall that calling the `UpdateTimelineViews` Mutation hook function returns a `UseMutationResult` object. This object holds the state of your Mutation, including whether the Mutation is loading, has completed, or has succeeded/failed, among other things.
+
+To check the status of a Mutation, use the `UseMutationResult.status` field. You can also check for pending / success / error status using the `UseMutationResult.isPending`, `UseMutationResult.isSuccess`, and `UseMutationResult.isError` fields.
+
+To execute the Mutation, call `UseMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation.
+
+To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `UpdateTimelineViews` Mutation is of type `UpdateTimelineViewsData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface UpdateTimelineViewsData {
+  timeline_update?: Timeline_Key | null;
+}
+```
+
+To learn more about the `UseMutationResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useMutation).
+
+### Using `UpdateTimelineViews`'s Mutation hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, UpdateTimelineViewsVariables } from '@dataconnect/generated';
+import { useUpdateTimelineViews } from '@dataconnect/generated/react'
+
+export default function UpdateTimelineViewsComponent() {
+  // Call the Mutation hook function to get a `UseMutationResult` object which holds the state of your Mutation.
+  const mutation = useUpdateTimelineViews();
+
+  // You can also pass in a `DataConnect` instance to the Mutation hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const mutation = useUpdateTimelineViews(dataConnect);
+
+  // You can also pass in a `useDataConnectMutationOptions` object to the Mutation hook function.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useUpdateTimelineViews(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectMutationOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useUpdateTimelineViews(dataConnect, options);
+
+  // After calling the Mutation hook function, you must call `UseMutationResult.mutate()` to execute the Mutation.
+  // The `useUpdateTimelineViews` Mutation requires an argument of type `UpdateTimelineViewsVariables`:
+  const updateTimelineViewsVars: UpdateTimelineViewsVariables = {
+    id: ..., 
+  };
+  mutation.mutate(updateTimelineViewsVars);
+  // Variables can be defined inline as well.
+  mutation.mutate({ id: ..., });
+
+  // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  mutation.mutate(updateTimelineViewsVars, options);
+
+  // Then, you can render your component dynamically based on the status of the Mutation.
+  if (mutation.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (mutation.isError) {
+    return <div>Error: {mutation.error.message}</div>;
+  }
+
+  // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
+  if (mutation.isSuccess) {
+    console.log(mutation.data.timeline_update);
+  }
+  return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## UpdateProjectArticleViews
+You can execute the `UpdateProjectArticleViews` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts)):
+```javascript
+useUpdateProjectArticleViews(options?: useDataConnectMutationOptions<UpdateProjectArticleViewsData, FirebaseError, UpdateProjectArticleViewsVariables>): UseDataConnectMutationResult<UpdateProjectArticleViewsData, UpdateProjectArticleViewsVariables>;
+```
+You can also pass in a `DataConnect` instance to the Mutation hook function.
+```javascript
+useUpdateProjectArticleViews(dc: DataConnect, options?: useDataConnectMutationOptions<UpdateProjectArticleViewsData, FirebaseError, UpdateProjectArticleViewsVariables>): UseDataConnectMutationResult<UpdateProjectArticleViewsData, UpdateProjectArticleViewsVariables>;
+```
+
+### Variables
+The `UpdateProjectArticleViews` Mutation requires an argument of type `UpdateProjectArticleViewsVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+
+```javascript
+export interface UpdateProjectArticleViewsVariables {
+  id: UUIDString;
+}
+```
+### Return Type
+Recall that calling the `UpdateProjectArticleViews` Mutation hook function returns a `UseMutationResult` object. This object holds the state of your Mutation, including whether the Mutation is loading, has completed, or has succeeded/failed, among other things.
+
+To check the status of a Mutation, use the `UseMutationResult.status` field. You can also check for pending / success / error status using the `UseMutationResult.isPending`, `UseMutationResult.isSuccess`, and `UseMutationResult.isError` fields.
+
+To execute the Mutation, call `UseMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation.
+
+To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `UpdateProjectArticleViews` Mutation is of type `UpdateProjectArticleViewsData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface UpdateProjectArticleViewsData {
+  projectArticle_update?: ProjectArticle_Key | null;
+}
+```
+
+To learn more about the `UseMutationResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useMutation).
+
+### Using `UpdateProjectArticleViews`'s Mutation hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, UpdateProjectArticleViewsVariables } from '@dataconnect/generated';
+import { useUpdateProjectArticleViews } from '@dataconnect/generated/react'
+
+export default function UpdateProjectArticleViewsComponent() {
+  // Call the Mutation hook function to get a `UseMutationResult` object which holds the state of your Mutation.
+  const mutation = useUpdateProjectArticleViews();
+
+  // You can also pass in a `DataConnect` instance to the Mutation hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const mutation = useUpdateProjectArticleViews(dataConnect);
+
+  // You can also pass in a `useDataConnectMutationOptions` object to the Mutation hook function.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useUpdateProjectArticleViews(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectMutationOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useUpdateProjectArticleViews(dataConnect, options);
+
+  // After calling the Mutation hook function, you must call `UseMutationResult.mutate()` to execute the Mutation.
+  // The `useUpdateProjectArticleViews` Mutation requires an argument of type `UpdateProjectArticleViewsVariables`:
+  const updateProjectArticleViewsVars: UpdateProjectArticleViewsVariables = {
+    id: ..., 
+  };
+  mutation.mutate(updateProjectArticleViewsVars);
+  // Variables can be defined inline as well.
+  mutation.mutate({ id: ..., });
+
+  // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  mutation.mutate(updateProjectArticleViewsVars, options);
+
+  // Then, you can render your component dynamically based on the status of the Mutation.
+  if (mutation.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (mutation.isError) {
+    return <div>Error: {mutation.error.message}</div>;
+  }
+
+  // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
+  if (mutation.isSuccess) {
+    console.log(mutation.data.projectArticle_update);
   }
   return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
 }

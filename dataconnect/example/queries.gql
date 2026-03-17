@@ -10,6 +10,7 @@ query ListAllInsights @auth(level: PUBLIC, insecureReason: "This operation is sa
     tags
     createdAt
     published
+    views
     author {
       displayName
       profilePictureUrl
@@ -29,6 +30,7 @@ query GetMyProjects @auth(level: PUBLIC, insecureReason: "This operation is safe
     endDate
     published
     order
+    views
   }
 }
 
@@ -52,6 +54,7 @@ query ListTimeline @auth(level: PUBLIC, insecureReason: "Timeline is public info
     endDate
     imageUrl
     published
+    views
   }
 }
 

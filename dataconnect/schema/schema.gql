@@ -28,6 +28,7 @@ type Project @table {
   # 관리용 필드
   published: Boolean! @default(value: false) # 공개 여부 (기본값: 비공개)
   order: Int @default(value: 0)
+  views: Int! @default(value: 0)
   createdAt: Timestamp! @default(expr: "request.time")
 }
 
@@ -40,6 +41,7 @@ type ProjectArticle @table {
   content: String!    # 상세 본문 (MDX 등)
   
   published: Boolean! @default(value: false) # 공개 여부
+  views: Int! @default(value: 0)
   createdAt: Timestamp! @default(expr: "request.time")
   updatedAt: Timestamp @default(expr: "request.time")
 }
@@ -58,6 +60,7 @@ type Insight @table {
   tags: [String!]
   
   published: Boolean! @default(value: false) # 공개 여부
+  views: Int! @default(value: 0)
   createdAt: Timestamp! @default(expr: "request.time")
   updatedAt: Timestamp @default(expr: "request.time")
 }
@@ -74,5 +77,6 @@ type Timeline @table {
   
   published: Boolean! @default(value: false) # 공개 여부
   order: Int @default(value: 0)
+  views: Int! @default(value: 0)
   createdAt: Timestamp! @default(expr: "request.time")
 }

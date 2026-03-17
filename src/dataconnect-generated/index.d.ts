@@ -107,6 +107,7 @@ export interface GetMyProjectsData {
     endDate?: DateString | null;
     published: boolean;
     order?: number | null;
+    views: number;
   } & Project_Key)[];
 }
 
@@ -142,6 +143,7 @@ export interface ListAllInsightsData {
     tags?: string[] | null;
     createdAt: TimestampString;
     published: boolean;
+    views: number;
     author: {
       displayName: string;
       profilePictureUrl?: string | null;
@@ -158,6 +160,7 @@ export interface ListTimelineData {
     endDate?: DateString | null;
     imageUrl?: string | null;
     published: boolean;
+    views: number;
   } & Timeline_Key)[];
 }
 
@@ -192,6 +195,22 @@ export interface UpdateInsightVariables {
   audioTitle?: string | null;
 }
 
+export interface UpdateInsightViewsData {
+  insight_update?: Insight_Key | null;
+}
+
+export interface UpdateInsightViewsVariables {
+  id: UUIDString;
+}
+
+export interface UpdateProjectArticleViewsData {
+  projectArticle_update?: ProjectArticle_Key | null;
+}
+
+export interface UpdateProjectArticleViewsVariables {
+  id: UUIDString;
+}
+
 export interface UpdateProjectData {
   project_update?: Project_Key | null;
 }
@@ -210,6 +229,14 @@ export interface UpdateProjectVariables {
   order?: number | null;
 }
 
+export interface UpdateProjectViewsData {
+  project_update?: Project_Key | null;
+}
+
+export interface UpdateProjectViewsVariables {
+  id: UUIDString;
+}
+
 export interface UpdateTimelineData {
   timeline_update?: Timeline_Key | null;
 }
@@ -225,70 +252,18 @@ export interface UpdateTimelineVariables {
   order?: number | null;
 }
 
+export interface UpdateTimelineViewsData {
+  timeline_update?: Timeline_Key | null;
+}
+
+export interface UpdateTimelineViewsVariables {
+  id: UUIDString;
+}
+
 export interface User_Key {
   id: UUIDString;
   __typename?: 'User_Key';
 }
-
-interface ListAllInsightsRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (): QueryRef<ListAllInsightsData, undefined>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect): QueryRef<ListAllInsightsData, undefined>;
-  operationName: string;
-}
-export const listAllInsightsRef: ListAllInsightsRef;
-
-export function listAllInsights(): QueryPromise<ListAllInsightsData, undefined>;
-export function listAllInsights(dc: DataConnect): QueryPromise<ListAllInsightsData, undefined>;
-
-interface GetMyProjectsRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (): QueryRef<GetMyProjectsData, undefined>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect): QueryRef<GetMyProjectsData, undefined>;
-  operationName: string;
-}
-export const getMyProjectsRef: GetMyProjectsRef;
-
-export function getMyProjects(): QueryPromise<GetMyProjectsData, undefined>;
-export function getMyProjects(dc: DataConnect): QueryPromise<GetMyProjectsData, undefined>;
-
-interface GetUserProfileRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: GetUserProfileVariables): QueryRef<GetUserProfileData, GetUserProfileVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: GetUserProfileVariables): QueryRef<GetUserProfileData, GetUserProfileVariables>;
-  operationName: string;
-}
-export const getUserProfileRef: GetUserProfileRef;
-
-export function getUserProfile(vars: GetUserProfileVariables): QueryPromise<GetUserProfileData, GetUserProfileVariables>;
-export function getUserProfile(dc: DataConnect, vars: GetUserProfileVariables): QueryPromise<GetUserProfileData, GetUserProfileVariables>;
-
-interface ListTimelineRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (): QueryRef<ListTimelineData, undefined>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect): QueryRef<ListTimelineData, undefined>;
-  operationName: string;
-}
-export const listTimelineRef: ListTimelineRef;
-
-export function listTimeline(): QueryPromise<ListTimelineData, undefined>;
-export function listTimeline(dc: DataConnect): QueryPromise<ListTimelineData, undefined>;
-
-interface GetAdminUserByEmailRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: GetAdminUserByEmailVariables): QueryRef<GetAdminUserByEmailData, GetAdminUserByEmailVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: GetAdminUserByEmailVariables): QueryRef<GetAdminUserByEmailData, GetAdminUserByEmailVariables>;
-  operationName: string;
-}
-export const getAdminUserByEmailRef: GetAdminUserByEmailRef;
-
-export function getAdminUserByEmail(vars: GetAdminUserByEmailVariables): QueryPromise<GetAdminUserByEmailData, GetAdminUserByEmailVariables>;
-export function getAdminUserByEmail(dc: DataConnect, vars: GetAdminUserByEmailVariables): QueryPromise<GetAdminUserByEmailData, GetAdminUserByEmailVariables>;
 
 interface CreateProjectRef {
   /* Allow users to create refs without passing in DataConnect */
@@ -397,4 +372,112 @@ export const deleteTimelineRef: DeleteTimelineRef;
 
 export function deleteTimeline(vars: DeleteTimelineVariables): MutationPromise<DeleteTimelineData, DeleteTimelineVariables>;
 export function deleteTimeline(dc: DataConnect, vars: DeleteTimelineVariables): MutationPromise<DeleteTimelineData, DeleteTimelineVariables>;
+
+interface UpdateInsightViewsRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: UpdateInsightViewsVariables): MutationRef<UpdateInsightViewsData, UpdateInsightViewsVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: UpdateInsightViewsVariables): MutationRef<UpdateInsightViewsData, UpdateInsightViewsVariables>;
+  operationName: string;
+}
+export const updateInsightViewsRef: UpdateInsightViewsRef;
+
+export function updateInsightViews(vars: UpdateInsightViewsVariables): MutationPromise<UpdateInsightViewsData, UpdateInsightViewsVariables>;
+export function updateInsightViews(dc: DataConnect, vars: UpdateInsightViewsVariables): MutationPromise<UpdateInsightViewsData, UpdateInsightViewsVariables>;
+
+interface UpdateProjectViewsRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: UpdateProjectViewsVariables): MutationRef<UpdateProjectViewsData, UpdateProjectViewsVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: UpdateProjectViewsVariables): MutationRef<UpdateProjectViewsData, UpdateProjectViewsVariables>;
+  operationName: string;
+}
+export const updateProjectViewsRef: UpdateProjectViewsRef;
+
+export function updateProjectViews(vars: UpdateProjectViewsVariables): MutationPromise<UpdateProjectViewsData, UpdateProjectViewsVariables>;
+export function updateProjectViews(dc: DataConnect, vars: UpdateProjectViewsVariables): MutationPromise<UpdateProjectViewsData, UpdateProjectViewsVariables>;
+
+interface UpdateTimelineViewsRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: UpdateTimelineViewsVariables): MutationRef<UpdateTimelineViewsData, UpdateTimelineViewsVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: UpdateTimelineViewsVariables): MutationRef<UpdateTimelineViewsData, UpdateTimelineViewsVariables>;
+  operationName: string;
+}
+export const updateTimelineViewsRef: UpdateTimelineViewsRef;
+
+export function updateTimelineViews(vars: UpdateTimelineViewsVariables): MutationPromise<UpdateTimelineViewsData, UpdateTimelineViewsVariables>;
+export function updateTimelineViews(dc: DataConnect, vars: UpdateTimelineViewsVariables): MutationPromise<UpdateTimelineViewsData, UpdateTimelineViewsVariables>;
+
+interface UpdateProjectArticleViewsRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: UpdateProjectArticleViewsVariables): MutationRef<UpdateProjectArticleViewsData, UpdateProjectArticleViewsVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: UpdateProjectArticleViewsVariables): MutationRef<UpdateProjectArticleViewsData, UpdateProjectArticleViewsVariables>;
+  operationName: string;
+}
+export const updateProjectArticleViewsRef: UpdateProjectArticleViewsRef;
+
+export function updateProjectArticleViews(vars: UpdateProjectArticleViewsVariables): MutationPromise<UpdateProjectArticleViewsData, UpdateProjectArticleViewsVariables>;
+export function updateProjectArticleViews(dc: DataConnect, vars: UpdateProjectArticleViewsVariables): MutationPromise<UpdateProjectArticleViewsData, UpdateProjectArticleViewsVariables>;
+
+interface ListAllInsightsRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (): QueryRef<ListAllInsightsData, undefined>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect): QueryRef<ListAllInsightsData, undefined>;
+  operationName: string;
+}
+export const listAllInsightsRef: ListAllInsightsRef;
+
+export function listAllInsights(): QueryPromise<ListAllInsightsData, undefined>;
+export function listAllInsights(dc: DataConnect): QueryPromise<ListAllInsightsData, undefined>;
+
+interface GetMyProjectsRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (): QueryRef<GetMyProjectsData, undefined>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect): QueryRef<GetMyProjectsData, undefined>;
+  operationName: string;
+}
+export const getMyProjectsRef: GetMyProjectsRef;
+
+export function getMyProjects(): QueryPromise<GetMyProjectsData, undefined>;
+export function getMyProjects(dc: DataConnect): QueryPromise<GetMyProjectsData, undefined>;
+
+interface GetUserProfileRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: GetUserProfileVariables): QueryRef<GetUserProfileData, GetUserProfileVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: GetUserProfileVariables): QueryRef<GetUserProfileData, GetUserProfileVariables>;
+  operationName: string;
+}
+export const getUserProfileRef: GetUserProfileRef;
+
+export function getUserProfile(vars: GetUserProfileVariables): QueryPromise<GetUserProfileData, GetUserProfileVariables>;
+export function getUserProfile(dc: DataConnect, vars: GetUserProfileVariables): QueryPromise<GetUserProfileData, GetUserProfileVariables>;
+
+interface ListTimelineRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (): QueryRef<ListTimelineData, undefined>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect): QueryRef<ListTimelineData, undefined>;
+  operationName: string;
+}
+export const listTimelineRef: ListTimelineRef;
+
+export function listTimeline(): QueryPromise<ListTimelineData, undefined>;
+export function listTimeline(dc: DataConnect): QueryPromise<ListTimelineData, undefined>;
+
+interface GetAdminUserByEmailRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: GetAdminUserByEmailVariables): QueryRef<GetAdminUserByEmailData, GetAdminUserByEmailVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: GetAdminUserByEmailVariables): QueryRef<GetAdminUserByEmailData, GetAdminUserByEmailVariables>;
+  operationName: string;
+}
+export const getAdminUserByEmailRef: GetAdminUserByEmailRef;
+
+export function getAdminUserByEmail(vars: GetAdminUserByEmailVariables): QueryPromise<GetAdminUserByEmailData, GetAdminUserByEmailVariables>;
+export function getAdminUserByEmail(dc: DataConnect, vars: GetAdminUserByEmailVariables): QueryPromise<GetAdminUserByEmailData, GetAdminUserByEmailVariables>;
 

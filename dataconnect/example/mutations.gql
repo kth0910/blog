@@ -1,0 +1,19 @@
+# -------------------------------------------------------------------------
+# Mutations for View Counts
+# -------------------------------------------------------------------------
+
+mutation UpdateInsightViews($id: UUID!) @auth(level: PUBLIC, insecureReason: "Building a public-facing view counter.") {
+  insight_update(id: $id, data: { views_update: { inc: 1 } })
+}
+
+mutation UpdateProjectViews($id: UUID!) @auth(level: PUBLIC, insecureReason: "Building a public-facing view counter.") {
+  project_update(id: $id, data: { views_update: { inc: 1 } })
+}
+
+mutation UpdateTimelineViews($id: UUID!) @auth(level: PUBLIC, insecureReason: "Building a public-facing view counter.") {
+  timeline_update(id: $id, data: { views_update: { inc: 1 } })
+}
+
+mutation UpdateProjectArticleViews($id: UUID!) @auth(level: PUBLIC, insecureReason: "Building a public-facing view counter.") {
+  projectArticle_update(id: $id, data: { views_update: { inc: 1 } })
+}

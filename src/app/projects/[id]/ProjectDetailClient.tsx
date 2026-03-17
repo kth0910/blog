@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { getPost, Post } from '@/lib/api';
+import { useState, useEffect, useRef } from 'react';
+import { getPost, Post, incrementProjectView } from '@/lib/api';
 import { MDXRemoteWrapper } from '@/components/mdx/MDXRemoteWrapper';
 import { Tag } from '@/components/common/Tag';
 import Link from 'next/link';
@@ -9,12 +9,18 @@ import Link from 'next/link';
 export default function ProjectDetailClient({ id }: { id: string }) {
   const [data, setData] = useState<Post | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const alreadyIncremented = useRef(false);
 
   useEffect(() => {
     async function fetchData() {
       try {
         const { data: postData } = await getPost(id);
         setData(postData);
+        // Increment view count (only once per mount)
+        if (!alreadyIncremented.current) {
+          incrementProjectView(id);
+          alreadyIncremented.current = true;
+        }
       } catch (error) {
         console.error('Failed to fetch project:', error);
       } finally {
@@ -58,6 +64,12 @@ export default function ProjectDetailClient({ id }: { id: string }) {
           <time className="text-sm font-medium text-slate-500 ml-auto sm:ml-0">
             {new Date(data.createdAt).toLocaleDateString()}
           </time>
+          {data.views !== undefined && (
+            <div className="flex items-center text-sm font-medium text-slate-500 ml-4">
+              <svg className="w-4 h-4 mr-1.5 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              {data.views.toLocaleString()}
+            </div>
+          )}
         </div>
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 mb-4">
           {data.title}

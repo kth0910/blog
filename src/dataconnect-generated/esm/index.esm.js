@@ -6,61 +6,6 @@ export const connectorConfig = {
   location: 'asia-northeast2'
 };
 
-export const listAllInsightsRef = (dc) => {
-  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListAllInsights');
-}
-listAllInsightsRef.operationName = 'ListAllInsights';
-
-export function listAllInsights(dc) {
-  return executeQuery(listAllInsightsRef(dc));
-}
-
-export const getMyProjectsRef = (dc) => {
-  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'GetMyProjects');
-}
-getMyProjectsRef.operationName = 'GetMyProjects';
-
-export function getMyProjects(dc) {
-  return executeQuery(getMyProjectsRef(dc));
-}
-
-export const getUserProfileRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'GetUserProfile', inputVars);
-}
-getUserProfileRef.operationName = 'GetUserProfile';
-
-export function getUserProfile(dcOrVars, vars) {
-  return executeQuery(getUserProfileRef(dcOrVars, vars));
-}
-
-export const listTimelineRef = (dc) => {
-  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListTimeline');
-}
-listTimelineRef.operationName = 'ListTimeline';
-
-export function listTimeline(dc) {
-  return executeQuery(listTimelineRef(dc));
-}
-
-export const getAdminUserByEmailRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'GetAdminUserByEmail', inputVars);
-}
-getAdminUserByEmailRef.operationName = 'GetAdminUserByEmail';
-
-export function getAdminUserByEmail(dcOrVars, vars) {
-  return executeQuery(getAdminUserByEmailRef(dcOrVars, vars));
-}
-
 export const createProjectRef = (dcOrVars, vars) => {
   const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
   dcInstance._useGeneratedSdk();
@@ -158,5 +103,104 @@ deleteTimelineRef.operationName = 'DeleteTimeline';
 
 export function deleteTimeline(dcOrVars, vars) {
   return executeMutation(deleteTimelineRef(dcOrVars, vars));
+}
+
+export const updateInsightViewsRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'UpdateInsightViews', inputVars);
+}
+updateInsightViewsRef.operationName = 'UpdateInsightViews';
+
+export function updateInsightViews(dcOrVars, vars) {
+  return executeMutation(updateInsightViewsRef(dcOrVars, vars));
+}
+
+export const updateProjectViewsRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'UpdateProjectViews', inputVars);
+}
+updateProjectViewsRef.operationName = 'UpdateProjectViews';
+
+export function updateProjectViews(dcOrVars, vars) {
+  return executeMutation(updateProjectViewsRef(dcOrVars, vars));
+}
+
+export const updateTimelineViewsRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'UpdateTimelineViews', inputVars);
+}
+updateTimelineViewsRef.operationName = 'UpdateTimelineViews';
+
+export function updateTimelineViews(dcOrVars, vars) {
+  return executeMutation(updateTimelineViewsRef(dcOrVars, vars));
+}
+
+export const updateProjectArticleViewsRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'UpdateProjectArticleViews', inputVars);
+}
+updateProjectArticleViewsRef.operationName = 'UpdateProjectArticleViews';
+
+export function updateProjectArticleViews(dcOrVars, vars) {
+  return executeMutation(updateProjectArticleViewsRef(dcOrVars, vars));
+}
+
+export const listAllInsightsRef = (dc) => {
+  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListAllInsights');
+}
+listAllInsightsRef.operationName = 'ListAllInsights';
+
+export function listAllInsights(dc) {
+  return executeQuery(listAllInsightsRef(dc));
+}
+
+export const getMyProjectsRef = (dc) => {
+  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetMyProjects');
+}
+getMyProjectsRef.operationName = 'GetMyProjects';
+
+export function getMyProjects(dc) {
+  return executeQuery(getMyProjectsRef(dc));
+}
+
+export const getUserProfileRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetUserProfile', inputVars);
+}
+getUserProfileRef.operationName = 'GetUserProfile';
+
+export function getUserProfile(dcOrVars, vars) {
+  return executeQuery(getUserProfileRef(dcOrVars, vars));
+}
+
+export const listTimelineRef = (dc) => {
+  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListTimeline');
+}
+listTimelineRef.operationName = 'ListTimeline';
+
+export function listTimeline(dc) {
+  return executeQuery(listTimelineRef(dc));
+}
+
+export const getAdminUserByEmailRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetAdminUserByEmail', inputVars);
+}
+getAdminUserByEmailRef.operationName = 'GetAdminUserByEmail';
+
+export function getAdminUserByEmail(dcOrVars, vars) {
+  return executeQuery(getAdminUserByEmailRef(dcOrVars, vars));
 }
 

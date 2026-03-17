@@ -13,9 +13,17 @@ export function InsightBlock({ post }: { post: Post }) {
       </Link>
       <div className="flex justify-between items-start mb-4">
         <Tag type="insight">Insight</Tag>
-        <time className="text-sm text-slate-400 dark:text-slate-500">
-          {new Date(post.createdAt).toLocaleDateString()}
-        </time>
+        <div className="flex items-center gap-3">
+          <time className="text-sm text-slate-400 dark:text-slate-500">
+            {new Date(post.createdAt).toLocaleDateString()}
+          </time>
+          {post.views !== undefined && (
+            <div className="flex items-center text-xs text-slate-400 dark:text-slate-500">
+              <svg className="w-3.5 h-3.5 mr-1 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              {post.views.toLocaleString()}
+            </div>
+          )}
+        </div>
       </div>
       <h3 className="text-xl font-bold mb-2 text-slate-900 dark:text-slate-50 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
         {post.title}

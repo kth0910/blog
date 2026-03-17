@@ -37,6 +37,12 @@ export function ProjectBlock({ post }: { post: Post }) {
             <span key={tag}>#{tag}</span>
           ))}
         </div>
+        {post.views !== undefined && (
+          <div className="flex items-center text-xs text-slate-400 dark:text-slate-500">
+            <svg className="w-3.5 h-3.5 mr-1 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            {post.views.toLocaleString()}
+          </div>
+        )}
       </div>
     </Card>
   );

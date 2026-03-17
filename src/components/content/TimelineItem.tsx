@@ -26,10 +26,17 @@ export function TimelineItem({ post }: { post: Post }) {
         </Link>
         <div className="flex justify-between items-start mb-2">
           <Tag type="timeline">Timeline</Tag>
-          {/* Mobile date */}
-          <span className="sm:hidden text-xs font-semibold text-slate-500">
-            {new Date(post.startDate || post.createdAt).toLocaleDateString()}
-          </span>
+          <div className="flex items-center gap-3">
+            {post.views !== undefined && (
+              <div className="flex items-center text-[11px] text-slate-400 dark:text-slate-500">
+                <svg className="w-3 h-3 mr-1 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                {post.views.toLocaleString()}
+              </div>
+            )}
+            <span className="sm:hidden text-xs font-semibold text-slate-500">
+              {new Date(post.startDate || post.createdAt).toLocaleDateString()}
+            </span>
+          </div>
         </div>
         
         <h3 className="text-lg font-bold mb-1.5 text-slate-900 dark:text-slate-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">

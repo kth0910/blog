@@ -12,18 +12,8 @@ For each operation, there is a wrapper hook that can be used to call the operati
 
 Here are all of the hooks that get generated:
 ```ts
-import { useListAllInsights, useGetMyProjects, useGetUserProfile, useListTimeline, useGetAdminUserByEmail, useCreateProject, useUpdateProject, useDeleteProject, useCreateInsight, useUpdateInsight } from '@dataconnect/generated/react';
+import { useCreateProject, useUpdateProject, useDeleteProject, useCreateInsight, useUpdateInsight, useDeleteInsight, useCreateTimeline, useUpdateTimeline, useDeleteTimeline, useUpdateInsightViews } from '@dataconnect/generated/react';
 // The types of these hooks are available in react/index.d.ts
-
-const { data, isPending, isSuccess, isError, error } = useListAllInsights();
-
-const { data, isPending, isSuccess, isError, error } = useGetMyProjects();
-
-const { data, isPending, isSuccess, isError, error } = useGetUserProfile(getUserProfileVars);
-
-const { data, isPending, isSuccess, isError, error } = useListTimeline();
-
-const { data, isPending, isSuccess, isError, error } = useGetAdminUserByEmail(getAdminUserByEmailVars);
 
 const { data, isPending, isSuccess, isError, error } = useCreateProject(createProjectVars);
 
@@ -34,6 +24,16 @@ const { data, isPending, isSuccess, isError, error } = useDeleteProject(deletePr
 const { data, isPending, isSuccess, isError, error } = useCreateInsight(createInsightVars);
 
 const { data, isPending, isSuccess, isError, error } = useUpdateInsight(updateInsightVars);
+
+const { data, isPending, isSuccess, isError, error } = useDeleteInsight(deleteInsightVars);
+
+const { data, isPending, isSuccess, isError, error } = useCreateTimeline(createTimelineVars);
+
+const { data, isPending, isSuccess, isError, error } = useUpdateTimeline(updateTimelineVars);
+
+const { data, isPending, isSuccess, isError, error } = useDeleteTimeline(deleteTimelineVars);
+
+const { data, isPending, isSuccess, isError, error } = useUpdateInsightViews(updateInsightViewsVars);
 
 ```
 
@@ -72,23 +72,8 @@ If a user is not using a supported framework, they can use the generated SDK dir
 Here's an example of how to use it with the first 5 operations:
 
 ```js
-import { listAllInsights, getMyProjects, getUserProfile, listTimeline, getAdminUserByEmail, createProject, updateProject, deleteProject, createInsight, updateInsight } from '@dataconnect/generated';
+import { createProject, updateProject, deleteProject, createInsight, updateInsight, deleteInsight, createTimeline, updateTimeline, deleteTimeline, updateInsightViews } from '@dataconnect/generated';
 
-
-// Operation ListAllInsights: 
-const { data } = await ListAllInsights(dataConnect);
-
-// Operation GetMyProjects: 
-const { data } = await GetMyProjects(dataConnect);
-
-// Operation GetUserProfile:  For variables, look at type GetUserProfileVars in ../index.d.ts
-const { data } = await GetUserProfile(dataConnect, getUserProfileVars);
-
-// Operation ListTimeline: 
-const { data } = await ListTimeline(dataConnect);
-
-// Operation GetAdminUserByEmail:  For variables, look at type GetAdminUserByEmailVars in ../index.d.ts
-const { data } = await GetAdminUserByEmail(dataConnect, getAdminUserByEmailVars);
 
 // Operation CreateProject:  For variables, look at type CreateProjectVars in ../index.d.ts
 const { data } = await CreateProject(dataConnect, createProjectVars);
@@ -104,6 +89,21 @@ const { data } = await CreateInsight(dataConnect, createInsightVars);
 
 // Operation UpdateInsight:  For variables, look at type UpdateInsightVars in ../index.d.ts
 const { data } = await UpdateInsight(dataConnect, updateInsightVars);
+
+// Operation DeleteInsight:  For variables, look at type DeleteInsightVars in ../index.d.ts
+const { data } = await DeleteInsight(dataConnect, deleteInsightVars);
+
+// Operation CreateTimeline:  For variables, look at type CreateTimelineVars in ../index.d.ts
+const { data } = await CreateTimeline(dataConnect, createTimelineVars);
+
+// Operation UpdateTimeline:  For variables, look at type UpdateTimelineVars in ../index.d.ts
+const { data } = await UpdateTimeline(dataConnect, updateTimelineVars);
+
+// Operation DeleteTimeline:  For variables, look at type DeleteTimelineVars in ../index.d.ts
+const { data } = await DeleteTimeline(dataConnect, deleteTimelineVars);
+
+// Operation UpdateInsightViews:  For variables, look at type UpdateInsightViewsVars in ../index.d.ts
+const { data } = await UpdateInsightViews(dataConnect, updateInsightViewsVars);
 
 
 ```

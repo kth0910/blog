@@ -1,24 +1,9 @@
-import { ListAllInsightsData, GetMyProjectsData, GetUserProfileData, GetUserProfileVariables, ListTimelineData, GetAdminUserByEmailData, GetAdminUserByEmailVariables, CreateProjectData, CreateProjectVariables, UpdateProjectData, UpdateProjectVariables, DeleteProjectData, DeleteProjectVariables, CreateInsightData, CreateInsightVariables, UpdateInsightData, UpdateInsightVariables, DeleteInsightData, DeleteInsightVariables, CreateTimelineData, CreateTimelineVariables, UpdateTimelineData, UpdateTimelineVariables, DeleteTimelineData, DeleteTimelineVariables } from '../';
+import { CreateProjectData, CreateProjectVariables, UpdateProjectData, UpdateProjectVariables, DeleteProjectData, DeleteProjectVariables, CreateInsightData, CreateInsightVariables, UpdateInsightData, UpdateInsightVariables, DeleteInsightData, DeleteInsightVariables, CreateTimelineData, CreateTimelineVariables, UpdateTimelineData, UpdateTimelineVariables, DeleteTimelineData, DeleteTimelineVariables, UpdateInsightViewsData, UpdateInsightViewsVariables, UpdateProjectViewsData, UpdateProjectViewsVariables, UpdateTimelineViewsData, UpdateTimelineViewsVariables, UpdateProjectArticleViewsData, UpdateProjectArticleViewsVariables, ListAllInsightsData, GetMyProjectsData, GetUserProfileData, GetUserProfileVariables, ListTimelineData, GetAdminUserByEmailData, GetAdminUserByEmailVariables } from '../';
 import { UseDataConnectQueryResult, useDataConnectQueryOptions, UseDataConnectMutationResult, useDataConnectMutationOptions} from '@tanstack-query-firebase/react/data-connect';
 import { UseQueryResult, UseMutationResult} from '@tanstack/react-query';
 import { DataConnect } from 'firebase/data-connect';
 import { FirebaseError } from 'firebase/app';
 
-
-export function useListAllInsights(options?: useDataConnectQueryOptions<ListAllInsightsData>): UseDataConnectQueryResult<ListAllInsightsData, undefined>;
-export function useListAllInsights(dc: DataConnect, options?: useDataConnectQueryOptions<ListAllInsightsData>): UseDataConnectQueryResult<ListAllInsightsData, undefined>;
-
-export function useGetMyProjects(options?: useDataConnectQueryOptions<GetMyProjectsData>): UseDataConnectQueryResult<GetMyProjectsData, undefined>;
-export function useGetMyProjects(dc: DataConnect, options?: useDataConnectQueryOptions<GetMyProjectsData>): UseDataConnectQueryResult<GetMyProjectsData, undefined>;
-
-export function useGetUserProfile(vars: GetUserProfileVariables, options?: useDataConnectQueryOptions<GetUserProfileData>): UseDataConnectQueryResult<GetUserProfileData, GetUserProfileVariables>;
-export function useGetUserProfile(dc: DataConnect, vars: GetUserProfileVariables, options?: useDataConnectQueryOptions<GetUserProfileData>): UseDataConnectQueryResult<GetUserProfileData, GetUserProfileVariables>;
-
-export function useListTimeline(options?: useDataConnectQueryOptions<ListTimelineData>): UseDataConnectQueryResult<ListTimelineData, undefined>;
-export function useListTimeline(dc: DataConnect, options?: useDataConnectQueryOptions<ListTimelineData>): UseDataConnectQueryResult<ListTimelineData, undefined>;
-
-export function useGetAdminUserByEmail(vars: GetAdminUserByEmailVariables, options?: useDataConnectQueryOptions<GetAdminUserByEmailData>): UseDataConnectQueryResult<GetAdminUserByEmailData, GetAdminUserByEmailVariables>;
-export function useGetAdminUserByEmail(dc: DataConnect, vars: GetAdminUserByEmailVariables, options?: useDataConnectQueryOptions<GetAdminUserByEmailData>): UseDataConnectQueryResult<GetAdminUserByEmailData, GetAdminUserByEmailVariables>;
 
 export function useCreateProject(options?: useDataConnectMutationOptions<CreateProjectData, FirebaseError, CreateProjectVariables>): UseDataConnectMutationResult<CreateProjectData, CreateProjectVariables>;
 export function useCreateProject(dc: DataConnect, options?: useDataConnectMutationOptions<CreateProjectData, FirebaseError, CreateProjectVariables>): UseDataConnectMutationResult<CreateProjectData, CreateProjectVariables>;
@@ -46,3 +31,30 @@ export function useUpdateTimeline(dc: DataConnect, options?: useDataConnectMutat
 
 export function useDeleteTimeline(options?: useDataConnectMutationOptions<DeleteTimelineData, FirebaseError, DeleteTimelineVariables>): UseDataConnectMutationResult<DeleteTimelineData, DeleteTimelineVariables>;
 export function useDeleteTimeline(dc: DataConnect, options?: useDataConnectMutationOptions<DeleteTimelineData, FirebaseError, DeleteTimelineVariables>): UseDataConnectMutationResult<DeleteTimelineData, DeleteTimelineVariables>;
+
+export function useUpdateInsightViews(options?: useDataConnectMutationOptions<UpdateInsightViewsData, FirebaseError, UpdateInsightViewsVariables>): UseDataConnectMutationResult<UpdateInsightViewsData, UpdateInsightViewsVariables>;
+export function useUpdateInsightViews(dc: DataConnect, options?: useDataConnectMutationOptions<UpdateInsightViewsData, FirebaseError, UpdateInsightViewsVariables>): UseDataConnectMutationResult<UpdateInsightViewsData, UpdateInsightViewsVariables>;
+
+export function useUpdateProjectViews(options?: useDataConnectMutationOptions<UpdateProjectViewsData, FirebaseError, UpdateProjectViewsVariables>): UseDataConnectMutationResult<UpdateProjectViewsData, UpdateProjectViewsVariables>;
+export function useUpdateProjectViews(dc: DataConnect, options?: useDataConnectMutationOptions<UpdateProjectViewsData, FirebaseError, UpdateProjectViewsVariables>): UseDataConnectMutationResult<UpdateProjectViewsData, UpdateProjectViewsVariables>;
+
+export function useUpdateTimelineViews(options?: useDataConnectMutationOptions<UpdateTimelineViewsData, FirebaseError, UpdateTimelineViewsVariables>): UseDataConnectMutationResult<UpdateTimelineViewsData, UpdateTimelineViewsVariables>;
+export function useUpdateTimelineViews(dc: DataConnect, options?: useDataConnectMutationOptions<UpdateTimelineViewsData, FirebaseError, UpdateTimelineViewsVariables>): UseDataConnectMutationResult<UpdateTimelineViewsData, UpdateTimelineViewsVariables>;
+
+export function useUpdateProjectArticleViews(options?: useDataConnectMutationOptions<UpdateProjectArticleViewsData, FirebaseError, UpdateProjectArticleViewsVariables>): UseDataConnectMutationResult<UpdateProjectArticleViewsData, UpdateProjectArticleViewsVariables>;
+export function useUpdateProjectArticleViews(dc: DataConnect, options?: useDataConnectMutationOptions<UpdateProjectArticleViewsData, FirebaseError, UpdateProjectArticleViewsVariables>): UseDataConnectMutationResult<UpdateProjectArticleViewsData, UpdateProjectArticleViewsVariables>;
+
+export function useListAllInsights(options?: useDataConnectQueryOptions<ListAllInsightsData>): UseDataConnectQueryResult<ListAllInsightsData, undefined>;
+export function useListAllInsights(dc: DataConnect, options?: useDataConnectQueryOptions<ListAllInsightsData>): UseDataConnectQueryResult<ListAllInsightsData, undefined>;
+
+export function useGetMyProjects(options?: useDataConnectQueryOptions<GetMyProjectsData>): UseDataConnectQueryResult<GetMyProjectsData, undefined>;
+export function useGetMyProjects(dc: DataConnect, options?: useDataConnectQueryOptions<GetMyProjectsData>): UseDataConnectQueryResult<GetMyProjectsData, undefined>;
+
+export function useGetUserProfile(vars: GetUserProfileVariables, options?: useDataConnectQueryOptions<GetUserProfileData>): UseDataConnectQueryResult<GetUserProfileData, GetUserProfileVariables>;
+export function useGetUserProfile(dc: DataConnect, vars: GetUserProfileVariables, options?: useDataConnectQueryOptions<GetUserProfileData>): UseDataConnectQueryResult<GetUserProfileData, GetUserProfileVariables>;
+
+export function useListTimeline(options?: useDataConnectQueryOptions<ListTimelineData>): UseDataConnectQueryResult<ListTimelineData, undefined>;
+export function useListTimeline(dc: DataConnect, options?: useDataConnectQueryOptions<ListTimelineData>): UseDataConnectQueryResult<ListTimelineData, undefined>;
+
+export function useGetAdminUserByEmail(vars: GetAdminUserByEmailVariables, options?: useDataConnectQueryOptions<GetAdminUserByEmailData>): UseDataConnectQueryResult<GetAdminUserByEmailData, GetAdminUserByEmailVariables>;
+export function useGetAdminUserByEmail(dc: DataConnect, vars: GetAdminUserByEmailVariables, options?: useDataConnectQueryOptions<GetAdminUserByEmailData>): UseDataConnectQueryResult<GetAdminUserByEmailData, GetAdminUserByEmailVariables>;

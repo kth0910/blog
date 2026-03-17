@@ -25,6 +25,10 @@ This README will guide you through the process of using the generated JavaScript
   - [*CreateTimeline*](#createtimeline)
   - [*UpdateTimeline*](#updatetimeline)
   - [*DeleteTimeline*](#deletetimeline)
+  - [*UpdateInsightViews*](#updateinsightviews)
+  - [*UpdateProjectViews*](#updateprojectviews)
+  - [*UpdateTimelineViews*](#updatetimelineviews)
+  - [*UpdateProjectArticleViews*](#updateprojectarticleviews)
 
 # Accessing the connector
 A connector is a collection of Queries and Mutations. One SDK is generated for each connector - this SDK is generated for the connector `example`. You can find more information about connectors in the [Data Connect documentation](https://firebase.google.com/docs/data-connect#how-does).
@@ -119,6 +123,7 @@ export interface ListAllInsightsData {
     tags?: string[] | null;
     createdAt: TimestampString;
     published: boolean;
+    views: number;
     author: {
       displayName: string;
       profilePictureUrl?: string | null;
@@ -225,6 +230,7 @@ export interface GetMyProjectsData {
     endDate?: DateString | null;
     published: boolean;
     order?: number | null;
+    views: number;
   } & Project_Key)[];
 }
 ```
@@ -440,6 +446,7 @@ export interface ListTimelineData {
     endDate?: DateString | null;
     imageUrl?: string | null;
     published: boolean;
+    views: number;
   } & Timeline_Key)[];
 }
 ```
@@ -1750,6 +1757,442 @@ console.log(data.timeline_delete);
 executeMutation(ref).then((response) => {
   const data = response.data;
   console.log(data.timeline_delete);
+});
+```
+
+## UpdateInsightViews
+You can execute the `UpdateInsightViews` mutation using the following action shortcut function, or by calling `executeMutation()` after calling the following `MutationRef` function, both of which are defined in [dataconnect-generated/index.d.ts](./index.d.ts):
+```typescript
+updateInsightViews(vars: UpdateInsightViewsVariables): MutationPromise<UpdateInsightViewsData, UpdateInsightViewsVariables>;
+
+interface UpdateInsightViewsRef {
+  ...
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: UpdateInsightViewsVariables): MutationRef<UpdateInsightViewsData, UpdateInsightViewsVariables>;
+}
+export const updateInsightViewsRef: UpdateInsightViewsRef;
+```
+You can also pass in a `DataConnect` instance to the action shortcut function or `MutationRef` function.
+```typescript
+updateInsightViews(dc: DataConnect, vars: UpdateInsightViewsVariables): MutationPromise<UpdateInsightViewsData, UpdateInsightViewsVariables>;
+
+interface UpdateInsightViewsRef {
+  ...
+  (dc: DataConnect, vars: UpdateInsightViewsVariables): MutationRef<UpdateInsightViewsData, UpdateInsightViewsVariables>;
+}
+export const updateInsightViewsRef: UpdateInsightViewsRef;
+```
+
+If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the updateInsightViewsRef:
+```typescript
+const name = updateInsightViewsRef.operationName;
+console.log(name);
+```
+
+### Variables
+The `UpdateInsightViews` mutation requires an argument of type `UpdateInsightViewsVariables`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+
+```typescript
+export interface UpdateInsightViewsVariables {
+  id: UUIDString;
+}
+```
+### Return Type
+Recall that executing the `UpdateInsightViews` mutation returns a `MutationPromise` that resolves to an object with a `data` property.
+
+The `data` property is an object of type `UpdateInsightViewsData`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+```typescript
+export interface UpdateInsightViewsData {
+  insight_update?: Insight_Key | null;
+}
+```
+### Using `UpdateInsightViews`'s action shortcut function
+
+```typescript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, updateInsightViews, UpdateInsightViewsVariables } from '@dataconnect/generated';
+
+// The `UpdateInsightViews` mutation requires an argument of type `UpdateInsightViewsVariables`:
+const updateInsightViewsVars: UpdateInsightViewsVariables = {
+  id: ..., 
+};
+
+// Call the `updateInsightViews()` function to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await updateInsightViews(updateInsightViewsVars);
+// Variables can be defined inline as well.
+const { data } = await updateInsightViews({ id: ..., });
+
+// You can also pass in a `DataConnect` instance to the action shortcut function.
+const dataConnect = getDataConnect(connectorConfig);
+const { data } = await updateInsightViews(dataConnect, updateInsightViewsVars);
+
+console.log(data.insight_update);
+
+// Or, you can use the `Promise` API.
+updateInsightViews(updateInsightViewsVars).then((response) => {
+  const data = response.data;
+  console.log(data.insight_update);
+});
+```
+
+### Using `UpdateInsightViews`'s `MutationRef` function
+
+```typescript
+import { getDataConnect, executeMutation } from 'firebase/data-connect';
+import { connectorConfig, updateInsightViewsRef, UpdateInsightViewsVariables } from '@dataconnect/generated';
+
+// The `UpdateInsightViews` mutation requires an argument of type `UpdateInsightViewsVariables`:
+const updateInsightViewsVars: UpdateInsightViewsVariables = {
+  id: ..., 
+};
+
+// Call the `updateInsightViewsRef()` function to get a reference to the mutation.
+const ref = updateInsightViewsRef(updateInsightViewsVars);
+// Variables can be defined inline as well.
+const ref = updateInsightViewsRef({ id: ..., });
+
+// You can also pass in a `DataConnect` instance to the `MutationRef` function.
+const dataConnect = getDataConnect(connectorConfig);
+const ref = updateInsightViewsRef(dataConnect, updateInsightViewsVars);
+
+// Call `executeMutation()` on the reference to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await executeMutation(ref);
+
+console.log(data.insight_update);
+
+// Or, you can use the `Promise` API.
+executeMutation(ref).then((response) => {
+  const data = response.data;
+  console.log(data.insight_update);
+});
+```
+
+## UpdateProjectViews
+You can execute the `UpdateProjectViews` mutation using the following action shortcut function, or by calling `executeMutation()` after calling the following `MutationRef` function, both of which are defined in [dataconnect-generated/index.d.ts](./index.d.ts):
+```typescript
+updateProjectViews(vars: UpdateProjectViewsVariables): MutationPromise<UpdateProjectViewsData, UpdateProjectViewsVariables>;
+
+interface UpdateProjectViewsRef {
+  ...
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: UpdateProjectViewsVariables): MutationRef<UpdateProjectViewsData, UpdateProjectViewsVariables>;
+}
+export const updateProjectViewsRef: UpdateProjectViewsRef;
+```
+You can also pass in a `DataConnect` instance to the action shortcut function or `MutationRef` function.
+```typescript
+updateProjectViews(dc: DataConnect, vars: UpdateProjectViewsVariables): MutationPromise<UpdateProjectViewsData, UpdateProjectViewsVariables>;
+
+interface UpdateProjectViewsRef {
+  ...
+  (dc: DataConnect, vars: UpdateProjectViewsVariables): MutationRef<UpdateProjectViewsData, UpdateProjectViewsVariables>;
+}
+export const updateProjectViewsRef: UpdateProjectViewsRef;
+```
+
+If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the updateProjectViewsRef:
+```typescript
+const name = updateProjectViewsRef.operationName;
+console.log(name);
+```
+
+### Variables
+The `UpdateProjectViews` mutation requires an argument of type `UpdateProjectViewsVariables`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+
+```typescript
+export interface UpdateProjectViewsVariables {
+  id: UUIDString;
+}
+```
+### Return Type
+Recall that executing the `UpdateProjectViews` mutation returns a `MutationPromise` that resolves to an object with a `data` property.
+
+The `data` property is an object of type `UpdateProjectViewsData`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+```typescript
+export interface UpdateProjectViewsData {
+  project_update?: Project_Key | null;
+}
+```
+### Using `UpdateProjectViews`'s action shortcut function
+
+```typescript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, updateProjectViews, UpdateProjectViewsVariables } from '@dataconnect/generated';
+
+// The `UpdateProjectViews` mutation requires an argument of type `UpdateProjectViewsVariables`:
+const updateProjectViewsVars: UpdateProjectViewsVariables = {
+  id: ..., 
+};
+
+// Call the `updateProjectViews()` function to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await updateProjectViews(updateProjectViewsVars);
+// Variables can be defined inline as well.
+const { data } = await updateProjectViews({ id: ..., });
+
+// You can also pass in a `DataConnect` instance to the action shortcut function.
+const dataConnect = getDataConnect(connectorConfig);
+const { data } = await updateProjectViews(dataConnect, updateProjectViewsVars);
+
+console.log(data.project_update);
+
+// Or, you can use the `Promise` API.
+updateProjectViews(updateProjectViewsVars).then((response) => {
+  const data = response.data;
+  console.log(data.project_update);
+});
+```
+
+### Using `UpdateProjectViews`'s `MutationRef` function
+
+```typescript
+import { getDataConnect, executeMutation } from 'firebase/data-connect';
+import { connectorConfig, updateProjectViewsRef, UpdateProjectViewsVariables } from '@dataconnect/generated';
+
+// The `UpdateProjectViews` mutation requires an argument of type `UpdateProjectViewsVariables`:
+const updateProjectViewsVars: UpdateProjectViewsVariables = {
+  id: ..., 
+};
+
+// Call the `updateProjectViewsRef()` function to get a reference to the mutation.
+const ref = updateProjectViewsRef(updateProjectViewsVars);
+// Variables can be defined inline as well.
+const ref = updateProjectViewsRef({ id: ..., });
+
+// You can also pass in a `DataConnect` instance to the `MutationRef` function.
+const dataConnect = getDataConnect(connectorConfig);
+const ref = updateProjectViewsRef(dataConnect, updateProjectViewsVars);
+
+// Call `executeMutation()` on the reference to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await executeMutation(ref);
+
+console.log(data.project_update);
+
+// Or, you can use the `Promise` API.
+executeMutation(ref).then((response) => {
+  const data = response.data;
+  console.log(data.project_update);
+});
+```
+
+## UpdateTimelineViews
+You can execute the `UpdateTimelineViews` mutation using the following action shortcut function, or by calling `executeMutation()` after calling the following `MutationRef` function, both of which are defined in [dataconnect-generated/index.d.ts](./index.d.ts):
+```typescript
+updateTimelineViews(vars: UpdateTimelineViewsVariables): MutationPromise<UpdateTimelineViewsData, UpdateTimelineViewsVariables>;
+
+interface UpdateTimelineViewsRef {
+  ...
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: UpdateTimelineViewsVariables): MutationRef<UpdateTimelineViewsData, UpdateTimelineViewsVariables>;
+}
+export const updateTimelineViewsRef: UpdateTimelineViewsRef;
+```
+You can also pass in a `DataConnect` instance to the action shortcut function or `MutationRef` function.
+```typescript
+updateTimelineViews(dc: DataConnect, vars: UpdateTimelineViewsVariables): MutationPromise<UpdateTimelineViewsData, UpdateTimelineViewsVariables>;
+
+interface UpdateTimelineViewsRef {
+  ...
+  (dc: DataConnect, vars: UpdateTimelineViewsVariables): MutationRef<UpdateTimelineViewsData, UpdateTimelineViewsVariables>;
+}
+export const updateTimelineViewsRef: UpdateTimelineViewsRef;
+```
+
+If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the updateTimelineViewsRef:
+```typescript
+const name = updateTimelineViewsRef.operationName;
+console.log(name);
+```
+
+### Variables
+The `UpdateTimelineViews` mutation requires an argument of type `UpdateTimelineViewsVariables`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+
+```typescript
+export interface UpdateTimelineViewsVariables {
+  id: UUIDString;
+}
+```
+### Return Type
+Recall that executing the `UpdateTimelineViews` mutation returns a `MutationPromise` that resolves to an object with a `data` property.
+
+The `data` property is an object of type `UpdateTimelineViewsData`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+```typescript
+export interface UpdateTimelineViewsData {
+  timeline_update?: Timeline_Key | null;
+}
+```
+### Using `UpdateTimelineViews`'s action shortcut function
+
+```typescript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, updateTimelineViews, UpdateTimelineViewsVariables } from '@dataconnect/generated';
+
+// The `UpdateTimelineViews` mutation requires an argument of type `UpdateTimelineViewsVariables`:
+const updateTimelineViewsVars: UpdateTimelineViewsVariables = {
+  id: ..., 
+};
+
+// Call the `updateTimelineViews()` function to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await updateTimelineViews(updateTimelineViewsVars);
+// Variables can be defined inline as well.
+const { data } = await updateTimelineViews({ id: ..., });
+
+// You can also pass in a `DataConnect` instance to the action shortcut function.
+const dataConnect = getDataConnect(connectorConfig);
+const { data } = await updateTimelineViews(dataConnect, updateTimelineViewsVars);
+
+console.log(data.timeline_update);
+
+// Or, you can use the `Promise` API.
+updateTimelineViews(updateTimelineViewsVars).then((response) => {
+  const data = response.data;
+  console.log(data.timeline_update);
+});
+```
+
+### Using `UpdateTimelineViews`'s `MutationRef` function
+
+```typescript
+import { getDataConnect, executeMutation } from 'firebase/data-connect';
+import { connectorConfig, updateTimelineViewsRef, UpdateTimelineViewsVariables } from '@dataconnect/generated';
+
+// The `UpdateTimelineViews` mutation requires an argument of type `UpdateTimelineViewsVariables`:
+const updateTimelineViewsVars: UpdateTimelineViewsVariables = {
+  id: ..., 
+};
+
+// Call the `updateTimelineViewsRef()` function to get a reference to the mutation.
+const ref = updateTimelineViewsRef(updateTimelineViewsVars);
+// Variables can be defined inline as well.
+const ref = updateTimelineViewsRef({ id: ..., });
+
+// You can also pass in a `DataConnect` instance to the `MutationRef` function.
+const dataConnect = getDataConnect(connectorConfig);
+const ref = updateTimelineViewsRef(dataConnect, updateTimelineViewsVars);
+
+// Call `executeMutation()` on the reference to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await executeMutation(ref);
+
+console.log(data.timeline_update);
+
+// Or, you can use the `Promise` API.
+executeMutation(ref).then((response) => {
+  const data = response.data;
+  console.log(data.timeline_update);
+});
+```
+
+## UpdateProjectArticleViews
+You can execute the `UpdateProjectArticleViews` mutation using the following action shortcut function, or by calling `executeMutation()` after calling the following `MutationRef` function, both of which are defined in [dataconnect-generated/index.d.ts](./index.d.ts):
+```typescript
+updateProjectArticleViews(vars: UpdateProjectArticleViewsVariables): MutationPromise<UpdateProjectArticleViewsData, UpdateProjectArticleViewsVariables>;
+
+interface UpdateProjectArticleViewsRef {
+  ...
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: UpdateProjectArticleViewsVariables): MutationRef<UpdateProjectArticleViewsData, UpdateProjectArticleViewsVariables>;
+}
+export const updateProjectArticleViewsRef: UpdateProjectArticleViewsRef;
+```
+You can also pass in a `DataConnect` instance to the action shortcut function or `MutationRef` function.
+```typescript
+updateProjectArticleViews(dc: DataConnect, vars: UpdateProjectArticleViewsVariables): MutationPromise<UpdateProjectArticleViewsData, UpdateProjectArticleViewsVariables>;
+
+interface UpdateProjectArticleViewsRef {
+  ...
+  (dc: DataConnect, vars: UpdateProjectArticleViewsVariables): MutationRef<UpdateProjectArticleViewsData, UpdateProjectArticleViewsVariables>;
+}
+export const updateProjectArticleViewsRef: UpdateProjectArticleViewsRef;
+```
+
+If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the updateProjectArticleViewsRef:
+```typescript
+const name = updateProjectArticleViewsRef.operationName;
+console.log(name);
+```
+
+### Variables
+The `UpdateProjectArticleViews` mutation requires an argument of type `UpdateProjectArticleViewsVariables`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+
+```typescript
+export interface UpdateProjectArticleViewsVariables {
+  id: UUIDString;
+}
+```
+### Return Type
+Recall that executing the `UpdateProjectArticleViews` mutation returns a `MutationPromise` that resolves to an object with a `data` property.
+
+The `data` property is an object of type `UpdateProjectArticleViewsData`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+```typescript
+export interface UpdateProjectArticleViewsData {
+  projectArticle_update?: ProjectArticle_Key | null;
+}
+```
+### Using `UpdateProjectArticleViews`'s action shortcut function
+
+```typescript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, updateProjectArticleViews, UpdateProjectArticleViewsVariables } from '@dataconnect/generated';
+
+// The `UpdateProjectArticleViews` mutation requires an argument of type `UpdateProjectArticleViewsVariables`:
+const updateProjectArticleViewsVars: UpdateProjectArticleViewsVariables = {
+  id: ..., 
+};
+
+// Call the `updateProjectArticleViews()` function to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await updateProjectArticleViews(updateProjectArticleViewsVars);
+// Variables can be defined inline as well.
+const { data } = await updateProjectArticleViews({ id: ..., });
+
+// You can also pass in a `DataConnect` instance to the action shortcut function.
+const dataConnect = getDataConnect(connectorConfig);
+const { data } = await updateProjectArticleViews(dataConnect, updateProjectArticleViewsVars);
+
+console.log(data.projectArticle_update);
+
+// Or, you can use the `Promise` API.
+updateProjectArticleViews(updateProjectArticleViewsVars).then((response) => {
+  const data = response.data;
+  console.log(data.projectArticle_update);
+});
+```
+
+### Using `UpdateProjectArticleViews`'s `MutationRef` function
+
+```typescript
+import { getDataConnect, executeMutation } from 'firebase/data-connect';
+import { connectorConfig, updateProjectArticleViewsRef, UpdateProjectArticleViewsVariables } from '@dataconnect/generated';
+
+// The `UpdateProjectArticleViews` mutation requires an argument of type `UpdateProjectArticleViewsVariables`:
+const updateProjectArticleViewsVars: UpdateProjectArticleViewsVariables = {
+  id: ..., 
+};
+
+// Call the `updateProjectArticleViewsRef()` function to get a reference to the mutation.
+const ref = updateProjectArticleViewsRef(updateProjectArticleViewsVars);
+// Variables can be defined inline as well.
+const ref = updateProjectArticleViewsRef({ id: ..., });
+
+// You can also pass in a `DataConnect` instance to the `MutationRef` function.
+const dataConnect = getDataConnect(connectorConfig);
+const ref = updateProjectArticleViewsRef(dataConnect, updateProjectArticleViewsVars);
+
+// Call `executeMutation()` on the reference to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await executeMutation(ref);
+
+console.log(data.projectArticle_update);
+
+// Or, you can use the `Promise` API.
+executeMutation(ref).then((response) => {
+  const data = response.data;
+  console.log(data.projectArticle_update);
 });
 ```
 

@@ -116,6 +116,33 @@ extend type Insight {
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "Insight.updatedAt", purpose: QUERY_COUNT)
   """
+  ✨ Count the number of rows in the `Insight` table where the `views` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  views_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Insight.views", purpose: QUERY_COUNT)
+  """
+  ✨ Sum the `views` field in the `Insight` table.
+  """
+  views_sum(
+    """
+    Set to true to sum the distinct values.
+    """
+    distinct: Boolean = false
+  ): Int @fdc_generated(from: "Insight.views", purpose: QUERY_SUM)
+  """
+  ✨ Average the `views` field in the `Insight` table.
+  """
+  views_avg(
+    """
+    Set to true to average the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "Insight.views", purpose: QUERY_AVG)
+  """
   ✨ Minimum of the `createdAt` field in the `Insight` table.
   """
   createdAt_min: Timestamp @fdc_generated(from: "Insight.createdAt", purpose: QUERY_MIN)
@@ -124,6 +151,10 @@ extend type Insight {
   """
   updatedAt_min: Timestamp @fdc_generated(from: "Insight.updatedAt", purpose: QUERY_MIN)
   """
+  ✨ Minimum of the `views` field in the `Insight` table.
+  """
+  views_min: Int @fdc_generated(from: "Insight.views", purpose: QUERY_MIN)
+  """
   ✨ Maximum of the `createdAt` field in the `Insight` table.
   """
   createdAt_max: Timestamp @fdc_generated(from: "Insight.createdAt", purpose: QUERY_MAX)
@@ -131,6 +162,10 @@ extend type Insight {
   ✨ Maximum of the `updatedAt` field in the `Insight` table.
   """
   updatedAt_max: Timestamp @fdc_generated(from: "Insight.updatedAt", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `views` field in the `Insight` table.
+  """
+  views_max: Int @fdc_generated(from: "Insight.views", purpose: QUERY_MAX)
   """
   A generated field that is used for caching results in SDKs.
   """
@@ -322,6 +357,15 @@ extend type Project {
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "Project.title", purpose: QUERY_COUNT)
   """
+  ✨ Count the number of rows in the `Project` table where the `views` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  views_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Project.views", purpose: QUERY_COUNT)
+  """
   ✨ Sum the `order` field in the `Project` table.
   """
   order_sum(
@@ -331,6 +375,15 @@ extend type Project {
     distinct: Boolean = false
   ): Int @fdc_generated(from: "Project.order", purpose: QUERY_SUM)
   """
+  ✨ Sum the `views` field in the `Project` table.
+  """
+  views_sum(
+    """
+    Set to true to sum the distinct values.
+    """
+    distinct: Boolean = false
+  ): Int @fdc_generated(from: "Project.views", purpose: QUERY_SUM)
+  """
   ✨ Average the `order` field in the `Project` table.
   """
   order_avg(
@@ -339,6 +392,15 @@ extend type Project {
     """
     distinct: Boolean = false
   ): Float @fdc_generated(from: "Project.order", purpose: QUERY_AVG)
+  """
+  ✨ Average the `views` field in the `Project` table.
+  """
+  views_avg(
+    """
+    Set to true to average the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "Project.views", purpose: QUERY_AVG)
   """
   ✨ Minimum of the `createdAt` field in the `Project` table.
   """
@@ -356,6 +418,10 @@ extend type Project {
   """
   startDate_min: Date @fdc_generated(from: "Project.startDate", purpose: QUERY_MIN)
   """
+  ✨ Minimum of the `views` field in the `Project` table.
+  """
+  views_min: Int @fdc_generated(from: "Project.views", purpose: QUERY_MIN)
+  """
   ✨ Maximum of the `createdAt` field in the `Project` table.
   """
   createdAt_max: Timestamp @fdc_generated(from: "Project.createdAt", purpose: QUERY_MAX)
@@ -371,6 +437,10 @@ extend type Project {
   ✨ Maximum of the `startDate` field in the `Project` table.
   """
   startDate_max: Date @fdc_generated(from: "Project.startDate", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `views` field in the `Project` table.
+  """
+  views_max: Int @fdc_generated(from: "Project.views", purpose: QUERY_MAX)
   """
   A generated field that is used for caching results in SDKs.
   """
@@ -458,6 +528,33 @@ extend type ProjectArticle {
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "ProjectArticle.updatedAt", purpose: QUERY_COUNT)
   """
+  ✨ Count the number of rows in the `ProjectArticle` table where the `views` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  views_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "ProjectArticle.views", purpose: QUERY_COUNT)
+  """
+  ✨ Sum the `views` field in the `ProjectArticle` table.
+  """
+  views_sum(
+    """
+    Set to true to sum the distinct values.
+    """
+    distinct: Boolean = false
+  ): Int @fdc_generated(from: "ProjectArticle.views", purpose: QUERY_SUM)
+  """
+  ✨ Average the `views` field in the `ProjectArticle` table.
+  """
+  views_avg(
+    """
+    Set to true to average the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "ProjectArticle.views", purpose: QUERY_AVG)
+  """
   ✨ Minimum of the `createdAt` field in the `ProjectArticle` table.
   """
   createdAt_min: Timestamp @fdc_generated(from: "ProjectArticle.createdAt", purpose: QUERY_MIN)
@@ -466,6 +563,10 @@ extend type ProjectArticle {
   """
   updatedAt_min: Timestamp @fdc_generated(from: "ProjectArticle.updatedAt", purpose: QUERY_MIN)
   """
+  ✨ Minimum of the `views` field in the `ProjectArticle` table.
+  """
+  views_min: Int @fdc_generated(from: "ProjectArticle.views", purpose: QUERY_MIN)
+  """
   ✨ Maximum of the `createdAt` field in the `ProjectArticle` table.
   """
   createdAt_max: Timestamp @fdc_generated(from: "ProjectArticle.createdAt", purpose: QUERY_MAX)
@@ -473,6 +574,10 @@ extend type ProjectArticle {
   ✨ Maximum of the `updatedAt` field in the `ProjectArticle` table.
   """
   updatedAt_max: Timestamp @fdc_generated(from: "ProjectArticle.updatedAt", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `views` field in the `ProjectArticle` table.
+  """
+  views_max: Int @fdc_generated(from: "ProjectArticle.views", purpose: QUERY_MAX)
   """
   A generated field that is used for caching results in SDKs.
   """
@@ -578,6 +683,15 @@ extend type Timeline {
     distinct: Boolean = false
   ): Int! @fdc_generated(from: "Timeline.title", purpose: QUERY_COUNT)
   """
+  ✨ Count the number of rows in the `Timeline` table where the `views` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  views_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Timeline.views", purpose: QUERY_COUNT)
+  """
   ✨ Sum the `order` field in the `Timeline` table.
   """
   order_sum(
@@ -587,6 +701,15 @@ extend type Timeline {
     distinct: Boolean = false
   ): Int @fdc_generated(from: "Timeline.order", purpose: QUERY_SUM)
   """
+  ✨ Sum the `views` field in the `Timeline` table.
+  """
+  views_sum(
+    """
+    Set to true to sum the distinct values.
+    """
+    distinct: Boolean = false
+  ): Int @fdc_generated(from: "Timeline.views", purpose: QUERY_SUM)
+  """
   ✨ Average the `order` field in the `Timeline` table.
   """
   order_avg(
@@ -595,6 +718,15 @@ extend type Timeline {
     """
     distinct: Boolean = false
   ): Float @fdc_generated(from: "Timeline.order", purpose: QUERY_AVG)
+  """
+  ✨ Average the `views` field in the `Timeline` table.
+  """
+  views_avg(
+    """
+    Set to true to average the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "Timeline.views", purpose: QUERY_AVG)
   """
   ✨ Minimum of the `createdAt` field in the `Timeline` table.
   """
@@ -612,6 +744,10 @@ extend type Timeline {
   """
   startDate_min: Date @fdc_generated(from: "Timeline.startDate", purpose: QUERY_MIN)
   """
+  ✨ Minimum of the `views` field in the `Timeline` table.
+  """
+  views_min: Int @fdc_generated(from: "Timeline.views", purpose: QUERY_MIN)
+  """
   ✨ Maximum of the `createdAt` field in the `Timeline` table.
   """
   createdAt_max: Timestamp @fdc_generated(from: "Timeline.createdAt", purpose: QUERY_MAX)
@@ -627,6 +763,10 @@ extend type Timeline {
   ✨ Maximum of the `startDate` field in the `Timeline` table.
   """
   startDate_max: Date @fdc_generated(from: "Timeline.startDate", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `views` field in the `Timeline` table.
+  """
+  views_max: Int @fdc_generated(from: "Timeline.views", purpose: QUERY_MAX)
   """
   A generated field that is used for caching results in SDKs.
   """

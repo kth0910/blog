@@ -160,6 +160,18 @@ input Insight_Data {
   ✨ `_update` server value variant of `updatedAt` (✨ Generated from Field `Insight`.`updatedAt` of type `Timestamp`)
   """
   updatedAt_update: [Timestamp_Update!]
+  """
+  ✨ Generated from Field `Insight`.`views` of type `Int!`
+  """
+  views: Int
+  """
+  ✨ `_expr` server value variant of `views` (✨ Generated from Field `Insight`.`views` of type `Int!`)
+  """
+  views_expr: Int_Expr
+  """
+  ✨ `_update` server value variant of `views` (✨ Generated from Field `Insight`.`views` of type `Int!`)
+  """
+  views_update: [Int_Update!]
 }
 """
 ✨ Generated filter input type for table 'Insight'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
@@ -237,6 +249,10 @@ input Insight_Filter {
   ✨ Generated from Field `Insight`.`updatedAt` of type `Timestamp`
   """
   updatedAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `Insight`.`views` of type `Int!`
+  """
+  views: Int_Filter
 }
 """
 ✨ Generated first-row input type for table 'Insight'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
@@ -324,6 +340,18 @@ input Insight_Having {
   """
   updatedAt_count: Int_Filter
   """
+  ✨ Generated from Field `Insight`.`views_count` of type `Int!`
+  """
+  views_count: Int_Filter
+  """
+  ✨ Generated from Field `Insight`.`views_sum` of type `Int`
+  """
+  views_sum: Int_Filter
+  """
+  ✨ Generated from Field `Insight`.`views_avg` of type `Float`
+  """
+  views_avg: Float_Filter
+  """
   ✨ Generated from Field `Insight`.`createdAt_min` of type `Timestamp`
   """
   createdAt_min: Timestamp_Filter
@@ -332,6 +360,10 @@ input Insight_Having {
   """
   updatedAt_min: Timestamp_Filter
   """
+  ✨ Generated from Field `Insight`.`views_min` of type `Int`
+  """
+  views_min: Int_Filter
+  """
   ✨ Generated from Field `Insight`.`createdAt_max` of type `Timestamp`
   """
   createdAt_max: Timestamp_Filter
@@ -339,6 +371,10 @@ input Insight_Having {
   ✨ Generated from Field `Insight`.`updatedAt_max` of type `Timestamp`
   """
   updatedAt_max: Timestamp_Filter
+  """
+  ✨ Generated from Field `Insight`.`views_max` of type `Int`
+  """
+  views_max: Int_Filter
 }
 """
 ✨ Generated key input type for table 'Insight'. It represents the primary key fields used to uniquely identify a row in the table.
@@ -427,6 +463,10 @@ input Insight_Order {
   """
   updatedAt: OrderDirection
   """
+  ✨ Generated from Field `Insight`.`views` of type `Int!`
+  """
+  views: OrderDirection
+  """
   ✨ Generated from Field `Insight`.`_count` of type `Int!`
   """
   _count: OrderDirection
@@ -479,6 +519,18 @@ input Insight_Order {
   """
   updatedAt_count: OrderDirection
   """
+  ✨ Generated from Field `Insight`.`views_count` of type `Int!`
+  """
+  views_count: OrderDirection
+  """
+  ✨ Generated from Field `Insight`.`views_sum` of type `Int`
+  """
+  views_sum: OrderDirection
+  """
+  ✨ Generated from Field `Insight`.`views_avg` of type `Float`
+  """
+  views_avg: OrderDirection
+  """
   ✨ Generated from Field `Insight`.`createdAt_min` of type `Timestamp`
   """
   createdAt_min: OrderDirection
@@ -487,6 +539,10 @@ input Insight_Order {
   """
   updatedAt_min: OrderDirection
   """
+  ✨ Generated from Field `Insight`.`views_min` of type `Int`
+  """
+  views_min: OrderDirection
+  """
   ✨ Generated from Field `Insight`.`createdAt_max` of type `Timestamp`
   """
   createdAt_max: OrderDirection
@@ -494,6 +550,10 @@ input Insight_Order {
   ✨ Generated from Field `Insight`.`updatedAt_max` of type `Timestamp`
   """
   updatedAt_max: OrderDirection
+  """
+  ✨ Generated from Field `Insight`.`views_max` of type `Int`
+  """
+  views_max: OrderDirection
 }
 """
 ✨ Generated data input type for table 'Project'. It includes all necessary fields for creating or upserting rows into table.
@@ -635,6 +695,18 @@ input Project_Data {
   ✨ `_expr` server value variant of `title` (✨ Generated from Field `Project`.`title` of type `String!`)
   """
   title_expr: String_Expr
+  """
+  ✨ Generated from Field `Project`.`views` of type `Int!`
+  """
+  views: Int
+  """
+  ✨ `_expr` server value variant of `views` (✨ Generated from Field `Project`.`views` of type `Int!`)
+  """
+  views_expr: Int_Expr
+  """
+  ✨ `_update` server value variant of `views` (✨ Generated from Field `Project`.`views` of type `Int!`)
+  """
+  views_update: [Int_Update!]
 }
 """
 ✨ Generated filter input type for table 'Project'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
@@ -708,6 +780,10 @@ input Project_Filter {
   ✨ Generated from Field `Project`.`title` of type `String!`
   """
   title: String_Filter
+  """
+  ✨ Generated from Field `Project`.`views` of type `Int!`
+  """
+  views: Int_Filter
   """
   ✨ Generated from Field `Project`.`insights_on_project` of type `[Insight!]!`
   """
@@ -803,13 +879,25 @@ input Project_Having {
   """
   title_count: Int_Filter
   """
+  ✨ Generated from Field `Project`.`views_count` of type `Int!`
+  """
+  views_count: Int_Filter
+  """
   ✨ Generated from Field `Project`.`order_sum` of type `Int`
   """
   order_sum: Int_Filter
   """
+  ✨ Generated from Field `Project`.`views_sum` of type `Int`
+  """
+  views_sum: Int_Filter
+  """
   ✨ Generated from Field `Project`.`order_avg` of type `Float`
   """
   order_avg: Float_Filter
+  """
+  ✨ Generated from Field `Project`.`views_avg` of type `Float`
+  """
+  views_avg: Float_Filter
   """
   ✨ Generated from Field `Project`.`createdAt_min` of type `Timestamp`
   """
@@ -827,6 +915,10 @@ input Project_Having {
   """
   startDate_min: Date_Filter
   """
+  ✨ Generated from Field `Project`.`views_min` of type `Int`
+  """
+  views_min: Int_Filter
+  """
   ✨ Generated from Field `Project`.`createdAt_max` of type `Timestamp`
   """
   createdAt_max: Timestamp_Filter
@@ -842,6 +934,10 @@ input Project_Having {
   ✨ Generated from Field `Project`.`startDate_max` of type `Date`
   """
   startDate_max: Date_Filter
+  """
+  ✨ Generated from Field `Project`.`views_max` of type `Int`
+  """
+  views_max: Int_Filter
 }
 """
 ✨ Generated key input type for table 'Project'. It represents the primary key fields used to uniquely identify a row in the table.
@@ -926,6 +1022,10 @@ input Project_Order {
   """
   title: OrderDirection
   """
+  ✨ Generated from Field `Project`.`views` of type `Int!`
+  """
+  views: OrderDirection
+  """
   ✨ Generated from Field `Project`.`_count` of type `Int!`
   """
   _count: OrderDirection
@@ -978,13 +1078,25 @@ input Project_Order {
   """
   title_count: OrderDirection
   """
+  ✨ Generated from Field `Project`.`views_count` of type `Int!`
+  """
+  views_count: OrderDirection
+  """
   ✨ Generated from Field `Project`.`order_sum` of type `Int`
   """
   order_sum: OrderDirection
   """
+  ✨ Generated from Field `Project`.`views_sum` of type `Int`
+  """
+  views_sum: OrderDirection
+  """
   ✨ Generated from Field `Project`.`order_avg` of type `Float`
   """
   order_avg: OrderDirection
+  """
+  ✨ Generated from Field `Project`.`views_avg` of type `Float`
+  """
+  views_avg: OrderDirection
   """
   ✨ Generated from Field `Project`.`createdAt_min` of type `Timestamp`
   """
@@ -1002,6 +1114,10 @@ input Project_Order {
   """
   startDate_min: OrderDirection
   """
+  ✨ Generated from Field `Project`.`views_min` of type `Int`
+  """
+  views_min: OrderDirection
+  """
   ✨ Generated from Field `Project`.`createdAt_max` of type `Timestamp`
   """
   createdAt_max: OrderDirection
@@ -1017,6 +1133,10 @@ input Project_Order {
   ✨ Generated from Field `Project`.`startDate_max` of type `Date`
   """
   startDate_max: OrderDirection
+  """
+  ✨ Generated from Field `Project`.`views_max` of type `Int`
+  """
+  views_max: OrderDirection
 }
 """
 ✨ Generated data input type for table 'ProjectArticle'. It includes all necessary fields for creating or upserting rows into table.
@@ -1110,6 +1230,18 @@ input ProjectArticle_Data {
   ✨ `_update` server value variant of `updatedAt` (✨ Generated from Field `ProjectArticle`.`updatedAt` of type `Timestamp`)
   """
   updatedAt_update: [Timestamp_Update!]
+  """
+  ✨ Generated from Field `ProjectArticle`.`views` of type `Int!`
+  """
+  views: Int
+  """
+  ✨ `_expr` server value variant of `views` (✨ Generated from Field `ProjectArticle`.`views` of type `Int!`)
+  """
+  views_expr: Int_Expr
+  """
+  ✨ `_update` server value variant of `views` (✨ Generated from Field `ProjectArticle`.`views` of type `Int!`)
+  """
+  views_update: [Int_Update!]
 }
 """
 ✨ Generated filter input type for table 'ProjectArticle'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
@@ -1167,6 +1299,10 @@ input ProjectArticle_Filter {
   ✨ Generated from Field `ProjectArticle`.`updatedAt` of type `Timestamp`
   """
   updatedAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `ProjectArticle`.`views` of type `Int!`
+  """
+  views: Int_Filter
 }
 """
 ✨ Generated first-row input type for table 'ProjectArticle'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
@@ -1238,6 +1374,18 @@ input ProjectArticle_Having {
   """
   updatedAt_count: Int_Filter
   """
+  ✨ Generated from Field `ProjectArticle`.`views_count` of type `Int!`
+  """
+  views_count: Int_Filter
+  """
+  ✨ Generated from Field `ProjectArticle`.`views_sum` of type `Int`
+  """
+  views_sum: Int_Filter
+  """
+  ✨ Generated from Field `ProjectArticle`.`views_avg` of type `Float`
+  """
+  views_avg: Float_Filter
+  """
   ✨ Generated from Field `ProjectArticle`.`createdAt_min` of type `Timestamp`
   """
   createdAt_min: Timestamp_Filter
@@ -1246,6 +1394,10 @@ input ProjectArticle_Having {
   """
   updatedAt_min: Timestamp_Filter
   """
+  ✨ Generated from Field `ProjectArticle`.`views_min` of type `Int`
+  """
+  views_min: Int_Filter
+  """
   ✨ Generated from Field `ProjectArticle`.`createdAt_max` of type `Timestamp`
   """
   createdAt_max: Timestamp_Filter
@@ -1253,6 +1405,10 @@ input ProjectArticle_Having {
   ✨ Generated from Field `ProjectArticle`.`updatedAt_max` of type `Timestamp`
   """
   updatedAt_max: Timestamp_Filter
+  """
+  ✨ Generated from Field `ProjectArticle`.`views_max` of type `Int`
+  """
+  views_max: Int_Filter
 }
 """
 ✨ Generated key input type for table 'ProjectArticle'. It represents the primary key fields used to uniquely identify a row in the table.
@@ -1325,6 +1481,10 @@ input ProjectArticle_Order {
   """
   updatedAt: OrderDirection
   """
+  ✨ Generated from Field `ProjectArticle`.`views` of type `Int!`
+  """
+  views: OrderDirection
+  """
   ✨ Generated from Field `ProjectArticle`.`_count` of type `Int!`
   """
   _count: OrderDirection
@@ -1361,6 +1521,18 @@ input ProjectArticle_Order {
   """
   updatedAt_count: OrderDirection
   """
+  ✨ Generated from Field `ProjectArticle`.`views_count` of type `Int!`
+  """
+  views_count: OrderDirection
+  """
+  ✨ Generated from Field `ProjectArticle`.`views_sum` of type `Int`
+  """
+  views_sum: OrderDirection
+  """
+  ✨ Generated from Field `ProjectArticle`.`views_avg` of type `Float`
+  """
+  views_avg: OrderDirection
+  """
   ✨ Generated from Field `ProjectArticle`.`createdAt_min` of type `Timestamp`
   """
   createdAt_min: OrderDirection
@@ -1369,6 +1541,10 @@ input ProjectArticle_Order {
   """
   updatedAt_min: OrderDirection
   """
+  ✨ Generated from Field `ProjectArticle`.`views_min` of type `Int`
+  """
+  views_min: OrderDirection
+  """
   ✨ Generated from Field `ProjectArticle`.`createdAt_max` of type `Timestamp`
   """
   createdAt_max: OrderDirection
@@ -1376,6 +1552,10 @@ input ProjectArticle_Order {
   ✨ Generated from Field `ProjectArticle`.`updatedAt_max` of type `Timestamp`
   """
   updatedAt_max: OrderDirection
+  """
+  ✨ Generated from Field `ProjectArticle`.`views_max` of type `Int`
+  """
+  views_max: OrderDirection
 }
 """
 ✨ Generated data input type for table 'Timeline'. It includes all necessary fields for creating or upserting rows into table.
@@ -1493,6 +1673,18 @@ input Timeline_Data {
   ✨ `_expr` server value variant of `title` (✨ Generated from Field `Timeline`.`title` of type `String!`)
   """
   title_expr: String_Expr
+  """
+  ✨ Generated from Field `Timeline`.`views` of type `Int!`
+  """
+  views: Int
+  """
+  ✨ `_expr` server value variant of `views` (✨ Generated from Field `Timeline`.`views` of type `Int!`)
+  """
+  views_expr: Int_Expr
+  """
+  ✨ `_update` server value variant of `views` (✨ Generated from Field `Timeline`.`views` of type `Int!`)
+  """
+  views_update: [Int_Update!]
 }
 """
 ✨ Generated filter input type for table 'Timeline'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
@@ -1554,6 +1746,10 @@ input Timeline_Filter {
   ✨ Generated from Field `Timeline`.`title` of type `String!`
   """
   title: String_Filter
+  """
+  ✨ Generated from Field `Timeline`.`views` of type `Int!`
+  """
+  views: Int_Filter
 }
 """
 ✨ Generated first-row input type for table 'Timeline'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
@@ -1633,13 +1829,25 @@ input Timeline_Having {
   """
   title_count: Int_Filter
   """
+  ✨ Generated from Field `Timeline`.`views_count` of type `Int!`
+  """
+  views_count: Int_Filter
+  """
   ✨ Generated from Field `Timeline`.`order_sum` of type `Int`
   """
   order_sum: Int_Filter
   """
+  ✨ Generated from Field `Timeline`.`views_sum` of type `Int`
+  """
+  views_sum: Int_Filter
+  """
   ✨ Generated from Field `Timeline`.`order_avg` of type `Float`
   """
   order_avg: Float_Filter
+  """
+  ✨ Generated from Field `Timeline`.`views_avg` of type `Float`
+  """
+  views_avg: Float_Filter
   """
   ✨ Generated from Field `Timeline`.`createdAt_min` of type `Timestamp`
   """
@@ -1657,6 +1865,10 @@ input Timeline_Having {
   """
   startDate_min: Date_Filter
   """
+  ✨ Generated from Field `Timeline`.`views_min` of type `Int`
+  """
+  views_min: Int_Filter
+  """
   ✨ Generated from Field `Timeline`.`createdAt_max` of type `Timestamp`
   """
   createdAt_max: Timestamp_Filter
@@ -1672,6 +1884,10 @@ input Timeline_Having {
   ✨ Generated from Field `Timeline`.`startDate_max` of type `Date`
   """
   startDate_max: Date_Filter
+  """
+  ✨ Generated from Field `Timeline`.`views_max` of type `Int`
+  """
+  views_max: Int_Filter
 }
 """
 ✨ Generated key input type for table 'Timeline'. It represents the primary key fields used to uniquely identify a row in the table.
@@ -1748,6 +1964,10 @@ input Timeline_Order {
   """
   title: OrderDirection
   """
+  ✨ Generated from Field `Timeline`.`views` of type `Int!`
+  """
+  views: OrderDirection
+  """
   ✨ Generated from Field `Timeline`.`_count` of type `Int!`
   """
   _count: OrderDirection
@@ -1792,13 +2012,25 @@ input Timeline_Order {
   """
   title_count: OrderDirection
   """
+  ✨ Generated from Field `Timeline`.`views_count` of type `Int!`
+  """
+  views_count: OrderDirection
+  """
   ✨ Generated from Field `Timeline`.`order_sum` of type `Int`
   """
   order_sum: OrderDirection
   """
+  ✨ Generated from Field `Timeline`.`views_sum` of type `Int`
+  """
+  views_sum: OrderDirection
+  """
   ✨ Generated from Field `Timeline`.`order_avg` of type `Float`
   """
   order_avg: OrderDirection
+  """
+  ✨ Generated from Field `Timeline`.`views_avg` of type `Float`
+  """
+  views_avg: OrderDirection
   """
   ✨ Generated from Field `Timeline`.`createdAt_min` of type `Timestamp`
   """
@@ -1816,6 +2048,10 @@ input Timeline_Order {
   """
   startDate_min: OrderDirection
   """
+  ✨ Generated from Field `Timeline`.`views_min` of type `Int`
+  """
+  views_min: OrderDirection
+  """
   ✨ Generated from Field `Timeline`.`createdAt_max` of type `Timestamp`
   """
   createdAt_max: OrderDirection
@@ -1831,6 +2067,10 @@ input Timeline_Order {
   ✨ Generated from Field `Timeline`.`startDate_max` of type `Date`
   """
   startDate_max: OrderDirection
+  """
+  ✨ Generated from Field `Timeline`.`views_max` of type `Int`
+  """
+  views_max: OrderDirection
 }
 """
 ✨ Generated data input type for table 'User'. It includes all necessary fields for creating or upserting rows into table.
