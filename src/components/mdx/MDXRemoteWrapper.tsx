@@ -15,9 +15,16 @@ interface MDXRemoteWrapperProps {
 }
 
 export function MDXRemoteWrapper({ content }: MDXRemoteWrapperProps) {
-  // DB에서 온 데이터에 문자열 형태의 \n이 포함되어 있을 경우 실제 줄바꿈으로 변환
+  // DB에서 온 데이터 전처리
   const processedContent = content
-    .replace(/\\n/g, '\n')
+    .replace(/\\n/g, '\n') // 리터럴 \n 변환
+    // 1. 구두점 + 볼드종료 + 문자 (예: **"시장성"**와) -> 구두점과 볼드 사이에 제로너비 공백 삽입
+    .replace(/(["')\]>.?!])(\*\*|__)([가-힣a-zA-Z0-9])/g, '$1\u200B$2$3')
+    // 2. 문자 + 볼드시작 + 구두점 (예: 은**"시장성"**) -> 볼드와 구두점 사이에 제로너비 공백 삽입
+    .replace(/([가-힣a-zA-Z0-9])(\*\*|__)(["'(\[<])/g, '$1$2\u200B$3')
+    // 3. 기존 규칙: 한글과 볼드 기호 사이 안정화
+    .replace(/(\*\*|__)([가-힣])/g, '$1\u200B$2')
+    .replace(/([가-힣])(\*\*|__)/g, '$1\u200B$2')
     .trim();
 
   return (
