@@ -11,14 +11,14 @@ export function InsightBlock({ post }: { post: Post }) {
       <Link href={`/insights/${post.id}`} className="absolute inset-0 z-10">
         <span className="sr-only">View Insight: {post.title}</span>
       </Link>
-      <div className="flex justify-between items-start mb-4">
+      <div className="flex justify-between items-center mb-4">
         <Tag type="insight">Insight</Tag>
         <div className="flex items-center gap-3">
-          <time className="text-sm text-slate-400 dark:text-slate-500">
+          <time className="text-xs text-slate-400 dark:text-slate-500 font-medium">
             {new Date(post.createdAt).toLocaleDateString()}
           </time>
           {post.views !== undefined && (
-            <div className="flex items-center text-xs text-slate-400 dark:text-slate-500">
+            <div className="flex items-center text-xs text-slate-400 dark:text-slate-500 font-medium">
               <svg className="w-3.5 h-3.5 mr-1 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
               {post.views.toLocaleString()}
             </div>

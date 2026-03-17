@@ -65,3 +65,26 @@ query GetAdminUserByEmail($email: String!) @auth(level: PUBLIC, insecureReason: 
     isAdmin
   }
 }
+
+query ListProjectArticles($projectId: UUID!) @auth(level: PUBLIC, insecureReason: "Project articles are public information.") {
+  projectArticles(where: { projectId: { eq: $projectId }, published: { eq: true } }, orderBy: [{ createdAt: DESC }]) {
+    id
+    title
+    createdAt
+    views
+  }
+}
+
+query GetProjectArticle($id: UUID!) @auth(level: PUBLIC, insecureReason: "Project articles are public information.") {
+  projectArticle(id: $id) {
+    id
+    title
+    content
+    createdAt
+    views
+    project {
+      id
+      title
+    }
+  }
+}

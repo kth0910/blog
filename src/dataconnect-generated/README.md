@@ -15,10 +15,15 @@ This README will guide you through the process of using the generated JavaScript
   - [*GetUserProfile*](#getuserprofile)
   - [*ListTimeline*](#listtimeline)
   - [*GetAdminUserByEmail*](#getadminuserbyemail)
+  - [*ListProjectArticles*](#listprojectarticles)
+  - [*GetProjectArticle*](#getprojectarticle)
 - [**Mutations**](#mutations)
   - [*CreateProject*](#createproject)
   - [*UpdateProject*](#updateproject)
   - [*DeleteProject*](#deleteproject)
+  - [*CreateProjectArticle*](#createprojectarticle)
+  - [*UpdateProjectArticle*](#updateprojectarticle)
+  - [*DeleteProjectArticle*](#deleteprojectarticle)
   - [*CreateInsight*](#createinsight)
   - [*UpdateInsight*](#updateinsight)
   - [*DeleteInsight*](#deleteinsight)
@@ -614,6 +619,239 @@ executeQuery(ref).then((response) => {
 });
 ```
 
+## ListProjectArticles
+You can execute the `ListProjectArticles` query using the following action shortcut function, or by calling `executeQuery()` after calling the following `QueryRef` function, both of which are defined in [dataconnect-generated/index.d.ts](./index.d.ts):
+```typescript
+listProjectArticles(vars: ListProjectArticlesVariables): QueryPromise<ListProjectArticlesData, ListProjectArticlesVariables>;
+
+interface ListProjectArticlesRef {
+  ...
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: ListProjectArticlesVariables): QueryRef<ListProjectArticlesData, ListProjectArticlesVariables>;
+}
+export const listProjectArticlesRef: ListProjectArticlesRef;
+```
+You can also pass in a `DataConnect` instance to the action shortcut function or `QueryRef` function.
+```typescript
+listProjectArticles(dc: DataConnect, vars: ListProjectArticlesVariables): QueryPromise<ListProjectArticlesData, ListProjectArticlesVariables>;
+
+interface ListProjectArticlesRef {
+  ...
+  (dc: DataConnect, vars: ListProjectArticlesVariables): QueryRef<ListProjectArticlesData, ListProjectArticlesVariables>;
+}
+export const listProjectArticlesRef: ListProjectArticlesRef;
+```
+
+If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the listProjectArticlesRef:
+```typescript
+const name = listProjectArticlesRef.operationName;
+console.log(name);
+```
+
+### Variables
+The `ListProjectArticles` query requires an argument of type `ListProjectArticlesVariables`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+
+```typescript
+export interface ListProjectArticlesVariables {
+  projectId: UUIDString;
+}
+```
+### Return Type
+Recall that executing the `ListProjectArticles` query returns a `QueryPromise` that resolves to an object with a `data` property.
+
+The `data` property is an object of type `ListProjectArticlesData`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+```typescript
+export interface ListProjectArticlesData {
+  projectArticles: ({
+    id: UUIDString;
+    title: string;
+    createdAt: TimestampString;
+    views: number;
+  } & ProjectArticle_Key)[];
+}
+```
+### Using `ListProjectArticles`'s action shortcut function
+
+```typescript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, listProjectArticles, ListProjectArticlesVariables } from '@dataconnect/generated';
+
+// The `ListProjectArticles` query requires an argument of type `ListProjectArticlesVariables`:
+const listProjectArticlesVars: ListProjectArticlesVariables = {
+  projectId: ..., 
+};
+
+// Call the `listProjectArticles()` function to execute the query.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await listProjectArticles(listProjectArticlesVars);
+// Variables can be defined inline as well.
+const { data } = await listProjectArticles({ projectId: ..., });
+
+// You can also pass in a `DataConnect` instance to the action shortcut function.
+const dataConnect = getDataConnect(connectorConfig);
+const { data } = await listProjectArticles(dataConnect, listProjectArticlesVars);
+
+console.log(data.projectArticles);
+
+// Or, you can use the `Promise` API.
+listProjectArticles(listProjectArticlesVars).then((response) => {
+  const data = response.data;
+  console.log(data.projectArticles);
+});
+```
+
+### Using `ListProjectArticles`'s `QueryRef` function
+
+```typescript
+import { getDataConnect, executeQuery } from 'firebase/data-connect';
+import { connectorConfig, listProjectArticlesRef, ListProjectArticlesVariables } from '@dataconnect/generated';
+
+// The `ListProjectArticles` query requires an argument of type `ListProjectArticlesVariables`:
+const listProjectArticlesVars: ListProjectArticlesVariables = {
+  projectId: ..., 
+};
+
+// Call the `listProjectArticlesRef()` function to get a reference to the query.
+const ref = listProjectArticlesRef(listProjectArticlesVars);
+// Variables can be defined inline as well.
+const ref = listProjectArticlesRef({ projectId: ..., });
+
+// You can also pass in a `DataConnect` instance to the `QueryRef` function.
+const dataConnect = getDataConnect(connectorConfig);
+const ref = listProjectArticlesRef(dataConnect, listProjectArticlesVars);
+
+// Call `executeQuery()` on the reference to execute the query.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await executeQuery(ref);
+
+console.log(data.projectArticles);
+
+// Or, you can use the `Promise` API.
+executeQuery(ref).then((response) => {
+  const data = response.data;
+  console.log(data.projectArticles);
+});
+```
+
+## GetProjectArticle
+You can execute the `GetProjectArticle` query using the following action shortcut function, or by calling `executeQuery()` after calling the following `QueryRef` function, both of which are defined in [dataconnect-generated/index.d.ts](./index.d.ts):
+```typescript
+getProjectArticle(vars: GetProjectArticleVariables): QueryPromise<GetProjectArticleData, GetProjectArticleVariables>;
+
+interface GetProjectArticleRef {
+  ...
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: GetProjectArticleVariables): QueryRef<GetProjectArticleData, GetProjectArticleVariables>;
+}
+export const getProjectArticleRef: GetProjectArticleRef;
+```
+You can also pass in a `DataConnect` instance to the action shortcut function or `QueryRef` function.
+```typescript
+getProjectArticle(dc: DataConnect, vars: GetProjectArticleVariables): QueryPromise<GetProjectArticleData, GetProjectArticleVariables>;
+
+interface GetProjectArticleRef {
+  ...
+  (dc: DataConnect, vars: GetProjectArticleVariables): QueryRef<GetProjectArticleData, GetProjectArticleVariables>;
+}
+export const getProjectArticleRef: GetProjectArticleRef;
+```
+
+If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the getProjectArticleRef:
+```typescript
+const name = getProjectArticleRef.operationName;
+console.log(name);
+```
+
+### Variables
+The `GetProjectArticle` query requires an argument of type `GetProjectArticleVariables`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+
+```typescript
+export interface GetProjectArticleVariables {
+  id: UUIDString;
+}
+```
+### Return Type
+Recall that executing the `GetProjectArticle` query returns a `QueryPromise` that resolves to an object with a `data` property.
+
+The `data` property is an object of type `GetProjectArticleData`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+```typescript
+export interface GetProjectArticleData {
+  projectArticle?: {
+    id: UUIDString;
+    title: string;
+    content: string;
+    createdAt: TimestampString;
+    views: number;
+    project: {
+      id: UUIDString;
+      title: string;
+    } & Project_Key;
+  } & ProjectArticle_Key;
+}
+```
+### Using `GetProjectArticle`'s action shortcut function
+
+```typescript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, getProjectArticle, GetProjectArticleVariables } from '@dataconnect/generated';
+
+// The `GetProjectArticle` query requires an argument of type `GetProjectArticleVariables`:
+const getProjectArticleVars: GetProjectArticleVariables = {
+  id: ..., 
+};
+
+// Call the `getProjectArticle()` function to execute the query.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await getProjectArticle(getProjectArticleVars);
+// Variables can be defined inline as well.
+const { data } = await getProjectArticle({ id: ..., });
+
+// You can also pass in a `DataConnect` instance to the action shortcut function.
+const dataConnect = getDataConnect(connectorConfig);
+const { data } = await getProjectArticle(dataConnect, getProjectArticleVars);
+
+console.log(data.projectArticle);
+
+// Or, you can use the `Promise` API.
+getProjectArticle(getProjectArticleVars).then((response) => {
+  const data = response.data;
+  console.log(data.projectArticle);
+});
+```
+
+### Using `GetProjectArticle`'s `QueryRef` function
+
+```typescript
+import { getDataConnect, executeQuery } from 'firebase/data-connect';
+import { connectorConfig, getProjectArticleRef, GetProjectArticleVariables } from '@dataconnect/generated';
+
+// The `GetProjectArticle` query requires an argument of type `GetProjectArticleVariables`:
+const getProjectArticleVars: GetProjectArticleVariables = {
+  id: ..., 
+};
+
+// Call the `getProjectArticleRef()` function to get a reference to the query.
+const ref = getProjectArticleRef(getProjectArticleVars);
+// Variables can be defined inline as well.
+const ref = getProjectArticleRef({ id: ..., });
+
+// You can also pass in a `DataConnect` instance to the `QueryRef` function.
+const dataConnect = getDataConnect(connectorConfig);
+const ref = getProjectArticleRef(dataConnect, getProjectArticleVars);
+
+// Call `executeQuery()` on the reference to execute the query.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await executeQuery(ref);
+
+console.log(data.projectArticle);
+
+// Or, you can use the `Promise` API.
+executeQuery(ref).then((response) => {
+  const data = response.data;
+  console.log(data.projectArticle);
+});
+```
+
 # Mutations
 
 There are two ways to execute a Data Connect Mutation using the generated Web SDK:
@@ -1013,6 +1251,354 @@ console.log(data.project_delete);
 executeMutation(ref).then((response) => {
   const data = response.data;
   console.log(data.project_delete);
+});
+```
+
+## CreateProjectArticle
+You can execute the `CreateProjectArticle` mutation using the following action shortcut function, or by calling `executeMutation()` after calling the following `MutationRef` function, both of which are defined in [dataconnect-generated/index.d.ts](./index.d.ts):
+```typescript
+createProjectArticle(vars: CreateProjectArticleVariables): MutationPromise<CreateProjectArticleData, CreateProjectArticleVariables>;
+
+interface CreateProjectArticleRef {
+  ...
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: CreateProjectArticleVariables): MutationRef<CreateProjectArticleData, CreateProjectArticleVariables>;
+}
+export const createProjectArticleRef: CreateProjectArticleRef;
+```
+You can also pass in a `DataConnect` instance to the action shortcut function or `MutationRef` function.
+```typescript
+createProjectArticle(dc: DataConnect, vars: CreateProjectArticleVariables): MutationPromise<CreateProjectArticleData, CreateProjectArticleVariables>;
+
+interface CreateProjectArticleRef {
+  ...
+  (dc: DataConnect, vars: CreateProjectArticleVariables): MutationRef<CreateProjectArticleData, CreateProjectArticleVariables>;
+}
+export const createProjectArticleRef: CreateProjectArticleRef;
+```
+
+If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the createProjectArticleRef:
+```typescript
+const name = createProjectArticleRef.operationName;
+console.log(name);
+```
+
+### Variables
+The `CreateProjectArticle` mutation requires an argument of type `CreateProjectArticleVariables`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+
+```typescript
+export interface CreateProjectArticleVariables {
+  authorId: UUIDString;
+  projectId: UUIDString;
+  title: string;
+  content: string;
+  published: boolean;
+}
+```
+### Return Type
+Recall that executing the `CreateProjectArticle` mutation returns a `MutationPromise` that resolves to an object with a `data` property.
+
+The `data` property is an object of type `CreateProjectArticleData`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+```typescript
+export interface CreateProjectArticleData {
+  projectArticle_insert: ProjectArticle_Key;
+}
+```
+### Using `CreateProjectArticle`'s action shortcut function
+
+```typescript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, createProjectArticle, CreateProjectArticleVariables } from '@dataconnect/generated';
+
+// The `CreateProjectArticle` mutation requires an argument of type `CreateProjectArticleVariables`:
+const createProjectArticleVars: CreateProjectArticleVariables = {
+  authorId: ..., 
+  projectId: ..., 
+  title: ..., 
+  content: ..., 
+  published: ..., 
+};
+
+// Call the `createProjectArticle()` function to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await createProjectArticle(createProjectArticleVars);
+// Variables can be defined inline as well.
+const { data } = await createProjectArticle({ authorId: ..., projectId: ..., title: ..., content: ..., published: ..., });
+
+// You can also pass in a `DataConnect` instance to the action shortcut function.
+const dataConnect = getDataConnect(connectorConfig);
+const { data } = await createProjectArticle(dataConnect, createProjectArticleVars);
+
+console.log(data.projectArticle_insert);
+
+// Or, you can use the `Promise` API.
+createProjectArticle(createProjectArticleVars).then((response) => {
+  const data = response.data;
+  console.log(data.projectArticle_insert);
+});
+```
+
+### Using `CreateProjectArticle`'s `MutationRef` function
+
+```typescript
+import { getDataConnect, executeMutation } from 'firebase/data-connect';
+import { connectorConfig, createProjectArticleRef, CreateProjectArticleVariables } from '@dataconnect/generated';
+
+// The `CreateProjectArticle` mutation requires an argument of type `CreateProjectArticleVariables`:
+const createProjectArticleVars: CreateProjectArticleVariables = {
+  authorId: ..., 
+  projectId: ..., 
+  title: ..., 
+  content: ..., 
+  published: ..., 
+};
+
+// Call the `createProjectArticleRef()` function to get a reference to the mutation.
+const ref = createProjectArticleRef(createProjectArticleVars);
+// Variables can be defined inline as well.
+const ref = createProjectArticleRef({ authorId: ..., projectId: ..., title: ..., content: ..., published: ..., });
+
+// You can also pass in a `DataConnect` instance to the `MutationRef` function.
+const dataConnect = getDataConnect(connectorConfig);
+const ref = createProjectArticleRef(dataConnect, createProjectArticleVars);
+
+// Call `executeMutation()` on the reference to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await executeMutation(ref);
+
+console.log(data.projectArticle_insert);
+
+// Or, you can use the `Promise` API.
+executeMutation(ref).then((response) => {
+  const data = response.data;
+  console.log(data.projectArticle_insert);
+});
+```
+
+## UpdateProjectArticle
+You can execute the `UpdateProjectArticle` mutation using the following action shortcut function, or by calling `executeMutation()` after calling the following `MutationRef` function, both of which are defined in [dataconnect-generated/index.d.ts](./index.d.ts):
+```typescript
+updateProjectArticle(vars: UpdateProjectArticleVariables): MutationPromise<UpdateProjectArticleData, UpdateProjectArticleVariables>;
+
+interface UpdateProjectArticleRef {
+  ...
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: UpdateProjectArticleVariables): MutationRef<UpdateProjectArticleData, UpdateProjectArticleVariables>;
+}
+export const updateProjectArticleRef: UpdateProjectArticleRef;
+```
+You can also pass in a `DataConnect` instance to the action shortcut function or `MutationRef` function.
+```typescript
+updateProjectArticle(dc: DataConnect, vars: UpdateProjectArticleVariables): MutationPromise<UpdateProjectArticleData, UpdateProjectArticleVariables>;
+
+interface UpdateProjectArticleRef {
+  ...
+  (dc: DataConnect, vars: UpdateProjectArticleVariables): MutationRef<UpdateProjectArticleData, UpdateProjectArticleVariables>;
+}
+export const updateProjectArticleRef: UpdateProjectArticleRef;
+```
+
+If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the updateProjectArticleRef:
+```typescript
+const name = updateProjectArticleRef.operationName;
+console.log(name);
+```
+
+### Variables
+The `UpdateProjectArticle` mutation requires an argument of type `UpdateProjectArticleVariables`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+
+```typescript
+export interface UpdateProjectArticleVariables {
+  id: UUIDString;
+  title?: string | null;
+  content?: string | null;
+  published?: boolean | null;
+}
+```
+### Return Type
+Recall that executing the `UpdateProjectArticle` mutation returns a `MutationPromise` that resolves to an object with a `data` property.
+
+The `data` property is an object of type `UpdateProjectArticleData`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+```typescript
+export interface UpdateProjectArticleData {
+  projectArticle_update?: ProjectArticle_Key | null;
+}
+```
+### Using `UpdateProjectArticle`'s action shortcut function
+
+```typescript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, updateProjectArticle, UpdateProjectArticleVariables } from '@dataconnect/generated';
+
+// The `UpdateProjectArticle` mutation requires an argument of type `UpdateProjectArticleVariables`:
+const updateProjectArticleVars: UpdateProjectArticleVariables = {
+  id: ..., 
+  title: ..., // optional
+  content: ..., // optional
+  published: ..., // optional
+};
+
+// Call the `updateProjectArticle()` function to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await updateProjectArticle(updateProjectArticleVars);
+// Variables can be defined inline as well.
+const { data } = await updateProjectArticle({ id: ..., title: ..., content: ..., published: ..., });
+
+// You can also pass in a `DataConnect` instance to the action shortcut function.
+const dataConnect = getDataConnect(connectorConfig);
+const { data } = await updateProjectArticle(dataConnect, updateProjectArticleVars);
+
+console.log(data.projectArticle_update);
+
+// Or, you can use the `Promise` API.
+updateProjectArticle(updateProjectArticleVars).then((response) => {
+  const data = response.data;
+  console.log(data.projectArticle_update);
+});
+```
+
+### Using `UpdateProjectArticle`'s `MutationRef` function
+
+```typescript
+import { getDataConnect, executeMutation } from 'firebase/data-connect';
+import { connectorConfig, updateProjectArticleRef, UpdateProjectArticleVariables } from '@dataconnect/generated';
+
+// The `UpdateProjectArticle` mutation requires an argument of type `UpdateProjectArticleVariables`:
+const updateProjectArticleVars: UpdateProjectArticleVariables = {
+  id: ..., 
+  title: ..., // optional
+  content: ..., // optional
+  published: ..., // optional
+};
+
+// Call the `updateProjectArticleRef()` function to get a reference to the mutation.
+const ref = updateProjectArticleRef(updateProjectArticleVars);
+// Variables can be defined inline as well.
+const ref = updateProjectArticleRef({ id: ..., title: ..., content: ..., published: ..., });
+
+// You can also pass in a `DataConnect` instance to the `MutationRef` function.
+const dataConnect = getDataConnect(connectorConfig);
+const ref = updateProjectArticleRef(dataConnect, updateProjectArticleVars);
+
+// Call `executeMutation()` on the reference to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await executeMutation(ref);
+
+console.log(data.projectArticle_update);
+
+// Or, you can use the `Promise` API.
+executeMutation(ref).then((response) => {
+  const data = response.data;
+  console.log(data.projectArticle_update);
+});
+```
+
+## DeleteProjectArticle
+You can execute the `DeleteProjectArticle` mutation using the following action shortcut function, or by calling `executeMutation()` after calling the following `MutationRef` function, both of which are defined in [dataconnect-generated/index.d.ts](./index.d.ts):
+```typescript
+deleteProjectArticle(vars: DeleteProjectArticleVariables): MutationPromise<DeleteProjectArticleData, DeleteProjectArticleVariables>;
+
+interface DeleteProjectArticleRef {
+  ...
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: DeleteProjectArticleVariables): MutationRef<DeleteProjectArticleData, DeleteProjectArticleVariables>;
+}
+export const deleteProjectArticleRef: DeleteProjectArticleRef;
+```
+You can also pass in a `DataConnect` instance to the action shortcut function or `MutationRef` function.
+```typescript
+deleteProjectArticle(dc: DataConnect, vars: DeleteProjectArticleVariables): MutationPromise<DeleteProjectArticleData, DeleteProjectArticleVariables>;
+
+interface DeleteProjectArticleRef {
+  ...
+  (dc: DataConnect, vars: DeleteProjectArticleVariables): MutationRef<DeleteProjectArticleData, DeleteProjectArticleVariables>;
+}
+export const deleteProjectArticleRef: DeleteProjectArticleRef;
+```
+
+If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the deleteProjectArticleRef:
+```typescript
+const name = deleteProjectArticleRef.operationName;
+console.log(name);
+```
+
+### Variables
+The `DeleteProjectArticle` mutation requires an argument of type `DeleteProjectArticleVariables`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+
+```typescript
+export interface DeleteProjectArticleVariables {
+  id: UUIDString;
+}
+```
+### Return Type
+Recall that executing the `DeleteProjectArticle` mutation returns a `MutationPromise` that resolves to an object with a `data` property.
+
+The `data` property is an object of type `DeleteProjectArticleData`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+```typescript
+export interface DeleteProjectArticleData {
+  projectArticle_delete?: ProjectArticle_Key | null;
+}
+```
+### Using `DeleteProjectArticle`'s action shortcut function
+
+```typescript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, deleteProjectArticle, DeleteProjectArticleVariables } from '@dataconnect/generated';
+
+// The `DeleteProjectArticle` mutation requires an argument of type `DeleteProjectArticleVariables`:
+const deleteProjectArticleVars: DeleteProjectArticleVariables = {
+  id: ..., 
+};
+
+// Call the `deleteProjectArticle()` function to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await deleteProjectArticle(deleteProjectArticleVars);
+// Variables can be defined inline as well.
+const { data } = await deleteProjectArticle({ id: ..., });
+
+// You can also pass in a `DataConnect` instance to the action shortcut function.
+const dataConnect = getDataConnect(connectorConfig);
+const { data } = await deleteProjectArticle(dataConnect, deleteProjectArticleVars);
+
+console.log(data.projectArticle_delete);
+
+// Or, you can use the `Promise` API.
+deleteProjectArticle(deleteProjectArticleVars).then((response) => {
+  const data = response.data;
+  console.log(data.projectArticle_delete);
+});
+```
+
+### Using `DeleteProjectArticle`'s `MutationRef` function
+
+```typescript
+import { getDataConnect, executeMutation } from 'firebase/data-connect';
+import { connectorConfig, deleteProjectArticleRef, DeleteProjectArticleVariables } from '@dataconnect/generated';
+
+// The `DeleteProjectArticle` mutation requires an argument of type `DeleteProjectArticleVariables`:
+const deleteProjectArticleVars: DeleteProjectArticleVariables = {
+  id: ..., 
+};
+
+// Call the `deleteProjectArticleRef()` function to get a reference to the mutation.
+const ref = deleteProjectArticleRef(deleteProjectArticleVars);
+// Variables can be defined inline as well.
+const ref = deleteProjectArticleRef({ id: ..., });
+
+// You can also pass in a `DataConnect` instance to the `MutationRef` function.
+const dataConnect = getDataConnect(connectorConfig);
+const ref = deleteProjectArticleRef(dataConnect, deleteProjectArticleVars);
+
+// Call `executeMutation()` on the reference to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await executeMutation(ref);
+
+console.log(data.projectArticle_delete);
+
+// Or, you can use the `Promise` API.
+executeMutation(ref).then((response) => {
+  const data = response.data;
+  console.log(data.projectArticle_delete);
 });
 ```
 

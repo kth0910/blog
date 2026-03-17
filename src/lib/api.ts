@@ -6,6 +6,8 @@ import {
   updateProjectViews,
   updateTimelineViews,
   updateProjectArticleViews,
+  listProjectArticles,
+  getProjectArticle as getProjectArticleDC
 } from '@dataconnect/generated';
 import { dataconnect } from './firebase';
 
@@ -34,6 +36,16 @@ export interface Post {
   updatedAt?: string;
   authorName?: string;
   authorProfileUrl?: string;
+}
+
+export interface ProjectArticle {
+  id: string;
+  projectId: string;
+  projectTitle?: string;
+  title: string;
+  content: string;
+  createdAt: string;
+  views: number;
 }
 
 export async function getPosts(type?: PostType, limit = 10, offset = 0): Promise<{data: Post[], pagination: any}> {
@@ -163,5 +175,41 @@ export async function incrementProjectArticleView(id: string) {
     await updateProjectArticleViews(dataconnect, { id });
   } catch (err) {
     console.error('Failed to increment project article views:', err);
+  }
+}
+
+export async function getProjectArticles(projectId: string): Promise<ProjectArticle[]> {
+  try {
+    const { data } = await listProjectArticles(dataconnect, { projectId });
+    return data.projectArticles.map(a => ({
+      id: a.id,
+      projectId: projectId,
+      title: a.title,
+      content: '', // list에서는 비어있음
+      createdAt: a.createdAt,
+      views: a.views
+    }));
+  } catch (err) {
+    console.error('Failed to fetch project articles:', err);
+    return [];
+  }
+}
+
+export async function getProjectArticle(id: string): Promise<ProjectArticle | null> {
+  try {
+    const { data } = await getProjectArticleDC(dataconnect, { id });
+    if (!data.projectArticle) return null;
+    return {
+      id: data.projectArticle.id,
+      projectId: data.projectArticle.project.id,
+      projectTitle: data.projectArticle.project.title,
+      title: data.projectArticle.title,
+      content: data.projectArticle.content,
+      createdAt: data.projectArticle.createdAt,
+      views: data.projectArticle.views
+    };
+  } catch (err) {
+    console.error('Failed to fetch project article:', err);
+    return null;
   }
 }

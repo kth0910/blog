@@ -22,10 +22,15 @@ You can also follow the instructions from the [Data Connect documentation](https
   - [*GetUserProfile*](#getuserprofile)
   - [*ListTimeline*](#listtimeline)
   - [*GetAdminUserByEmail*](#getadminuserbyemail)
+  - [*ListProjectArticles*](#listprojectarticles)
+  - [*GetProjectArticle*](#getprojectarticle)
 - [**Mutations**](#mutations)
   - [*CreateProject*](#createproject)
   - [*UpdateProject*](#updateproject)
   - [*DeleteProject*](#deleteproject)
+  - [*CreateProjectArticle*](#createprojectarticle)
+  - [*UpdateProjectArticle*](#updateprojectarticle)
+  - [*DeleteProjectArticle*](#deleteprojectarticle)
   - [*CreateInsight*](#createinsight)
   - [*UpdateInsight*](#updateinsight)
   - [*DeleteInsight*](#deleteinsight)
@@ -546,6 +551,185 @@ export default function GetAdminUserByEmailComponent() {
 }
 ```
 
+## ListProjectArticles
+You can execute the `ListProjectArticles` Query using the following Query hook function, which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts):
+
+```javascript
+useListProjectArticles(dc: DataConnect, vars: ListProjectArticlesVariables, options?: useDataConnectQueryOptions<ListProjectArticlesData>): UseDataConnectQueryResult<ListProjectArticlesData, ListProjectArticlesVariables>;
+```
+You can also pass in a `DataConnect` instance to the Query hook function.
+```javascript
+useListProjectArticles(vars: ListProjectArticlesVariables, options?: useDataConnectQueryOptions<ListProjectArticlesData>): UseDataConnectQueryResult<ListProjectArticlesData, ListProjectArticlesVariables>;
+```
+
+### Variables
+The `ListProjectArticles` Query requires an argument of type `ListProjectArticlesVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+
+```javascript
+export interface ListProjectArticlesVariables {
+  projectId: UUIDString;
+}
+```
+### Return Type
+Recall that calling the `ListProjectArticles` Query hook function returns a `UseQueryResult` object. This object holds the state of your Query, including whether the Query is loading, has completed, or has succeeded/failed, and any data returned by the Query, among other things.
+
+To check the status of a Query, use the `UseQueryResult.status` field. You can also check for pending / success / error status using the `UseQueryResult.isPending`, `UseQueryResult.isSuccess`, and `UseQueryResult.isError` fields.
+
+To access the data returned by a Query, use the `UseQueryResult.data` field. The data for the `ListProjectArticles` Query is of type `ListProjectArticlesData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface ListProjectArticlesData {
+  projectArticles: ({
+    id: UUIDString;
+    title: string;
+    createdAt: TimestampString;
+    views: number;
+  } & ProjectArticle_Key)[];
+}
+```
+
+To learn more about the `UseQueryResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery).
+
+### Using `ListProjectArticles`'s Query hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, ListProjectArticlesVariables } from '@dataconnect/generated';
+import { useListProjectArticles } from '@dataconnect/generated/react'
+
+export default function ListProjectArticlesComponent() {
+  // The `useListProjectArticles` Query hook requires an argument of type `ListProjectArticlesVariables`:
+  const listProjectArticlesVars: ListProjectArticlesVariables = {
+    projectId: ..., 
+  };
+
+  // You don't have to do anything to "execute" the Query.
+  // Call the Query hook function to get a `UseQueryResult` object which holds the state of your Query.
+  const query = useListProjectArticles(listProjectArticlesVars);
+  // Variables can be defined inline as well.
+  const query = useListProjectArticles({ projectId: ..., });
+
+  // You can also pass in a `DataConnect` instance to the Query hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const query = useListProjectArticles(dataConnect, listProjectArticlesVars);
+
+  // You can also pass in a `useDataConnectQueryOptions` object to the Query hook function.
+  const options = { staleTime: 5 * 1000 };
+  const query = useListProjectArticles(listProjectArticlesVars, options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectQueryOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = { staleTime: 5 * 1000 };
+  const query = useListProjectArticles(dataConnect, listProjectArticlesVars, options);
+
+  // Then, you can render your component dynamically based on the status of the Query.
+  if (query.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (query.isError) {
+    return <div>Error: {query.error.message}</div>;
+  }
+
+  // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
+  if (query.isSuccess) {
+    console.log(query.data.projectArticles);
+  }
+  return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## GetProjectArticle
+You can execute the `GetProjectArticle` Query using the following Query hook function, which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts):
+
+```javascript
+useGetProjectArticle(dc: DataConnect, vars: GetProjectArticleVariables, options?: useDataConnectQueryOptions<GetProjectArticleData>): UseDataConnectQueryResult<GetProjectArticleData, GetProjectArticleVariables>;
+```
+You can also pass in a `DataConnect` instance to the Query hook function.
+```javascript
+useGetProjectArticle(vars: GetProjectArticleVariables, options?: useDataConnectQueryOptions<GetProjectArticleData>): UseDataConnectQueryResult<GetProjectArticleData, GetProjectArticleVariables>;
+```
+
+### Variables
+The `GetProjectArticle` Query requires an argument of type `GetProjectArticleVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+
+```javascript
+export interface GetProjectArticleVariables {
+  id: UUIDString;
+}
+```
+### Return Type
+Recall that calling the `GetProjectArticle` Query hook function returns a `UseQueryResult` object. This object holds the state of your Query, including whether the Query is loading, has completed, or has succeeded/failed, and any data returned by the Query, among other things.
+
+To check the status of a Query, use the `UseQueryResult.status` field. You can also check for pending / success / error status using the `UseQueryResult.isPending`, `UseQueryResult.isSuccess`, and `UseQueryResult.isError` fields.
+
+To access the data returned by a Query, use the `UseQueryResult.data` field. The data for the `GetProjectArticle` Query is of type `GetProjectArticleData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface GetProjectArticleData {
+  projectArticle?: {
+    id: UUIDString;
+    title: string;
+    content: string;
+    createdAt: TimestampString;
+    views: number;
+    project: {
+      id: UUIDString;
+      title: string;
+    } & Project_Key;
+  } & ProjectArticle_Key;
+}
+```
+
+To learn more about the `UseQueryResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery).
+
+### Using `GetProjectArticle`'s Query hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, GetProjectArticleVariables } from '@dataconnect/generated';
+import { useGetProjectArticle } from '@dataconnect/generated/react'
+
+export default function GetProjectArticleComponent() {
+  // The `useGetProjectArticle` Query hook requires an argument of type `GetProjectArticleVariables`:
+  const getProjectArticleVars: GetProjectArticleVariables = {
+    id: ..., 
+  };
+
+  // You don't have to do anything to "execute" the Query.
+  // Call the Query hook function to get a `UseQueryResult` object which holds the state of your Query.
+  const query = useGetProjectArticle(getProjectArticleVars);
+  // Variables can be defined inline as well.
+  const query = useGetProjectArticle({ id: ..., });
+
+  // You can also pass in a `DataConnect` instance to the Query hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const query = useGetProjectArticle(dataConnect, getProjectArticleVars);
+
+  // You can also pass in a `useDataConnectQueryOptions` object to the Query hook function.
+  const options = { staleTime: 5 * 1000 };
+  const query = useGetProjectArticle(getProjectArticleVars, options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectQueryOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = { staleTime: 5 * 1000 };
+  const query = useGetProjectArticle(dataConnect, getProjectArticleVars, options);
+
+  // Then, you can render your component dynamically based on the status of the Query.
+  if (query.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (query.isError) {
+    return <div>Error: {query.error.message}</div>;
+  }
+
+  // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
+  if (query.isSuccess) {
+    console.log(query.data.projectArticle);
+  }
+  return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
 # Mutations
 
 The React generated SDK provides Mutations hook functions that call and return [`useDataConnectMutation`](https://react-query-firebase.invertase.dev/react/data-connect/mutations) hooks from TanStack Query Firebase.
@@ -888,6 +1072,302 @@ export default function DeleteProjectComponent() {
   // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
   if (mutation.isSuccess) {
     console.log(mutation.data.project_delete);
+  }
+  return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## CreateProjectArticle
+You can execute the `CreateProjectArticle` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts)):
+```javascript
+useCreateProjectArticle(options?: useDataConnectMutationOptions<CreateProjectArticleData, FirebaseError, CreateProjectArticleVariables>): UseDataConnectMutationResult<CreateProjectArticleData, CreateProjectArticleVariables>;
+```
+You can also pass in a `DataConnect` instance to the Mutation hook function.
+```javascript
+useCreateProjectArticle(dc: DataConnect, options?: useDataConnectMutationOptions<CreateProjectArticleData, FirebaseError, CreateProjectArticleVariables>): UseDataConnectMutationResult<CreateProjectArticleData, CreateProjectArticleVariables>;
+```
+
+### Variables
+The `CreateProjectArticle` Mutation requires an argument of type `CreateProjectArticleVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+
+```javascript
+export interface CreateProjectArticleVariables {
+  authorId: UUIDString;
+  projectId: UUIDString;
+  title: string;
+  content: string;
+  published: boolean;
+}
+```
+### Return Type
+Recall that calling the `CreateProjectArticle` Mutation hook function returns a `UseMutationResult` object. This object holds the state of your Mutation, including whether the Mutation is loading, has completed, or has succeeded/failed, among other things.
+
+To check the status of a Mutation, use the `UseMutationResult.status` field. You can also check for pending / success / error status using the `UseMutationResult.isPending`, `UseMutationResult.isSuccess`, and `UseMutationResult.isError` fields.
+
+To execute the Mutation, call `UseMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation.
+
+To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `CreateProjectArticle` Mutation is of type `CreateProjectArticleData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface CreateProjectArticleData {
+  projectArticle_insert: ProjectArticle_Key;
+}
+```
+
+To learn more about the `UseMutationResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useMutation).
+
+### Using `CreateProjectArticle`'s Mutation hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, CreateProjectArticleVariables } from '@dataconnect/generated';
+import { useCreateProjectArticle } from '@dataconnect/generated/react'
+
+export default function CreateProjectArticleComponent() {
+  // Call the Mutation hook function to get a `UseMutationResult` object which holds the state of your Mutation.
+  const mutation = useCreateProjectArticle();
+
+  // You can also pass in a `DataConnect` instance to the Mutation hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const mutation = useCreateProjectArticle(dataConnect);
+
+  // You can also pass in a `useDataConnectMutationOptions` object to the Mutation hook function.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useCreateProjectArticle(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectMutationOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useCreateProjectArticle(dataConnect, options);
+
+  // After calling the Mutation hook function, you must call `UseMutationResult.mutate()` to execute the Mutation.
+  // The `useCreateProjectArticle` Mutation requires an argument of type `CreateProjectArticleVariables`:
+  const createProjectArticleVars: CreateProjectArticleVariables = {
+    authorId: ..., 
+    projectId: ..., 
+    title: ..., 
+    content: ..., 
+    published: ..., 
+  };
+  mutation.mutate(createProjectArticleVars);
+  // Variables can be defined inline as well.
+  mutation.mutate({ authorId: ..., projectId: ..., title: ..., content: ..., published: ..., });
+
+  // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  mutation.mutate(createProjectArticleVars, options);
+
+  // Then, you can render your component dynamically based on the status of the Mutation.
+  if (mutation.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (mutation.isError) {
+    return <div>Error: {mutation.error.message}</div>;
+  }
+
+  // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
+  if (mutation.isSuccess) {
+    console.log(mutation.data.projectArticle_insert);
+  }
+  return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## UpdateProjectArticle
+You can execute the `UpdateProjectArticle` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts)):
+```javascript
+useUpdateProjectArticle(options?: useDataConnectMutationOptions<UpdateProjectArticleData, FirebaseError, UpdateProjectArticleVariables>): UseDataConnectMutationResult<UpdateProjectArticleData, UpdateProjectArticleVariables>;
+```
+You can also pass in a `DataConnect` instance to the Mutation hook function.
+```javascript
+useUpdateProjectArticle(dc: DataConnect, options?: useDataConnectMutationOptions<UpdateProjectArticleData, FirebaseError, UpdateProjectArticleVariables>): UseDataConnectMutationResult<UpdateProjectArticleData, UpdateProjectArticleVariables>;
+```
+
+### Variables
+The `UpdateProjectArticle` Mutation requires an argument of type `UpdateProjectArticleVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+
+```javascript
+export interface UpdateProjectArticleVariables {
+  id: UUIDString;
+  title?: string | null;
+  content?: string | null;
+  published?: boolean | null;
+}
+```
+### Return Type
+Recall that calling the `UpdateProjectArticle` Mutation hook function returns a `UseMutationResult` object. This object holds the state of your Mutation, including whether the Mutation is loading, has completed, or has succeeded/failed, among other things.
+
+To check the status of a Mutation, use the `UseMutationResult.status` field. You can also check for pending / success / error status using the `UseMutationResult.isPending`, `UseMutationResult.isSuccess`, and `UseMutationResult.isError` fields.
+
+To execute the Mutation, call `UseMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation.
+
+To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `UpdateProjectArticle` Mutation is of type `UpdateProjectArticleData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface UpdateProjectArticleData {
+  projectArticle_update?: ProjectArticle_Key | null;
+}
+```
+
+To learn more about the `UseMutationResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useMutation).
+
+### Using `UpdateProjectArticle`'s Mutation hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, UpdateProjectArticleVariables } from '@dataconnect/generated';
+import { useUpdateProjectArticle } from '@dataconnect/generated/react'
+
+export default function UpdateProjectArticleComponent() {
+  // Call the Mutation hook function to get a `UseMutationResult` object which holds the state of your Mutation.
+  const mutation = useUpdateProjectArticle();
+
+  // You can also pass in a `DataConnect` instance to the Mutation hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const mutation = useUpdateProjectArticle(dataConnect);
+
+  // You can also pass in a `useDataConnectMutationOptions` object to the Mutation hook function.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useUpdateProjectArticle(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectMutationOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useUpdateProjectArticle(dataConnect, options);
+
+  // After calling the Mutation hook function, you must call `UseMutationResult.mutate()` to execute the Mutation.
+  // The `useUpdateProjectArticle` Mutation requires an argument of type `UpdateProjectArticleVariables`:
+  const updateProjectArticleVars: UpdateProjectArticleVariables = {
+    id: ..., 
+    title: ..., // optional
+    content: ..., // optional
+    published: ..., // optional
+  };
+  mutation.mutate(updateProjectArticleVars);
+  // Variables can be defined inline as well.
+  mutation.mutate({ id: ..., title: ..., content: ..., published: ..., });
+
+  // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  mutation.mutate(updateProjectArticleVars, options);
+
+  // Then, you can render your component dynamically based on the status of the Mutation.
+  if (mutation.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (mutation.isError) {
+    return <div>Error: {mutation.error.message}</div>;
+  }
+
+  // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
+  if (mutation.isSuccess) {
+    console.log(mutation.data.projectArticle_update);
+  }
+  return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## DeleteProjectArticle
+You can execute the `DeleteProjectArticle` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts)):
+```javascript
+useDeleteProjectArticle(options?: useDataConnectMutationOptions<DeleteProjectArticleData, FirebaseError, DeleteProjectArticleVariables>): UseDataConnectMutationResult<DeleteProjectArticleData, DeleteProjectArticleVariables>;
+```
+You can also pass in a `DataConnect` instance to the Mutation hook function.
+```javascript
+useDeleteProjectArticle(dc: DataConnect, options?: useDataConnectMutationOptions<DeleteProjectArticleData, FirebaseError, DeleteProjectArticleVariables>): UseDataConnectMutationResult<DeleteProjectArticleData, DeleteProjectArticleVariables>;
+```
+
+### Variables
+The `DeleteProjectArticle` Mutation requires an argument of type `DeleteProjectArticleVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+
+```javascript
+export interface DeleteProjectArticleVariables {
+  id: UUIDString;
+}
+```
+### Return Type
+Recall that calling the `DeleteProjectArticle` Mutation hook function returns a `UseMutationResult` object. This object holds the state of your Mutation, including whether the Mutation is loading, has completed, or has succeeded/failed, among other things.
+
+To check the status of a Mutation, use the `UseMutationResult.status` field. You can also check for pending / success / error status using the `UseMutationResult.isPending`, `UseMutationResult.isSuccess`, and `UseMutationResult.isError` fields.
+
+To execute the Mutation, call `UseMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation.
+
+To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `DeleteProjectArticle` Mutation is of type `DeleteProjectArticleData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface DeleteProjectArticleData {
+  projectArticle_delete?: ProjectArticle_Key | null;
+}
+```
+
+To learn more about the `UseMutationResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useMutation).
+
+### Using `DeleteProjectArticle`'s Mutation hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, DeleteProjectArticleVariables } from '@dataconnect/generated';
+import { useDeleteProjectArticle } from '@dataconnect/generated/react'
+
+export default function DeleteProjectArticleComponent() {
+  // Call the Mutation hook function to get a `UseMutationResult` object which holds the state of your Mutation.
+  const mutation = useDeleteProjectArticle();
+
+  // You can also pass in a `DataConnect` instance to the Mutation hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const mutation = useDeleteProjectArticle(dataConnect);
+
+  // You can also pass in a `useDataConnectMutationOptions` object to the Mutation hook function.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useDeleteProjectArticle(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectMutationOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useDeleteProjectArticle(dataConnect, options);
+
+  // After calling the Mutation hook function, you must call `UseMutationResult.mutate()` to execute the Mutation.
+  // The `useDeleteProjectArticle` Mutation requires an argument of type `DeleteProjectArticleVariables`:
+  const deleteProjectArticleVars: DeleteProjectArticleVariables = {
+    id: ..., 
+  };
+  mutation.mutate(deleteProjectArticleVars);
+  // Variables can be defined inline as well.
+  mutation.mutate({ id: ..., });
+
+  // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  mutation.mutate(deleteProjectArticleVars, options);
+
+  // Then, you can render your component dynamically based on the status of the Mutation.
+  if (mutation.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (mutation.isError) {
+    return <div>Error: {mutation.error.message}</div>;
+  }
+
+  // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
+  if (mutation.isSuccess) {
+    console.log(mutation.data.projectArticle_delete);
   }
   return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
 }

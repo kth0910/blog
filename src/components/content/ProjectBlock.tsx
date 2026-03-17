@@ -14,22 +14,31 @@ export function ProjectBlock({ post }: { post: Post }) {
         <span className="sr-only">View Project: {post.title}</span>
       </Link>
       
-      <div className="flex justify-between items-start mb-4">
+      <div className="flex justify-between items-center mb-4">
         <Tag type="project">Project</Tag>
-        {post.status && (
-          <span className={`text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full border ${statusColor}`}>
-            {post.status.replace('-', ' ')}
-          </span>
-        )}
+        <div className="flex items-center gap-3">
+          {post.status && (
+            <span className={`hidden sm:inline-block px-2.5 py-1 text-[11px] font-bold rounded-full border uppercase tracking-wider ${statusColor}`}>
+              {post.status.replace('-', ' ')}
+            </span>
+          )}
+          <time className="text-xs text-slate-400 dark:text-slate-500 font-medium">
+            {new Date(post.startDate || post.createdAt).toLocaleDateString()}
+          </time>
+          {post.views !== undefined && (
+            <div className="flex items-center text-xs text-slate-400 dark:text-slate-500 font-medium">
+              <svg className="w-3.5 h-3.5 mr-1 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              {post.views.toLocaleString()}
+            </div>
+          )}
+        </div>
       </div>
       
       <h3 className="text-xl font-bold mb-2 text-slate-900 dark:text-slate-50 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
         {post.title}
       </h3>
       
-      <p className="text-slate-600 dark:text-slate-300 text-sm mb-6 flex-1">
-        {post.description || post.summary}
-      </p>
+      <div className="flex-1"></div>
       
       <div className="flex items-center justify-between border-t border-slate-100 dark:border-slate-700/50 pt-4 mt-auto">
         <div className="flex flex-wrap gap-2 text-xs text-slate-500 font-medium">
@@ -37,12 +46,6 @@ export function ProjectBlock({ post }: { post: Post }) {
             <span key={tag}>#{tag}</span>
           ))}
         </div>
-        {post.views !== undefined && (
-          <div className="flex items-center text-xs text-slate-400 dark:text-slate-500">
-            <svg className="w-3.5 h-3.5 mr-1 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-            {post.views.toLocaleString()}
-          </div>
-        )}
       </div>
     </Card>
   );
