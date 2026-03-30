@@ -41,6 +41,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             >
               Timeline
             </Link>
+            <Link 
+              href="/admin/comments"
+              className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors"
+            >
+              Comments
+            </Link>
           </nav>
           
           <div className="p-4 border-t border-slate-200 dark:border-slate-700">

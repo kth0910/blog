@@ -24,6 +24,9 @@ You can also follow the instructions from the [Data Connect documentation](https
   - [*GetAdminUserByEmail*](#getadminuserbyemail)
   - [*ListProjectArticles*](#listprojectarticles)
   - [*GetProjectArticle*](#getprojectarticle)
+  - [*GetCommentProfileByClientId*](#getcommentprofilebyclientid)
+  - [*ListCommentsByPost*](#listcommentsbypost)
+  - [*ListAllCommentsForAdmin*](#listallcommentsforadmin)
 - [**Mutations**](#mutations)
   - [*CreateProject*](#createproject)
   - [*UpdateProject*](#updateproject)
@@ -37,10 +40,13 @@ You can also follow the instructions from the [Data Connect documentation](https
   - [*CreateTimeline*](#createtimeline)
   - [*UpdateTimeline*](#updatetimeline)
   - [*DeleteTimeline*](#deletetimeline)
+  - [*DeleteComment*](#deletecomment)
   - [*UpdateInsightViews*](#updateinsightviews)
   - [*UpdateProjectViews*](#updateprojectviews)
   - [*UpdateTimelineViews*](#updatetimelineviews)
   - [*UpdateProjectArticleViews*](#updateprojectarticleviews)
+  - [*CreateCommentProfile*](#createcommentprofile)
+  - [*CreateComment*](#createcomment)
 
 # TanStack Query Firebase & TanStack React Query
 This SDK provides [React](https://react.dev/) hooks generated specific to your application, for the operations found in the connector `example`. These hooks are generated using [TanStack Query Firebase](https://react-query-firebase.invertase.dev/) by our partners at Invertase, a library built on top of [TanStack React Query v5](https://tanstack.com/query/v5/docs/framework/react/overview).
@@ -725,6 +731,258 @@ export default function GetProjectArticleComponent() {
   // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
   if (query.isSuccess) {
     console.log(query.data.projectArticle);
+  }
+  return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## GetCommentProfileByClientId
+You can execute the `GetCommentProfileByClientId` Query using the following Query hook function, which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts):
+
+```javascript
+useGetCommentProfileByClientId(dc: DataConnect, vars: GetCommentProfileByClientIdVariables, options?: useDataConnectQueryOptions<GetCommentProfileByClientIdData>): UseDataConnectQueryResult<GetCommentProfileByClientIdData, GetCommentProfileByClientIdVariables>;
+```
+You can also pass in a `DataConnect` instance to the Query hook function.
+```javascript
+useGetCommentProfileByClientId(vars: GetCommentProfileByClientIdVariables, options?: useDataConnectQueryOptions<GetCommentProfileByClientIdData>): UseDataConnectQueryResult<GetCommentProfileByClientIdData, GetCommentProfileByClientIdVariables>;
+```
+
+### Variables
+The `GetCommentProfileByClientId` Query requires an argument of type `GetCommentProfileByClientIdVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+
+```javascript
+export interface GetCommentProfileByClientIdVariables {
+  clientId: string;
+}
+```
+### Return Type
+Recall that calling the `GetCommentProfileByClientId` Query hook function returns a `UseQueryResult` object. This object holds the state of your Query, including whether the Query is loading, has completed, or has succeeded/failed, and any data returned by the Query, among other things.
+
+To check the status of a Query, use the `UseQueryResult.status` field. You can also check for pending / success / error status using the `UseQueryResult.isPending`, `UseQueryResult.isSuccess`, and `UseQueryResult.isError` fields.
+
+To access the data returned by a Query, use the `UseQueryResult.data` field. The data for the `GetCommentProfileByClientId` Query is of type `GetCommentProfileByClientIdData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface GetCommentProfileByClientIdData {
+  commentProfiles: ({
+    id: UUIDString;
+    clientId: string;
+    nickname: string;
+    lockedAt: TimestampString;
+  } & CommentProfile_Key)[];
+}
+```
+
+To learn more about the `UseQueryResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery).
+
+### Using `GetCommentProfileByClientId`'s Query hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, GetCommentProfileByClientIdVariables } from '@dataconnect/generated';
+import { useGetCommentProfileByClientId } from '@dataconnect/generated/react'
+
+export default function GetCommentProfileByClientIdComponent() {
+  // The `useGetCommentProfileByClientId` Query hook requires an argument of type `GetCommentProfileByClientIdVariables`:
+  const getCommentProfileByClientIdVars: GetCommentProfileByClientIdVariables = {
+    clientId: ..., 
+  };
+
+  // You don't have to do anything to "execute" the Query.
+  // Call the Query hook function to get a `UseQueryResult` object which holds the state of your Query.
+  const query = useGetCommentProfileByClientId(getCommentProfileByClientIdVars);
+  // Variables can be defined inline as well.
+  const query = useGetCommentProfileByClientId({ clientId: ..., });
+
+  // You can also pass in a `DataConnect` instance to the Query hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const query = useGetCommentProfileByClientId(dataConnect, getCommentProfileByClientIdVars);
+
+  // You can also pass in a `useDataConnectQueryOptions` object to the Query hook function.
+  const options = { staleTime: 5 * 1000 };
+  const query = useGetCommentProfileByClientId(getCommentProfileByClientIdVars, options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectQueryOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = { staleTime: 5 * 1000 };
+  const query = useGetCommentProfileByClientId(dataConnect, getCommentProfileByClientIdVars, options);
+
+  // Then, you can render your component dynamically based on the status of the Query.
+  if (query.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (query.isError) {
+    return <div>Error: {query.error.message}</div>;
+  }
+
+  // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
+  if (query.isSuccess) {
+    console.log(query.data.commentProfiles);
+  }
+  return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## ListCommentsByPost
+You can execute the `ListCommentsByPost` Query using the following Query hook function, which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts):
+
+```javascript
+useListCommentsByPost(dc: DataConnect, vars: ListCommentsByPostVariables, options?: useDataConnectQueryOptions<ListCommentsByPostData>): UseDataConnectQueryResult<ListCommentsByPostData, ListCommentsByPostVariables>;
+```
+You can also pass in a `DataConnect` instance to the Query hook function.
+```javascript
+useListCommentsByPost(vars: ListCommentsByPostVariables, options?: useDataConnectQueryOptions<ListCommentsByPostData>): UseDataConnectQueryResult<ListCommentsByPostData, ListCommentsByPostVariables>;
+```
+
+### Variables
+The `ListCommentsByPost` Query requires an argument of type `ListCommentsByPostVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+
+```javascript
+export interface ListCommentsByPostVariables {
+  postType: string;
+  postId: UUIDString;
+}
+```
+### Return Type
+Recall that calling the `ListCommentsByPost` Query hook function returns a `UseQueryResult` object. This object holds the state of your Query, including whether the Query is loading, has completed, or has succeeded/failed, and any data returned by the Query, among other things.
+
+To check the status of a Query, use the `UseQueryResult.status` field. You can also check for pending / success / error status using the `UseQueryResult.isPending`, `UseQueryResult.isSuccess`, and `UseQueryResult.isError` fields.
+
+To access the data returned by a Query, use the `UseQueryResult.data` field. The data for the `ListCommentsByPost` Query is of type `ListCommentsByPostData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface ListCommentsByPostData {
+  comments: ({
+    id: UUIDString;
+    nicknameSnapshot: string;
+    content: string;
+    createdAt: TimestampString;
+  } & Comment_Key)[];
+}
+```
+
+To learn more about the `UseQueryResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery).
+
+### Using `ListCommentsByPost`'s Query hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, ListCommentsByPostVariables } from '@dataconnect/generated';
+import { useListCommentsByPost } from '@dataconnect/generated/react'
+
+export default function ListCommentsByPostComponent() {
+  // The `useListCommentsByPost` Query hook requires an argument of type `ListCommentsByPostVariables`:
+  const listCommentsByPostVars: ListCommentsByPostVariables = {
+    postType: ..., 
+    postId: ..., 
+  };
+
+  // You don't have to do anything to "execute" the Query.
+  // Call the Query hook function to get a `UseQueryResult` object which holds the state of your Query.
+  const query = useListCommentsByPost(listCommentsByPostVars);
+  // Variables can be defined inline as well.
+  const query = useListCommentsByPost({ postType: ..., postId: ..., });
+
+  // You can also pass in a `DataConnect` instance to the Query hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const query = useListCommentsByPost(dataConnect, listCommentsByPostVars);
+
+  // You can also pass in a `useDataConnectQueryOptions` object to the Query hook function.
+  const options = { staleTime: 5 * 1000 };
+  const query = useListCommentsByPost(listCommentsByPostVars, options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectQueryOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = { staleTime: 5 * 1000 };
+  const query = useListCommentsByPost(dataConnect, listCommentsByPostVars, options);
+
+  // Then, you can render your component dynamically based on the status of the Query.
+  if (query.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (query.isError) {
+    return <div>Error: {query.error.message}</div>;
+  }
+
+  // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
+  if (query.isSuccess) {
+    console.log(query.data.comments);
+  }
+  return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## ListAllCommentsForAdmin
+You can execute the `ListAllCommentsForAdmin` Query using the following Query hook function, which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts):
+
+```javascript
+useListAllCommentsForAdmin(dc: DataConnect, options?: useDataConnectQueryOptions<ListAllCommentsForAdminData>): UseDataConnectQueryResult<ListAllCommentsForAdminData, undefined>;
+```
+You can also pass in a `DataConnect` instance to the Query hook function.
+```javascript
+useListAllCommentsForAdmin(options?: useDataConnectQueryOptions<ListAllCommentsForAdminData>): UseDataConnectQueryResult<ListAllCommentsForAdminData, undefined>;
+```
+
+### Variables
+The `ListAllCommentsForAdmin` Query has no variables.
+### Return Type
+Recall that calling the `ListAllCommentsForAdmin` Query hook function returns a `UseQueryResult` object. This object holds the state of your Query, including whether the Query is loading, has completed, or has succeeded/failed, and any data returned by the Query, among other things.
+
+To check the status of a Query, use the `UseQueryResult.status` field. You can also check for pending / success / error status using the `UseQueryResult.isPending`, `UseQueryResult.isSuccess`, and `UseQueryResult.isError` fields.
+
+To access the data returned by a Query, use the `UseQueryResult.data` field. The data for the `ListAllCommentsForAdmin` Query is of type `ListAllCommentsForAdminData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface ListAllCommentsForAdminData {
+  comments: ({
+    id: UUIDString;
+    postType: string;
+    postId: UUIDString;
+    nicknameSnapshot: string;
+    content: string;
+    createdAt: TimestampString;
+  } & Comment_Key)[];
+}
+```
+
+To learn more about the `UseQueryResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery).
+
+### Using `ListAllCommentsForAdmin`'s Query hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig } from '@dataconnect/generated';
+import { useListAllCommentsForAdmin } from '@dataconnect/generated/react'
+
+export default function ListAllCommentsForAdminComponent() {
+  // You don't have to do anything to "execute" the Query.
+  // Call the Query hook function to get a `UseQueryResult` object which holds the state of your Query.
+  const query = useListAllCommentsForAdmin();
+
+  // You can also pass in a `DataConnect` instance to the Query hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const query = useListAllCommentsForAdmin(dataConnect);
+
+  // You can also pass in a `useDataConnectQueryOptions` object to the Query hook function.
+  const options = { staleTime: 5 * 1000 };
+  const query = useListAllCommentsForAdmin(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectQueryOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = { staleTime: 5 * 1000 };
+  const query = useListAllCommentsForAdmin(dataConnect, options);
+
+  // Then, you can render your component dynamically based on the status of the Query.
+  if (query.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (query.isError) {
+    return <div>Error: {query.error.message}</div>;
+  }
+
+  // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
+  if (query.isSuccess) {
+    console.log(query.data.comments);
   }
   return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
 }
@@ -1997,6 +2255,100 @@ export default function DeleteTimelineComponent() {
 }
 ```
 
+## DeleteComment
+You can execute the `DeleteComment` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts)):
+```javascript
+useDeleteComment(options?: useDataConnectMutationOptions<DeleteCommentData, FirebaseError, DeleteCommentVariables>): UseDataConnectMutationResult<DeleteCommentData, DeleteCommentVariables>;
+```
+You can also pass in a `DataConnect` instance to the Mutation hook function.
+```javascript
+useDeleteComment(dc: DataConnect, options?: useDataConnectMutationOptions<DeleteCommentData, FirebaseError, DeleteCommentVariables>): UseDataConnectMutationResult<DeleteCommentData, DeleteCommentVariables>;
+```
+
+### Variables
+The `DeleteComment` Mutation requires an argument of type `DeleteCommentVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+
+```javascript
+export interface DeleteCommentVariables {
+  id: UUIDString;
+}
+```
+### Return Type
+Recall that calling the `DeleteComment` Mutation hook function returns a `UseMutationResult` object. This object holds the state of your Mutation, including whether the Mutation is loading, has completed, or has succeeded/failed, among other things.
+
+To check the status of a Mutation, use the `UseMutationResult.status` field. You can also check for pending / success / error status using the `UseMutationResult.isPending`, `UseMutationResult.isSuccess`, and `UseMutationResult.isError` fields.
+
+To execute the Mutation, call `UseMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation.
+
+To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `DeleteComment` Mutation is of type `DeleteCommentData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface DeleteCommentData {
+  comment_delete?: Comment_Key | null;
+}
+```
+
+To learn more about the `UseMutationResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useMutation).
+
+### Using `DeleteComment`'s Mutation hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, DeleteCommentVariables } from '@dataconnect/generated';
+import { useDeleteComment } from '@dataconnect/generated/react'
+
+export default function DeleteCommentComponent() {
+  // Call the Mutation hook function to get a `UseMutationResult` object which holds the state of your Mutation.
+  const mutation = useDeleteComment();
+
+  // You can also pass in a `DataConnect` instance to the Mutation hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const mutation = useDeleteComment(dataConnect);
+
+  // You can also pass in a `useDataConnectMutationOptions` object to the Mutation hook function.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useDeleteComment(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectMutationOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useDeleteComment(dataConnect, options);
+
+  // After calling the Mutation hook function, you must call `UseMutationResult.mutate()` to execute the Mutation.
+  // The `useDeleteComment` Mutation requires an argument of type `DeleteCommentVariables`:
+  const deleteCommentVars: DeleteCommentVariables = {
+    id: ..., 
+  };
+  mutation.mutate(deleteCommentVars);
+  // Variables can be defined inline as well.
+  mutation.mutate({ id: ..., });
+
+  // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  mutation.mutate(deleteCommentVars, options);
+
+  // Then, you can render your component dynamically based on the status of the Mutation.
+  if (mutation.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (mutation.isError) {
+    return <div>Error: {mutation.error.message}</div>;
+  }
+
+  // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
+  if (mutation.isSuccess) {
+    console.log(mutation.data.comment_delete);
+  }
+  return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
 ## UpdateInsightViews
 You can execute the `UpdateInsightViews` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts)):
 ```javascript
@@ -2368,6 +2720,204 @@ export default function UpdateProjectArticleViewsComponent() {
   // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
   if (mutation.isSuccess) {
     console.log(mutation.data.projectArticle_update);
+  }
+  return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## CreateCommentProfile
+You can execute the `CreateCommentProfile` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts)):
+```javascript
+useCreateCommentProfile(options?: useDataConnectMutationOptions<CreateCommentProfileData, FirebaseError, CreateCommentProfileVariables>): UseDataConnectMutationResult<CreateCommentProfileData, CreateCommentProfileVariables>;
+```
+You can also pass in a `DataConnect` instance to the Mutation hook function.
+```javascript
+useCreateCommentProfile(dc: DataConnect, options?: useDataConnectMutationOptions<CreateCommentProfileData, FirebaseError, CreateCommentProfileVariables>): UseDataConnectMutationResult<CreateCommentProfileData, CreateCommentProfileVariables>;
+```
+
+### Variables
+The `CreateCommentProfile` Mutation requires an argument of type `CreateCommentProfileVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+
+```javascript
+export interface CreateCommentProfileVariables {
+  clientId: string;
+  nickname: string;
+}
+```
+### Return Type
+Recall that calling the `CreateCommentProfile` Mutation hook function returns a `UseMutationResult` object. This object holds the state of your Mutation, including whether the Mutation is loading, has completed, or has succeeded/failed, among other things.
+
+To check the status of a Mutation, use the `UseMutationResult.status` field. You can also check for pending / success / error status using the `UseMutationResult.isPending`, `UseMutationResult.isSuccess`, and `UseMutationResult.isError` fields.
+
+To execute the Mutation, call `UseMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation.
+
+To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `CreateCommentProfile` Mutation is of type `CreateCommentProfileData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface CreateCommentProfileData {
+  commentProfile_insert: CommentProfile_Key;
+}
+```
+
+To learn more about the `UseMutationResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useMutation).
+
+### Using `CreateCommentProfile`'s Mutation hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, CreateCommentProfileVariables } from '@dataconnect/generated';
+import { useCreateCommentProfile } from '@dataconnect/generated/react'
+
+export default function CreateCommentProfileComponent() {
+  // Call the Mutation hook function to get a `UseMutationResult` object which holds the state of your Mutation.
+  const mutation = useCreateCommentProfile();
+
+  // You can also pass in a `DataConnect` instance to the Mutation hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const mutation = useCreateCommentProfile(dataConnect);
+
+  // You can also pass in a `useDataConnectMutationOptions` object to the Mutation hook function.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useCreateCommentProfile(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectMutationOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useCreateCommentProfile(dataConnect, options);
+
+  // After calling the Mutation hook function, you must call `UseMutationResult.mutate()` to execute the Mutation.
+  // The `useCreateCommentProfile` Mutation requires an argument of type `CreateCommentProfileVariables`:
+  const createCommentProfileVars: CreateCommentProfileVariables = {
+    clientId: ..., 
+    nickname: ..., 
+  };
+  mutation.mutate(createCommentProfileVars);
+  // Variables can be defined inline as well.
+  mutation.mutate({ clientId: ..., nickname: ..., });
+
+  // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  mutation.mutate(createCommentProfileVars, options);
+
+  // Then, you can render your component dynamically based on the status of the Mutation.
+  if (mutation.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (mutation.isError) {
+    return <div>Error: {mutation.error.message}</div>;
+  }
+
+  // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
+  if (mutation.isSuccess) {
+    console.log(mutation.data.commentProfile_insert);
+  }
+  return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## CreateComment
+You can execute the `CreateComment` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts)):
+```javascript
+useCreateComment(options?: useDataConnectMutationOptions<CreateCommentData, FirebaseError, CreateCommentVariables>): UseDataConnectMutationResult<CreateCommentData, CreateCommentVariables>;
+```
+You can also pass in a `DataConnect` instance to the Mutation hook function.
+```javascript
+useCreateComment(dc: DataConnect, options?: useDataConnectMutationOptions<CreateCommentData, FirebaseError, CreateCommentVariables>): UseDataConnectMutationResult<CreateCommentData, CreateCommentVariables>;
+```
+
+### Variables
+The `CreateComment` Mutation requires an argument of type `CreateCommentVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+
+```javascript
+export interface CreateCommentVariables {
+  authorProfileId: UUIDString;
+  postType: string;
+  postId: UUIDString;
+  nicknameSnapshot: string;
+  content: string;
+}
+```
+### Return Type
+Recall that calling the `CreateComment` Mutation hook function returns a `UseMutationResult` object. This object holds the state of your Mutation, including whether the Mutation is loading, has completed, or has succeeded/failed, among other things.
+
+To check the status of a Mutation, use the `UseMutationResult.status` field. You can also check for pending / success / error status using the `UseMutationResult.isPending`, `UseMutationResult.isSuccess`, and `UseMutationResult.isError` fields.
+
+To execute the Mutation, call `UseMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation.
+
+To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `CreateComment` Mutation is of type `CreateCommentData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface CreateCommentData {
+  comment_insert: Comment_Key;
+}
+```
+
+To learn more about the `UseMutationResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useMutation).
+
+### Using `CreateComment`'s Mutation hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, CreateCommentVariables } from '@dataconnect/generated';
+import { useCreateComment } from '@dataconnect/generated/react'
+
+export default function CreateCommentComponent() {
+  // Call the Mutation hook function to get a `UseMutationResult` object which holds the state of your Mutation.
+  const mutation = useCreateComment();
+
+  // You can also pass in a `DataConnect` instance to the Mutation hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const mutation = useCreateComment(dataConnect);
+
+  // You can also pass in a `useDataConnectMutationOptions` object to the Mutation hook function.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useCreateComment(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectMutationOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useCreateComment(dataConnect, options);
+
+  // After calling the Mutation hook function, you must call `UseMutationResult.mutate()` to execute the Mutation.
+  // The `useCreateComment` Mutation requires an argument of type `CreateCommentVariables`:
+  const createCommentVars: CreateCommentVariables = {
+    authorProfileId: ..., 
+    postType: ..., 
+    postId: ..., 
+    nicknameSnapshot: ..., 
+    content: ..., 
+  };
+  mutation.mutate(createCommentVars);
+  // Variables can be defined inline as well.
+  mutation.mutate({ authorProfileId: ..., postType: ..., postId: ..., nicknameSnapshot: ..., content: ..., });
+
+  // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  mutation.mutate(createCommentVars, options);
+
+  // Then, you can render your component dynamically based on the status of the Mutation.
+  if (mutation.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (mutation.isError) {
+    return <div>Error: {mutation.error.message}</div>;
+  }
+
+  // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
+  if (mutation.isSuccess) {
+    console.log(mutation.data.comment_insert);
   }
   return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
 }

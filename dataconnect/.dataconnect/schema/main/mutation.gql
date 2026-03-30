@@ -1,5 +1,23 @@
 extend type Mutation {
   """
+  ✨ Insert a single `Comment` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  comment_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Comment_Data!
+  ): Comment_KeyOutput! @fdc_generated(from: "Comment", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `CommentProfile` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  commentProfile_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: CommentProfile_Data!
+  ): CommentProfile_KeyOutput! @fdc_generated(from: "CommentProfile", purpose: INSERT_SINGLE)
+  """
   ✨ Insert a single `Insight` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
   """
   insight_insert(
@@ -44,6 +62,24 @@ extend type Mutation {
     """
     data: User_Data!
   ): User_KeyOutput! @fdc_generated(from: "User", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert `Comment` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  comment_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Comment_Data!]!
+  ): [Comment_KeyOutput!]! @fdc_generated(from: "Comment", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `CommentProfile` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  commentProfile_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [CommentProfile_Data!]!
+  ): [CommentProfile_KeyOutput!]! @fdc_generated(from: "CommentProfile", purpose: INSERT_MULTIPLE)
   """
   ✨ Insert `Insight` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
   """
@@ -90,6 +126,24 @@ extend type Mutation {
     data: [User_Data!]!
   ): [User_KeyOutput!]! @fdc_generated(from: "User", purpose: INSERT_MULTIPLE)
   """
+  ✨ Insert or update a single `Comment` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Comment`.
+  """
+  comment_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Comment_Data!
+  ): Comment_KeyOutput! @fdc_generated(from: "Comment", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `CommentProfile` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `CommentProfile`.
+  """
+  commentProfile_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: CommentProfile_Data!
+  ): CommentProfile_KeyOutput! @fdc_generated(from: "CommentProfile", purpose: UPSERT_SINGLE)
+  """
   ✨ Insert or update a single `Insight` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Insight`.
   """
   insight_upsert(
@@ -135,6 +189,24 @@ extend type Mutation {
     data: User_Data!
   ): User_KeyOutput! @fdc_generated(from: "User", purpose: UPSERT_SINGLE)
   """
+  ✨ Insert or update `Comment` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Comment`.
+  """
+  comment_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Comment_Data!]!
+  ): [Comment_KeyOutput!]! @fdc_generated(from: "Comment", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `CommentProfile` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `CommentProfile`.
+  """
+  commentProfile_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [CommentProfile_Data!]!
+  ): [CommentProfile_KeyOutput!]! @fdc_generated(from: "CommentProfile", purpose: UPSERT_MULTIPLE)
+  """
   ✨ Insert or update `Insight` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Insight`.
   """
   insight_upsertMany(
@@ -179,6 +251,54 @@ extend type Mutation {
     """
     data: [User_Data!]!
   ): [User_KeyOutput!]! @fdc_generated(from: "User", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Update a single `Comment` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Comment` or `null` if not found.
+  """
+  comment_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Comment_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Comment_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Comment_Data!
+  ): Comment_KeyOutput @fdc_generated(from: "Comment", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `CommentProfile` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `CommentProfile` or `null` if not found.
+  """
+  commentProfile_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: CommentProfile_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: CommentProfile_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: CommentProfile_Data!
+  ): CommentProfile_KeyOutput @fdc_generated(from: "CommentProfile", purpose: UPDATE_SINGLE)
   """
   ✨ Update a single `Insight` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Insight` or `null` if not found.
   """
@@ -300,6 +420,44 @@ extend type Mutation {
     data: User_Data!
   ): User_KeyOutput @fdc_generated(from: "User", purpose: UPDATE_SINGLE)
   """
+  ✨ Update `Comment` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  comment_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Comment_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Comment_Data!
+  ): Int! @fdc_generated(from: "Comment", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `CommentProfile` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  commentProfile_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: CommentProfile_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: CommentProfile_Data!
+  ): Int! @fdc_generated(from: "CommentProfile", purpose: UPDATE_MULTIPLE)
+  """
   ✨ Update `Insight` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
   """
   insight_updateMany(
@@ -395,6 +553,44 @@ extend type Mutation {
     data: User_Data!
   ): Int! @fdc_generated(from: "User", purpose: UPDATE_MULTIPLE)
   """
+  ✨ Delete a single `Comment` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  comment_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Comment_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Comment_FirstRow
+  ): Comment_KeyOutput @fdc_generated(from: "Comment", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `CommentProfile` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  commentProfile_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: CommentProfile_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: CommentProfile_FirstRow
+  ): CommentProfile_KeyOutput @fdc_generated(from: "CommentProfile", purpose: DELETE_SINGLE)
+  """
   ✨ Delete a single `Insight` based on `id`, `key` or `first` and return its key (or `null` if not found).
   """
   insight_delete(
@@ -489,6 +685,34 @@ extend type Mutation {
     """
     first: User_FirstRow
   ): User_KeyOutput @fdc_generated(from: "User", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete `Comment` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  comment_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Comment_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Comment", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `CommentProfile` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  commentProfile_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: CommentProfile_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "CommentProfile", purpose: DELETE_MULTIPLE)
   """
   ✨ Delete `Insight` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
   """

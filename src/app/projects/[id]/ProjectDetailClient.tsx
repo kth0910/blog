@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { getPost, Post, incrementProjectView, getProjectArticles, ProjectArticle } from '@/lib/api';
 import { MDXRemoteWrapper } from '@/components/mdx/MDXRemoteWrapper';
 import { Tag } from '@/components/common/Tag';
+import { CommentSection } from '@/components/comments/CommentSection';
 import Link from 'next/link';
 
 export default function ProjectDetailClient({ id }: { id: string }) {
@@ -139,6 +140,8 @@ export default function ProjectDetailClient({ id }: { id: string }) {
           </div>
         )}
       </section>
+
+      <CommentSection postType="project" postId={id} />
     </article>
   );
 }

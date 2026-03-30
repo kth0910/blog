@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { getPost, Post } from '@/lib/api';
 import { MDXRemoteWrapper } from '@/components/mdx/MDXRemoteWrapper';
 import { Tag } from '@/components/common/Tag';
+import { CommentSection } from '@/components/comments/CommentSection';
 import Link from 'next/link';
 
 export default function TimelineDetailClient({ id }: { id: string }) {
@@ -68,6 +69,8 @@ export default function TimelineDetailClient({ id }: { id: string }) {
           <p className="text-slate-400 italic">No content available.</p>
         )}
       </div>
+
+      <CommentSection postType="timeline" postId={id} />
     </article>
   );
 }

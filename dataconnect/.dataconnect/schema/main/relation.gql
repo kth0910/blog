@@ -1,3 +1,180 @@
+extend type Comment {
+  """
+  Implicit metadata field that cannot be written. It provides extra information about query results.
+  """
+  _metadata: _Metadata @fdc_generated(from: "Comment", purpose: METADATA_FIELD)
+  """
+  ✨ Count the number of rows in the `Comment` table.
+  """
+  _count: Int! @fdc_generated(from: "Comment.", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Comment` table where the `authorProfileId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  authorProfileId_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Comment.authorProfileId", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Comment` table where the `content` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  content_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Comment.content", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Comment` table where the `createdAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  createdAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Comment.createdAt", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Comment` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  id_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Comment.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Comment` table where the `nicknameSnapshot` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  nicknameSnapshot_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Comment.nicknameSnapshot", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Comment` table where the `postId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  postId_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Comment.postId", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Comment` table where the `postType` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  postType_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Comment.postType", purpose: QUERY_COUNT)
+  """
+  ✨ Minimum of the `createdAt` field in the `Comment` table.
+  """
+  createdAt_min: Timestamp @fdc_generated(from: "Comment.createdAt", purpose: QUERY_MIN)
+  """
+  ✨ Maximum of the `createdAt` field in the `Comment` table.
+  """
+  createdAt_max: Timestamp @fdc_generated(from: "Comment.createdAt", purpose: QUERY_MAX)
+  """
+  A generated field that is used for caching results in SDKs.
+  """
+  _id: ID! @fdc_generated(from: "Comment.id", purpose: GLOBAL_ID)
+}
+extend type CommentProfile {
+  """
+  ✨ List `Comment` objects in a one-to-many relationship (where `Comment`.`authorProfile` is this object).
+  """
+  comments_on_authorProfile(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Comment_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Comment_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Comment_Having
+  ): [Comment!]! @fdc_generated(from: "Comment.authorProfile", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  """
+  Implicit metadata field that cannot be written. It provides extra information about query results.
+  """
+  _metadata: _Metadata @fdc_generated(from: "CommentProfile", purpose: METADATA_FIELD)
+  """
+  ✨ Count the number of rows in the `CommentProfile` table.
+  """
+  _count: Int! @fdc_generated(from: "CommentProfile.", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `CommentProfile` table where the `clientId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  clientId_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "CommentProfile.clientId", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `CommentProfile` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  id_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "CommentProfile.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `CommentProfile` table where the `lockedAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  lockedAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "CommentProfile.lockedAt", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `CommentProfile` table where the `nickname` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  nickname_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "CommentProfile.nickname", purpose: QUERY_COUNT)
+  """
+  ✨ Minimum of the `lockedAt` field in the `CommentProfile` table.
+  """
+  lockedAt_min: Timestamp @fdc_generated(from: "CommentProfile.lockedAt", purpose: QUERY_MIN)
+  """
+  ✨ Maximum of the `lockedAt` field in the `CommentProfile` table.
+  """
+  lockedAt_max: Timestamp @fdc_generated(from: "CommentProfile.lockedAt", purpose: QUERY_MAX)
+  """
+  A generated field that is used for caching results in SDKs.
+  """
+  _id: ID! @fdc_generated(from: "CommentProfile.id", purpose: GLOBAL_ID)
+}
 extend type Insight {
   """
   Implicit metadata field that cannot be written. It provides extra information about query results.

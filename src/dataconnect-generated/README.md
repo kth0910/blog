@@ -17,6 +17,9 @@ This README will guide you through the process of using the generated JavaScript
   - [*GetAdminUserByEmail*](#getadminuserbyemail)
   - [*ListProjectArticles*](#listprojectarticles)
   - [*GetProjectArticle*](#getprojectarticle)
+  - [*GetCommentProfileByClientId*](#getcommentprofilebyclientid)
+  - [*ListCommentsByPost*](#listcommentsbypost)
+  - [*ListAllCommentsForAdmin*](#listallcommentsforadmin)
 - [**Mutations**](#mutations)
   - [*CreateProject*](#createproject)
   - [*UpdateProject*](#updateproject)
@@ -30,10 +33,13 @@ This README will guide you through the process of using the generated JavaScript
   - [*CreateTimeline*](#createtimeline)
   - [*UpdateTimeline*](#updatetimeline)
   - [*DeleteTimeline*](#deletetimeline)
+  - [*DeleteComment*](#deletecomment)
   - [*UpdateInsightViews*](#updateinsightviews)
   - [*UpdateProjectViews*](#updateprojectviews)
   - [*UpdateTimelineViews*](#updatetimelineviews)
   - [*UpdateProjectArticleViews*](#updateprojectarticleviews)
+  - [*CreateCommentProfile*](#createcommentprofile)
+  - [*CreateComment*](#createcomment)
 
 # Accessing the connector
 A connector is a collection of Queries and Mutations. One SDK is generated for each connector - this SDK is generated for the connector `example`. You can find more information about connectors in the [Data Connect documentation](https://firebase.google.com/docs/data-connect#how-does).
@@ -849,6 +855,335 @@ console.log(data.projectArticle);
 executeQuery(ref).then((response) => {
   const data = response.data;
   console.log(data.projectArticle);
+});
+```
+
+## GetCommentProfileByClientId
+You can execute the `GetCommentProfileByClientId` query using the following action shortcut function, or by calling `executeQuery()` after calling the following `QueryRef` function, both of which are defined in [dataconnect-generated/index.d.ts](./index.d.ts):
+```typescript
+getCommentProfileByClientId(vars: GetCommentProfileByClientIdVariables): QueryPromise<GetCommentProfileByClientIdData, GetCommentProfileByClientIdVariables>;
+
+interface GetCommentProfileByClientIdRef {
+  ...
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: GetCommentProfileByClientIdVariables): QueryRef<GetCommentProfileByClientIdData, GetCommentProfileByClientIdVariables>;
+}
+export const getCommentProfileByClientIdRef: GetCommentProfileByClientIdRef;
+```
+You can also pass in a `DataConnect` instance to the action shortcut function or `QueryRef` function.
+```typescript
+getCommentProfileByClientId(dc: DataConnect, vars: GetCommentProfileByClientIdVariables): QueryPromise<GetCommentProfileByClientIdData, GetCommentProfileByClientIdVariables>;
+
+interface GetCommentProfileByClientIdRef {
+  ...
+  (dc: DataConnect, vars: GetCommentProfileByClientIdVariables): QueryRef<GetCommentProfileByClientIdData, GetCommentProfileByClientIdVariables>;
+}
+export const getCommentProfileByClientIdRef: GetCommentProfileByClientIdRef;
+```
+
+If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the getCommentProfileByClientIdRef:
+```typescript
+const name = getCommentProfileByClientIdRef.operationName;
+console.log(name);
+```
+
+### Variables
+The `GetCommentProfileByClientId` query requires an argument of type `GetCommentProfileByClientIdVariables`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+
+```typescript
+export interface GetCommentProfileByClientIdVariables {
+  clientId: string;
+}
+```
+### Return Type
+Recall that executing the `GetCommentProfileByClientId` query returns a `QueryPromise` that resolves to an object with a `data` property.
+
+The `data` property is an object of type `GetCommentProfileByClientIdData`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+```typescript
+export interface GetCommentProfileByClientIdData {
+  commentProfiles: ({
+    id: UUIDString;
+    clientId: string;
+    nickname: string;
+    lockedAt: TimestampString;
+  } & CommentProfile_Key)[];
+}
+```
+### Using `GetCommentProfileByClientId`'s action shortcut function
+
+```typescript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, getCommentProfileByClientId, GetCommentProfileByClientIdVariables } from '@dataconnect/generated';
+
+// The `GetCommentProfileByClientId` query requires an argument of type `GetCommentProfileByClientIdVariables`:
+const getCommentProfileByClientIdVars: GetCommentProfileByClientIdVariables = {
+  clientId: ..., 
+};
+
+// Call the `getCommentProfileByClientId()` function to execute the query.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await getCommentProfileByClientId(getCommentProfileByClientIdVars);
+// Variables can be defined inline as well.
+const { data } = await getCommentProfileByClientId({ clientId: ..., });
+
+// You can also pass in a `DataConnect` instance to the action shortcut function.
+const dataConnect = getDataConnect(connectorConfig);
+const { data } = await getCommentProfileByClientId(dataConnect, getCommentProfileByClientIdVars);
+
+console.log(data.commentProfiles);
+
+// Or, you can use the `Promise` API.
+getCommentProfileByClientId(getCommentProfileByClientIdVars).then((response) => {
+  const data = response.data;
+  console.log(data.commentProfiles);
+});
+```
+
+### Using `GetCommentProfileByClientId`'s `QueryRef` function
+
+```typescript
+import { getDataConnect, executeQuery } from 'firebase/data-connect';
+import { connectorConfig, getCommentProfileByClientIdRef, GetCommentProfileByClientIdVariables } from '@dataconnect/generated';
+
+// The `GetCommentProfileByClientId` query requires an argument of type `GetCommentProfileByClientIdVariables`:
+const getCommentProfileByClientIdVars: GetCommentProfileByClientIdVariables = {
+  clientId: ..., 
+};
+
+// Call the `getCommentProfileByClientIdRef()` function to get a reference to the query.
+const ref = getCommentProfileByClientIdRef(getCommentProfileByClientIdVars);
+// Variables can be defined inline as well.
+const ref = getCommentProfileByClientIdRef({ clientId: ..., });
+
+// You can also pass in a `DataConnect` instance to the `QueryRef` function.
+const dataConnect = getDataConnect(connectorConfig);
+const ref = getCommentProfileByClientIdRef(dataConnect, getCommentProfileByClientIdVars);
+
+// Call `executeQuery()` on the reference to execute the query.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await executeQuery(ref);
+
+console.log(data.commentProfiles);
+
+// Or, you can use the `Promise` API.
+executeQuery(ref).then((response) => {
+  const data = response.data;
+  console.log(data.commentProfiles);
+});
+```
+
+## ListCommentsByPost
+You can execute the `ListCommentsByPost` query using the following action shortcut function, or by calling `executeQuery()` after calling the following `QueryRef` function, both of which are defined in [dataconnect-generated/index.d.ts](./index.d.ts):
+```typescript
+listCommentsByPost(vars: ListCommentsByPostVariables): QueryPromise<ListCommentsByPostData, ListCommentsByPostVariables>;
+
+interface ListCommentsByPostRef {
+  ...
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: ListCommentsByPostVariables): QueryRef<ListCommentsByPostData, ListCommentsByPostVariables>;
+}
+export const listCommentsByPostRef: ListCommentsByPostRef;
+```
+You can also pass in a `DataConnect` instance to the action shortcut function or `QueryRef` function.
+```typescript
+listCommentsByPost(dc: DataConnect, vars: ListCommentsByPostVariables): QueryPromise<ListCommentsByPostData, ListCommentsByPostVariables>;
+
+interface ListCommentsByPostRef {
+  ...
+  (dc: DataConnect, vars: ListCommentsByPostVariables): QueryRef<ListCommentsByPostData, ListCommentsByPostVariables>;
+}
+export const listCommentsByPostRef: ListCommentsByPostRef;
+```
+
+If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the listCommentsByPostRef:
+```typescript
+const name = listCommentsByPostRef.operationName;
+console.log(name);
+```
+
+### Variables
+The `ListCommentsByPost` query requires an argument of type `ListCommentsByPostVariables`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+
+```typescript
+export interface ListCommentsByPostVariables {
+  postType: string;
+  postId: UUIDString;
+}
+```
+### Return Type
+Recall that executing the `ListCommentsByPost` query returns a `QueryPromise` that resolves to an object with a `data` property.
+
+The `data` property is an object of type `ListCommentsByPostData`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+```typescript
+export interface ListCommentsByPostData {
+  comments: ({
+    id: UUIDString;
+    nicknameSnapshot: string;
+    content: string;
+    createdAt: TimestampString;
+  } & Comment_Key)[];
+}
+```
+### Using `ListCommentsByPost`'s action shortcut function
+
+```typescript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, listCommentsByPost, ListCommentsByPostVariables } from '@dataconnect/generated';
+
+// The `ListCommentsByPost` query requires an argument of type `ListCommentsByPostVariables`:
+const listCommentsByPostVars: ListCommentsByPostVariables = {
+  postType: ..., 
+  postId: ..., 
+};
+
+// Call the `listCommentsByPost()` function to execute the query.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await listCommentsByPost(listCommentsByPostVars);
+// Variables can be defined inline as well.
+const { data } = await listCommentsByPost({ postType: ..., postId: ..., });
+
+// You can also pass in a `DataConnect` instance to the action shortcut function.
+const dataConnect = getDataConnect(connectorConfig);
+const { data } = await listCommentsByPost(dataConnect, listCommentsByPostVars);
+
+console.log(data.comments);
+
+// Or, you can use the `Promise` API.
+listCommentsByPost(listCommentsByPostVars).then((response) => {
+  const data = response.data;
+  console.log(data.comments);
+});
+```
+
+### Using `ListCommentsByPost`'s `QueryRef` function
+
+```typescript
+import { getDataConnect, executeQuery } from 'firebase/data-connect';
+import { connectorConfig, listCommentsByPostRef, ListCommentsByPostVariables } from '@dataconnect/generated';
+
+// The `ListCommentsByPost` query requires an argument of type `ListCommentsByPostVariables`:
+const listCommentsByPostVars: ListCommentsByPostVariables = {
+  postType: ..., 
+  postId: ..., 
+};
+
+// Call the `listCommentsByPostRef()` function to get a reference to the query.
+const ref = listCommentsByPostRef(listCommentsByPostVars);
+// Variables can be defined inline as well.
+const ref = listCommentsByPostRef({ postType: ..., postId: ..., });
+
+// You can also pass in a `DataConnect` instance to the `QueryRef` function.
+const dataConnect = getDataConnect(connectorConfig);
+const ref = listCommentsByPostRef(dataConnect, listCommentsByPostVars);
+
+// Call `executeQuery()` on the reference to execute the query.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await executeQuery(ref);
+
+console.log(data.comments);
+
+// Or, you can use the `Promise` API.
+executeQuery(ref).then((response) => {
+  const data = response.data;
+  console.log(data.comments);
+});
+```
+
+## ListAllCommentsForAdmin
+You can execute the `ListAllCommentsForAdmin` query using the following action shortcut function, or by calling `executeQuery()` after calling the following `QueryRef` function, both of which are defined in [dataconnect-generated/index.d.ts](./index.d.ts):
+```typescript
+listAllCommentsForAdmin(): QueryPromise<ListAllCommentsForAdminData, undefined>;
+
+interface ListAllCommentsForAdminRef {
+  ...
+  /* Allow users to create refs without passing in DataConnect */
+  (): QueryRef<ListAllCommentsForAdminData, undefined>;
+}
+export const listAllCommentsForAdminRef: ListAllCommentsForAdminRef;
+```
+You can also pass in a `DataConnect` instance to the action shortcut function or `QueryRef` function.
+```typescript
+listAllCommentsForAdmin(dc: DataConnect): QueryPromise<ListAllCommentsForAdminData, undefined>;
+
+interface ListAllCommentsForAdminRef {
+  ...
+  (dc: DataConnect): QueryRef<ListAllCommentsForAdminData, undefined>;
+}
+export const listAllCommentsForAdminRef: ListAllCommentsForAdminRef;
+```
+
+If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the listAllCommentsForAdminRef:
+```typescript
+const name = listAllCommentsForAdminRef.operationName;
+console.log(name);
+```
+
+### Variables
+The `ListAllCommentsForAdmin` query has no variables.
+### Return Type
+Recall that executing the `ListAllCommentsForAdmin` query returns a `QueryPromise` that resolves to an object with a `data` property.
+
+The `data` property is an object of type `ListAllCommentsForAdminData`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+```typescript
+export interface ListAllCommentsForAdminData {
+  comments: ({
+    id: UUIDString;
+    postType: string;
+    postId: UUIDString;
+    nicknameSnapshot: string;
+    content: string;
+    createdAt: TimestampString;
+  } & Comment_Key)[];
+}
+```
+### Using `ListAllCommentsForAdmin`'s action shortcut function
+
+```typescript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, listAllCommentsForAdmin } from '@dataconnect/generated';
+
+
+// Call the `listAllCommentsForAdmin()` function to execute the query.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await listAllCommentsForAdmin();
+
+// You can also pass in a `DataConnect` instance to the action shortcut function.
+const dataConnect = getDataConnect(connectorConfig);
+const { data } = await listAllCommentsForAdmin(dataConnect);
+
+console.log(data.comments);
+
+// Or, you can use the `Promise` API.
+listAllCommentsForAdmin().then((response) => {
+  const data = response.data;
+  console.log(data.comments);
+});
+```
+
+### Using `ListAllCommentsForAdmin`'s `QueryRef` function
+
+```typescript
+import { getDataConnect, executeQuery } from 'firebase/data-connect';
+import { connectorConfig, listAllCommentsForAdminRef } from '@dataconnect/generated';
+
+
+// Call the `listAllCommentsForAdminRef()` function to get a reference to the query.
+const ref = listAllCommentsForAdminRef();
+
+// You can also pass in a `DataConnect` instance to the `QueryRef` function.
+const dataConnect = getDataConnect(connectorConfig);
+const ref = listAllCommentsForAdminRef(dataConnect);
+
+// Call `executeQuery()` on the reference to execute the query.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await executeQuery(ref);
+
+console.log(data.comments);
+
+// Or, you can use the `Promise` API.
+executeQuery(ref).then((response) => {
+  const data = response.data;
+  console.log(data.comments);
 });
 ```
 
@@ -2346,6 +2681,115 @@ executeMutation(ref).then((response) => {
 });
 ```
 
+## DeleteComment
+You can execute the `DeleteComment` mutation using the following action shortcut function, or by calling `executeMutation()` after calling the following `MutationRef` function, both of which are defined in [dataconnect-generated/index.d.ts](./index.d.ts):
+```typescript
+deleteComment(vars: DeleteCommentVariables): MutationPromise<DeleteCommentData, DeleteCommentVariables>;
+
+interface DeleteCommentRef {
+  ...
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: DeleteCommentVariables): MutationRef<DeleteCommentData, DeleteCommentVariables>;
+}
+export const deleteCommentRef: DeleteCommentRef;
+```
+You can also pass in a `DataConnect` instance to the action shortcut function or `MutationRef` function.
+```typescript
+deleteComment(dc: DataConnect, vars: DeleteCommentVariables): MutationPromise<DeleteCommentData, DeleteCommentVariables>;
+
+interface DeleteCommentRef {
+  ...
+  (dc: DataConnect, vars: DeleteCommentVariables): MutationRef<DeleteCommentData, DeleteCommentVariables>;
+}
+export const deleteCommentRef: DeleteCommentRef;
+```
+
+If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the deleteCommentRef:
+```typescript
+const name = deleteCommentRef.operationName;
+console.log(name);
+```
+
+### Variables
+The `DeleteComment` mutation requires an argument of type `DeleteCommentVariables`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+
+```typescript
+export interface DeleteCommentVariables {
+  id: UUIDString;
+}
+```
+### Return Type
+Recall that executing the `DeleteComment` mutation returns a `MutationPromise` that resolves to an object with a `data` property.
+
+The `data` property is an object of type `DeleteCommentData`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+```typescript
+export interface DeleteCommentData {
+  comment_delete?: Comment_Key | null;
+}
+```
+### Using `DeleteComment`'s action shortcut function
+
+```typescript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, deleteComment, DeleteCommentVariables } from '@dataconnect/generated';
+
+// The `DeleteComment` mutation requires an argument of type `DeleteCommentVariables`:
+const deleteCommentVars: DeleteCommentVariables = {
+  id: ..., 
+};
+
+// Call the `deleteComment()` function to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await deleteComment(deleteCommentVars);
+// Variables can be defined inline as well.
+const { data } = await deleteComment({ id: ..., });
+
+// You can also pass in a `DataConnect` instance to the action shortcut function.
+const dataConnect = getDataConnect(connectorConfig);
+const { data } = await deleteComment(dataConnect, deleteCommentVars);
+
+console.log(data.comment_delete);
+
+// Or, you can use the `Promise` API.
+deleteComment(deleteCommentVars).then((response) => {
+  const data = response.data;
+  console.log(data.comment_delete);
+});
+```
+
+### Using `DeleteComment`'s `MutationRef` function
+
+```typescript
+import { getDataConnect, executeMutation } from 'firebase/data-connect';
+import { connectorConfig, deleteCommentRef, DeleteCommentVariables } from '@dataconnect/generated';
+
+// The `DeleteComment` mutation requires an argument of type `DeleteCommentVariables`:
+const deleteCommentVars: DeleteCommentVariables = {
+  id: ..., 
+};
+
+// Call the `deleteCommentRef()` function to get a reference to the mutation.
+const ref = deleteCommentRef(deleteCommentVars);
+// Variables can be defined inline as well.
+const ref = deleteCommentRef({ id: ..., });
+
+// You can also pass in a `DataConnect` instance to the `MutationRef` function.
+const dataConnect = getDataConnect(connectorConfig);
+const ref = deleteCommentRef(dataConnect, deleteCommentVars);
+
+// Call `executeMutation()` on the reference to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await executeMutation(ref);
+
+console.log(data.comment_delete);
+
+// Or, you can use the `Promise` API.
+executeMutation(ref).then((response) => {
+  const data = response.data;
+  console.log(data.comment_delete);
+});
+```
+
 ## UpdateInsightViews
 You can execute the `UpdateInsightViews` mutation using the following action shortcut function, or by calling `executeMutation()` after calling the following `MutationRef` function, both of which are defined in [dataconnect-generated/index.d.ts](./index.d.ts):
 ```typescript
@@ -2779,6 +3223,239 @@ console.log(data.projectArticle_update);
 executeMutation(ref).then((response) => {
   const data = response.data;
   console.log(data.projectArticle_update);
+});
+```
+
+## CreateCommentProfile
+You can execute the `CreateCommentProfile` mutation using the following action shortcut function, or by calling `executeMutation()` after calling the following `MutationRef` function, both of which are defined in [dataconnect-generated/index.d.ts](./index.d.ts):
+```typescript
+createCommentProfile(vars: CreateCommentProfileVariables): MutationPromise<CreateCommentProfileData, CreateCommentProfileVariables>;
+
+interface CreateCommentProfileRef {
+  ...
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: CreateCommentProfileVariables): MutationRef<CreateCommentProfileData, CreateCommentProfileVariables>;
+}
+export const createCommentProfileRef: CreateCommentProfileRef;
+```
+You can also pass in a `DataConnect` instance to the action shortcut function or `MutationRef` function.
+```typescript
+createCommentProfile(dc: DataConnect, vars: CreateCommentProfileVariables): MutationPromise<CreateCommentProfileData, CreateCommentProfileVariables>;
+
+interface CreateCommentProfileRef {
+  ...
+  (dc: DataConnect, vars: CreateCommentProfileVariables): MutationRef<CreateCommentProfileData, CreateCommentProfileVariables>;
+}
+export const createCommentProfileRef: CreateCommentProfileRef;
+```
+
+If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the createCommentProfileRef:
+```typescript
+const name = createCommentProfileRef.operationName;
+console.log(name);
+```
+
+### Variables
+The `CreateCommentProfile` mutation requires an argument of type `CreateCommentProfileVariables`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+
+```typescript
+export interface CreateCommentProfileVariables {
+  clientId: string;
+  nickname: string;
+}
+```
+### Return Type
+Recall that executing the `CreateCommentProfile` mutation returns a `MutationPromise` that resolves to an object with a `data` property.
+
+The `data` property is an object of type `CreateCommentProfileData`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+```typescript
+export interface CreateCommentProfileData {
+  commentProfile_insert: CommentProfile_Key;
+}
+```
+### Using `CreateCommentProfile`'s action shortcut function
+
+```typescript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, createCommentProfile, CreateCommentProfileVariables } from '@dataconnect/generated';
+
+// The `CreateCommentProfile` mutation requires an argument of type `CreateCommentProfileVariables`:
+const createCommentProfileVars: CreateCommentProfileVariables = {
+  clientId: ..., 
+  nickname: ..., 
+};
+
+// Call the `createCommentProfile()` function to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await createCommentProfile(createCommentProfileVars);
+// Variables can be defined inline as well.
+const { data } = await createCommentProfile({ clientId: ..., nickname: ..., });
+
+// You can also pass in a `DataConnect` instance to the action shortcut function.
+const dataConnect = getDataConnect(connectorConfig);
+const { data } = await createCommentProfile(dataConnect, createCommentProfileVars);
+
+console.log(data.commentProfile_insert);
+
+// Or, you can use the `Promise` API.
+createCommentProfile(createCommentProfileVars).then((response) => {
+  const data = response.data;
+  console.log(data.commentProfile_insert);
+});
+```
+
+### Using `CreateCommentProfile`'s `MutationRef` function
+
+```typescript
+import { getDataConnect, executeMutation } from 'firebase/data-connect';
+import { connectorConfig, createCommentProfileRef, CreateCommentProfileVariables } from '@dataconnect/generated';
+
+// The `CreateCommentProfile` mutation requires an argument of type `CreateCommentProfileVariables`:
+const createCommentProfileVars: CreateCommentProfileVariables = {
+  clientId: ..., 
+  nickname: ..., 
+};
+
+// Call the `createCommentProfileRef()` function to get a reference to the mutation.
+const ref = createCommentProfileRef(createCommentProfileVars);
+// Variables can be defined inline as well.
+const ref = createCommentProfileRef({ clientId: ..., nickname: ..., });
+
+// You can also pass in a `DataConnect` instance to the `MutationRef` function.
+const dataConnect = getDataConnect(connectorConfig);
+const ref = createCommentProfileRef(dataConnect, createCommentProfileVars);
+
+// Call `executeMutation()` on the reference to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await executeMutation(ref);
+
+console.log(data.commentProfile_insert);
+
+// Or, you can use the `Promise` API.
+executeMutation(ref).then((response) => {
+  const data = response.data;
+  console.log(data.commentProfile_insert);
+});
+```
+
+## CreateComment
+You can execute the `CreateComment` mutation using the following action shortcut function, or by calling `executeMutation()` after calling the following `MutationRef` function, both of which are defined in [dataconnect-generated/index.d.ts](./index.d.ts):
+```typescript
+createComment(vars: CreateCommentVariables): MutationPromise<CreateCommentData, CreateCommentVariables>;
+
+interface CreateCommentRef {
+  ...
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: CreateCommentVariables): MutationRef<CreateCommentData, CreateCommentVariables>;
+}
+export const createCommentRef: CreateCommentRef;
+```
+You can also pass in a `DataConnect` instance to the action shortcut function or `MutationRef` function.
+```typescript
+createComment(dc: DataConnect, vars: CreateCommentVariables): MutationPromise<CreateCommentData, CreateCommentVariables>;
+
+interface CreateCommentRef {
+  ...
+  (dc: DataConnect, vars: CreateCommentVariables): MutationRef<CreateCommentData, CreateCommentVariables>;
+}
+export const createCommentRef: CreateCommentRef;
+```
+
+If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the createCommentRef:
+```typescript
+const name = createCommentRef.operationName;
+console.log(name);
+```
+
+### Variables
+The `CreateComment` mutation requires an argument of type `CreateCommentVariables`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+
+```typescript
+export interface CreateCommentVariables {
+  authorProfileId: UUIDString;
+  postType: string;
+  postId: UUIDString;
+  nicknameSnapshot: string;
+  content: string;
+}
+```
+### Return Type
+Recall that executing the `CreateComment` mutation returns a `MutationPromise` that resolves to an object with a `data` property.
+
+The `data` property is an object of type `CreateCommentData`, which is defined in [dataconnect-generated/index.d.ts](./index.d.ts). It has the following fields:
+```typescript
+export interface CreateCommentData {
+  comment_insert: Comment_Key;
+}
+```
+### Using `CreateComment`'s action shortcut function
+
+```typescript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, createComment, CreateCommentVariables } from '@dataconnect/generated';
+
+// The `CreateComment` mutation requires an argument of type `CreateCommentVariables`:
+const createCommentVars: CreateCommentVariables = {
+  authorProfileId: ..., 
+  postType: ..., 
+  postId: ..., 
+  nicknameSnapshot: ..., 
+  content: ..., 
+};
+
+// Call the `createComment()` function to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await createComment(createCommentVars);
+// Variables can be defined inline as well.
+const { data } = await createComment({ authorProfileId: ..., postType: ..., postId: ..., nicknameSnapshot: ..., content: ..., });
+
+// You can also pass in a `DataConnect` instance to the action shortcut function.
+const dataConnect = getDataConnect(connectorConfig);
+const { data } = await createComment(dataConnect, createCommentVars);
+
+console.log(data.comment_insert);
+
+// Or, you can use the `Promise` API.
+createComment(createCommentVars).then((response) => {
+  const data = response.data;
+  console.log(data.comment_insert);
+});
+```
+
+### Using `CreateComment`'s `MutationRef` function
+
+```typescript
+import { getDataConnect, executeMutation } from 'firebase/data-connect';
+import { connectorConfig, createCommentRef, CreateCommentVariables } from '@dataconnect/generated';
+
+// The `CreateComment` mutation requires an argument of type `CreateCommentVariables`:
+const createCommentVars: CreateCommentVariables = {
+  authorProfileId: ..., 
+  postType: ..., 
+  postId: ..., 
+  nicknameSnapshot: ..., 
+  content: ..., 
+};
+
+// Call the `createCommentRef()` function to get a reference to the mutation.
+const ref = createCommentRef(createCommentVars);
+// Variables can be defined inline as well.
+const ref = createCommentRef({ authorProfileId: ..., postType: ..., postId: ..., nicknameSnapshot: ..., content: ..., });
+
+// You can also pass in a `DataConnect` instance to the `MutationRef` function.
+const dataConnect = getDataConnect(connectorConfig);
+const ref = createCommentRef(dataConnect, createCommentVars);
+
+// Call `executeMutation()` on the reference to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await executeMutation(ref);
+
+console.log(data.comment_insert);
+
+// Or, you can use the `Promise` API.
+executeMutation(ref).then((response) => {
+  const data = response.data;
+  console.log(data.comment_insert);
 });
 ```
 

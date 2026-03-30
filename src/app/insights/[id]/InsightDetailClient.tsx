@@ -4,6 +4,7 @@ import { getPost, Post, incrementInsightView } from '@/lib/api';
 import { MDXRemoteWrapper } from '@/components/mdx/MDXRemoteWrapper';
 import { AudioPlayer } from '@/components/audio/AudioPlayer';
 import { Tag } from '@/components/common/Tag';
+import { CommentSection } from '@/components/comments/CommentSection';
 import Link from 'next/link';
 
 export default function InsightDetailClient({ id }: { id: string }) {
@@ -24,7 +25,7 @@ export default function InsightDetailClient({ id }: { id: string }) {
       // remove timestamp prefix (e.g., 1773650043775_)
       const cleanName = fileName.replace(/^\d+_/, '').replace(/\.[^/.]+$/, '');
       return cleanName || `Theme: ${postTitle}`;
-    } catch (e) {
+    } catch {
       return `Theme: ${postTitle}`;
     }
   };
@@ -140,6 +141,8 @@ export default function InsightDetailClient({ id }: { id: string }) {
           ))}
         </div>
       </footer>
+
+      <CommentSection postType="insight" postId={id} />
 
       {data.audioUrl && !isStickyVisible && (
         <div className="fixed right-4 bottom-4 sm:right-6 sm:bottom-6 z-50">

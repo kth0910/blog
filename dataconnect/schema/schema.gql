@@ -80,3 +80,22 @@ type Timeline @table {
   views: Int! @default(value: 0)
   createdAt: Timestamp! @default(expr: "request.time")
 }
+
+# 6. 익명 댓글 닉네임 프로필
+type CommentProfile @table {
+  id: UUID! @default(expr: "uuidV4()")
+  clientId: String! @unique
+  nickname: String!
+  lockedAt: Timestamp! @default(expr: "request.time")
+}
+
+# 7. 공개 댓글
+type Comment @table {
+  id: UUID! @default(expr: "uuidV4()")
+  authorProfile: CommentProfile!
+  postType: String!
+  postId: UUID!
+  nicknameSnapshot: String!
+  content: String!
+  createdAt: Timestamp! @default(expr: "request.time")
+}

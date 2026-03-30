@@ -18,3 +18,4 @@ if (!admin.apps.length && privateKey) {
 }
 
 export const adminAuth = admin.apps.length ? admin.auth() : null as unknown as admin.auth.Auth;
+export const adminDb = admin.apps.length ? admin.firestore() : null;

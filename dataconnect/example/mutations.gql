@@ -17,3 +17,20 @@ mutation UpdateTimelineViews($id: UUID!) @auth(level: PUBLIC, insecureReason: "B
 mutation UpdateProjectArticleViews($id: UUID!) @auth(level: PUBLIC, insecureReason: "Building a public-facing view counter.") {
   projectArticle_update(id: $id, data: { views_update: { inc: 1 } })
 }
+
+mutation CreateCommentProfile($clientId: String!, $nickname: String!) @auth(level: PUBLIC, insecureReason: "Anonymous comments need a stable nickname profile per client.") {
+  commentProfile_insert(data: {
+    clientId: $clientId
+    nickname: $nickname
+  })
+}
+
+mutation CreateComment($authorProfileId: UUID!, $postType: String!, $postId: UUID!, $nicknameSnapshot: String!, $content: String!) @auth(level: PUBLIC, insecureReason: "Anonymous comments are a public write surface by product design.") {
+  comment_insert(data: {
+    authorProfileId: $authorProfileId
+    postType: $postType
+    postId: $postId
+    nicknameSnapshot: $nicknameSnapshot
+    content: $content
+  })
+}

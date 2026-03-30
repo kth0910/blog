@@ -1,3 +1,9 @@
+extend type Comment {
+  """
+  ✨ Implicit foreign key field based on `Comment`.`authorProfile`. It must match the value of `CommentProfile`.`id`. See `@ref` for how to customize it.
+  """
+  authorProfileId: UUID! @fdc_generated(from: "Comment.authorProfile", purpose: IMPLICIT_REF_FIELD)
+}
 extend type Insight {
   """
   ✨ Implicit foreign key field based on `Insight`.`author`. It must match the value of `User`.`id`. See `@ref` for how to customize it.

@@ -6,83 +6,6 @@ export const connectorConfig = {
   location: 'asia-northeast2'
 };
 
-export const listAllInsightsRef = (dc) => {
-  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListAllInsights');
-}
-listAllInsightsRef.operationName = 'ListAllInsights';
-
-export function listAllInsights(dc) {
-  return executeQuery(listAllInsightsRef(dc));
-}
-
-export const getMyProjectsRef = (dc) => {
-  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'GetMyProjects');
-}
-getMyProjectsRef.operationName = 'GetMyProjects';
-
-export function getMyProjects(dc) {
-  return executeQuery(getMyProjectsRef(dc));
-}
-
-export const getUserProfileRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'GetUserProfile', inputVars);
-}
-getUserProfileRef.operationName = 'GetUserProfile';
-
-export function getUserProfile(dcOrVars, vars) {
-  return executeQuery(getUserProfileRef(dcOrVars, vars));
-}
-
-export const listTimelineRef = (dc) => {
-  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListTimeline');
-}
-listTimelineRef.operationName = 'ListTimeline';
-
-export function listTimeline(dc) {
-  return executeQuery(listTimelineRef(dc));
-}
-
-export const getAdminUserByEmailRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'GetAdminUserByEmail', inputVars);
-}
-getAdminUserByEmailRef.operationName = 'GetAdminUserByEmail';
-
-export function getAdminUserByEmail(dcOrVars, vars) {
-  return executeQuery(getAdminUserByEmailRef(dcOrVars, vars));
-}
-
-export const listProjectArticlesRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListProjectArticles', inputVars);
-}
-listProjectArticlesRef.operationName = 'ListProjectArticles';
-
-export function listProjectArticles(dcOrVars, vars) {
-  return executeQuery(listProjectArticlesRef(dcOrVars, vars));
-}
-
-export const getProjectArticleRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'GetProjectArticle', inputVars);
-}
-getProjectArticleRef.operationName = 'GetProjectArticle';
-
-export function getProjectArticle(dcOrVars, vars) {
-  return executeQuery(getProjectArticleRef(dcOrVars, vars));
-}
-
 export const createProjectRef = (dcOrVars, vars) => {
   const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
   dcInstance._useGeneratedSdk();
@@ -215,6 +138,17 @@ export function deleteTimeline(dcOrVars, vars) {
   return executeMutation(deleteTimelineRef(dcOrVars, vars));
 }
 
+export const deleteCommentRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'DeleteComment', inputVars);
+}
+deleteCommentRef.operationName = 'DeleteComment';
+
+export function deleteComment(dcOrVars, vars) {
+  return executeMutation(deleteCommentRef(dcOrVars, vars));
+}
+
 export const updateInsightViewsRef = (dcOrVars, vars) => {
   const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
   dcInstance._useGeneratedSdk();
@@ -257,5 +191,137 @@ updateProjectArticleViewsRef.operationName = 'UpdateProjectArticleViews';
 
 export function updateProjectArticleViews(dcOrVars, vars) {
   return executeMutation(updateProjectArticleViewsRef(dcOrVars, vars));
+}
+
+export const createCommentProfileRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'CreateCommentProfile', inputVars);
+}
+createCommentProfileRef.operationName = 'CreateCommentProfile';
+
+export function createCommentProfile(dcOrVars, vars) {
+  return executeMutation(createCommentProfileRef(dcOrVars, vars));
+}
+
+export const createCommentRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'CreateComment', inputVars);
+}
+createCommentRef.operationName = 'CreateComment';
+
+export function createComment(dcOrVars, vars) {
+  return executeMutation(createCommentRef(dcOrVars, vars));
+}
+
+export const listAllInsightsRef = (dc) => {
+  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListAllInsights');
+}
+listAllInsightsRef.operationName = 'ListAllInsights';
+
+export function listAllInsights(dc) {
+  return executeQuery(listAllInsightsRef(dc));
+}
+
+export const getMyProjectsRef = (dc) => {
+  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetMyProjects');
+}
+getMyProjectsRef.operationName = 'GetMyProjects';
+
+export function getMyProjects(dc) {
+  return executeQuery(getMyProjectsRef(dc));
+}
+
+export const getUserProfileRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetUserProfile', inputVars);
+}
+getUserProfileRef.operationName = 'GetUserProfile';
+
+export function getUserProfile(dcOrVars, vars) {
+  return executeQuery(getUserProfileRef(dcOrVars, vars));
+}
+
+export const listTimelineRef = (dc) => {
+  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListTimeline');
+}
+listTimelineRef.operationName = 'ListTimeline';
+
+export function listTimeline(dc) {
+  return executeQuery(listTimelineRef(dc));
+}
+
+export const getAdminUserByEmailRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetAdminUserByEmail', inputVars);
+}
+getAdminUserByEmailRef.operationName = 'GetAdminUserByEmail';
+
+export function getAdminUserByEmail(dcOrVars, vars) {
+  return executeQuery(getAdminUserByEmailRef(dcOrVars, vars));
+}
+
+export const listProjectArticlesRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListProjectArticles', inputVars);
+}
+listProjectArticlesRef.operationName = 'ListProjectArticles';
+
+export function listProjectArticles(dcOrVars, vars) {
+  return executeQuery(listProjectArticlesRef(dcOrVars, vars));
+}
+
+export const getProjectArticleRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetProjectArticle', inputVars);
+}
+getProjectArticleRef.operationName = 'GetProjectArticle';
+
+export function getProjectArticle(dcOrVars, vars) {
+  return executeQuery(getProjectArticleRef(dcOrVars, vars));
+}
+
+export const getCommentProfileByClientIdRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetCommentProfileByClientId', inputVars);
+}
+getCommentProfileByClientIdRef.operationName = 'GetCommentProfileByClientId';
+
+export function getCommentProfileByClientId(dcOrVars, vars) {
+  return executeQuery(getCommentProfileByClientIdRef(dcOrVars, vars));
+}
+
+export const listCommentsByPostRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListCommentsByPost', inputVars);
+}
+listCommentsByPostRef.operationName = 'ListCommentsByPost';
+
+export function listCommentsByPost(dcOrVars, vars) {
+  return executeQuery(listCommentsByPostRef(dcOrVars, vars));
+}
+
+export const listAllCommentsForAdminRef = (dc) => {
+  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListAllCommentsForAdmin');
+}
+listAllCommentsForAdminRef.operationName = 'ListAllCommentsForAdmin';
+
+export function listAllCommentsForAdmin(dc) {
+  return executeQuery(listAllCommentsForAdminRef(dc));
 }
 

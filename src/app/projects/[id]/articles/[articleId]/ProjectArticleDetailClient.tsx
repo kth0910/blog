@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { getProjectArticle, ProjectArticle, incrementProjectArticleView } from '@/lib/api';
 import { MDXRemoteWrapper } from '@/components/mdx/MDXRemoteWrapper';
+import { CommentSection } from '@/components/comments/CommentSection';
 import Link from 'next/link';
 
 export default function ProjectArticleDetailClient({ projectId, articleId }: { projectId: string, articleId: string }) {
@@ -80,6 +81,8 @@ export default function ProjectArticleDetailClient({ projectId, articleId }: { p
       <div className="mt-8 pb-32">
         <MDXRemoteWrapper content={data.content} />
       </div>
+
+      <CommentSection postType="project-article" postId={articleId} />
     </article>
   );
 }

@@ -88,3 +88,32 @@ query GetProjectArticle($id: UUID!) @auth(level: PUBLIC, insecureReason: "Projec
     }
   }
 }
+
+query GetCommentProfileByClientId($clientId: String!) @auth(level: PUBLIC, insecureReason: "Anonymous comment nickname locking requires looking up the current client's saved nickname.") {
+  commentProfiles(where: { clientId: { eq: $clientId } }) {
+    id
+    clientId
+    nickname
+    lockedAt
+  }
+}
+
+query ListCommentsByPost($postType: String!, $postId: UUID!) @auth(level: PUBLIC, insecureReason: "Published comment threads are public on post detail pages.") {
+  comments(where: { postType: { eq: $postType }, postId: { eq: $postId } }, orderBy: [{ createdAt: ASC }]) {
+    id
+    nicknameSnapshot
+    content
+    createdAt
+  }
+}
+
+query ListAllCommentsForAdmin @auth(expr: "auth.token.admin == true") {
+  comments(orderBy: [{ createdAt: DESC }]) {
+    id
+    postType
+    postId
+    nicknameSnapshot
+    content
+    createdAt
+  }
+}

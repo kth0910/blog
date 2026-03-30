@@ -203,3 +203,11 @@ mutation UpdateTimeline(
 mutation DeleteTimeline($id: UUID!) @auth(expr: "auth.token.admin == true") {
   timeline_delete(id: $id)
 }
+
+# -------------------------------------------------------------------------
+# Admin Mutations for Comments
+# -------------------------------------------------------------------------
+
+mutation DeleteComment($id: UUID!) @auth(expr: "auth.token.admin == true") {
+  comment_delete(id: $id)
+}

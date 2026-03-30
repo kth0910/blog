@@ -12,7 +12,7 @@ export default function AdminDashboard() {
         </p>
       </header>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
         {/* Quick Links */}
         <Link href="/admin/projects" className="group p-6 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-all">
           <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
@@ -42,6 +42,16 @@ export default function AdminDashboard() {
           </div>
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">Timeline</h2>
           <p className="text-sm text-slate-500">시간순으로 배열되는 이벤트나 기록을 관리합니다.</p>
+        </Link>
+
+        <Link href="/admin/comments" className="group p-6 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-all">
+          <div className="w-12 h-12 bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-300 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h8m-8 4h5m8 6l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+            </svg>
+          </div>
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">Comments</h2>
+          <p className="text-sm text-slate-500">방문자 댓글을 확인하고 필요 시 즉시 삭제합니다.</p>
         </Link>
       </div>
 
